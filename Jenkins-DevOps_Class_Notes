@@ -1,1 +1,63 @@
-hi
+0. Introduction of DevOps
+
+1. 6-10-24 Installation Jenkins and EC2 instances in AWS.
+ - Create Account in GITHUB, GITEA & GITLAB
+ - Launch one instance and give name = Jenkins and download key.
+ - Then Open this instance switch to root using command "sudo -i"
+ - Then go to Jenkins website then select Redhat Installation link.
+ - Then copy commands and paste in Jenkins server, then install and check status.
+
+ sudo wget -o /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo cpa import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+yum install fontconfig java-17-openjdk
+
+java -version
+
+cd /etc/yum.repos.d/ --> To check repo
+
+systemctl start jenkins 
+systemctl enable jenkins
+systemctl status jenkins
+
+- And check in browser with http://IP:8080
+- And Open port in Security group in AWS.
+
+2. 13-10-24 
+ 
+Required two instances 
+   1. One EC2 for Webserver Nginx 
+   2. One EC2 for Jenkins Server 
+   3. GitLab ACC 
+In instances select t2.micro, create new key pair, auto assigned IP show be enabled, select second option of AMI(Amazon Machine Image).
+
+Select the instances > Go to Security tab > click the security group ID > Go to Inbound Rule = HTTP.  Port=80.  0.0.0.0 > Save
+
+Then Launch Machine or use Putty through using Public IP.
+CMD
+sudo -i    #Switch to root user
+yum update -y    # To install Nginx
+yum install nginx -y
+# yum install amazon-linux-extra 
+amazon-linux-extra install nginx 
+# amazon-linux-extra install epl
+
+systemctl restart nginx 
+systemctl enable nginx 
+curl ifconfig.me # To check live IP OR check in Instances public IP.
+
+
+
+
+
+3. 20-10-24
+
+
+4. 27-10-24
+
+
+5. 10-11-24
+
+- Build CI-CD and integrate All servers in Jenkins.
+
