@@ -122,7 +122,72 @@ http://<Serverip>:8080
 
 =====================================================================================================================================================================
 3. 20-10-24
+- Launch new instance for Jenkins 
+Name : Jenkins-Server-1
+Amazon Linux 2 AMI (HVM)
+Type : t3.micro
+Add inbound rule in SG Port-8080
+sudo -i
+yum install -y java-17-amazon-corretto
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
+# rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key  --> Only use if gives errors while installations
+yum install jenkins -y
+yum install git -y
+systemctl start jenkins 
+systemctl enable jenkins
+systemctl status jenkins
 
+https://IP:8080 ---> To search Jenkins in browser.
+# If Jenkins not installed follow this steps.
+cd /etc/yum.repo.d/
+#cat jenkins.repo  --> In this "gpgcheck=0" shoulde be 0 for install purpose, if only it give errors change this and revert this after use. 
+
+http://IP:8080
+--> /var/lib/jenkins/secrets/initialAdminPassword  # In this path copy and paste in the browser for Authentication.
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+# GITHUB copying others repo in our Git
+Seclect "+" To import Repo from others --> Paste URL(https://github.com/codewithsadee/anon-ecommerce-website.git), Your Username of GIT,GIT PW. Give Repository Name= Econ-Web-Ani
+
+# Customize Jenkins --> Insatlled Suggested Plugins --> 
+admin, admin --> Save & Contuine --> Save & Finish
+# New Item --> Give name = Sample-Ecom-Project -->Select = Freestyle project --> Ok
+# Description = My first project --> Select Check Box = GitHub project = Paste Path of Repo from browser search box
+--> Scorce Code Management(SCM) = Git, GitURL = HTTP(https://github.com/... .git) ---> Branch = /master
+--> Go to Git New Repo and copy HTTP from our Git-Repo and paste in Git Section
+#--> Build Triggers = Select = GitHub hok tigger fot GITscm polling
+---> Apply --> Save
+
+#CD
+Now communicate Nginx server to Jenkins
+Install Nginx webserver
+rpm -qa | grep -i nginx
+Delete existing code in html-path folder rm -rf *
+
+# Insatall New Plugins
+--> Go to Dashboard of Jenkins --> Manage Jenkins --> Plugins --> Avaiable PLugins -- Search = ssh (Public Over SSH) -> Insatll
+--> Go to Dashboard of Jenkins --> Manage Jenkins --> System --> srcoll down to bottom, Click on ADD in SSH Servers, Name=Nginx-Webser, Hostanme=PublicIP og Nginx,
+    username = ec2-user, Remote Directory To where Deployment path = /var/share/nginx/html
+--> In Public Over SSH paste key of Nginx-Webser.pem using notepad in Key Section
+---> Apply --> Save
+
+# CASE 1
+--> Go to Your Project --> Configure --> Build Enivronment --> Select = Send files or execute commands over SSH after the build runs
+   --> Transfer --> Source files = **/*
+--> Apply --> Save
+---> Project --> Build Now  --> Console Output # To see errors any if comes
+
+# Now give file permission to avoid error in Nginx-Webser
+chmod 777 /var/share/nginx/html
+chmod 777 /var/share/nginx
+
+--> Now again Build Now
+
+# CASE 2 - Automate Webhook Trigger
+--> Go the Github --> Specific Repo --> Settings --> Webhooks --> Add Webhook --> Payload URL = http://IP:8080/github-webhook/ (Jenkins URL) --> Active & Add Webhook
+--> Go to Jenkins --> Project --> Configure --> Build Triggers = Select = GitHub hok tigger fot GITscm polling --> Apply & Save
+--> Now change TITLE in Github html file and save commit changes.
+---> Then Refersh Website Page 2-3 times, You can the changes Automatically Done.
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
