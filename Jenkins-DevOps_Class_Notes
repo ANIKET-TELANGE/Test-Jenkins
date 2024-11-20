@@ -237,10 +237,56 @@ Connect then Install Nginx in all servers.
 Manage Jenkins --> System --> In bottom SSH Add this machine  Name = dev-server, Hostname = Public IP, Username = ec2-user, Remote Directory = /usr/share/nginx/html
 - Then Add Key = Paste Key-pair # To Authentication, OR Go to Advanced option for differnts Key-pair then paste in Use Password Key. --> Apply & Save
 - Add like this for others also
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
 5. 10-11-24
+
+cd /root
+cd .ssh/
+ls
+cat id_rsa.pub >> authorized_keys 
+cat id_rsa
+
+- Build CI-CD and integrate All servers in Jenkins.
+
+#In Nginx Server remove pages in all three servers
+rm -rf /usr/share/nginx/html/*
+
+Should be install GIT in Jenkins servers also
+yum install git -y
+
+# In Jenkins Server
+Manage Jenkins --> System --> Go to Bottom SSH Server Add servers - Name etc. Then verify with Test configuration.
+
+# Now Creating Projets
+Dashboard --> New Item --> Name = Multi-BMSs --> Select Type = Pipeline --> Ok
+General  --> Select GitHub project = Give Project URL from Search Box in Reps.
+Advanced Project Options --> Select Pipeline Script (Groove Script Language) Check the Use Box in that changes the Your Repos URL and Configure names and Branch Name --> Apply & Save
+
+Manage Jenkins --> Credentails --> Global --> Add credentails --> Username of GIT & PW also OR use key, ID = Git-Pat (As mentioned in Groove Srcipt) --> Create
+Give permission
+chmod 777 /usr/share/nginx/html # In all Three Servers
+
+# Now Build
+Project --> Build Now
+
+# Case 2 for Dev
+Now changes in Title and Push to Dev Branch
+Changes in the index.html then open Cmd inside that folder
+# git checkout -b Dev OR git checkout Dev
+git add .
+git remote -v
+git commit -m "Aniket Modified Dev-Branch-IndexFile"
+git push origin Dev
+
+Then again Run new Build Now # Check browser to see changes in all
+
+# Case 3 for Uat
+git checkout Uat
+git merge Dev
+Then Again Build Now
 
 =====================================================================================================================================================================
 
