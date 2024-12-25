@@ -286,10 +286,93 @@ Then again Run new Build Now # Check browser to see changes in all
 # Case 3 for Uat
 git checkout Uat
 git merge Dev
-Then Again Build Now
+Then Again Build Now     #   - Build CI-CD and integrate All servers in Jenkins.
+
+=====================================================================================================================================================================
+6. 24-11-24 DevOps-git
+7. 1-12-14  
+=====================================================================================================================================================================
+# 30th Nov Sat NEW 
+
+Create folder in that create index.html   /opt/pharmaproject
+..
+create bluestyle.css
+..
+git init # To record all versions and history of edited
+=====================================================================================================================================================================
+
+
+=====================================================================================================================================================================
+# 1st Dec Sun
+In devloper Machine
+yum insatll git -y
+cd /opt/pharmaproject
+touch index.html bluestyle.css  --> In working Directory
+git init 
+ls -a
+cd .git
+ls
+git status  --> To check statging status
+git add index.html
+git status
+#git rm --cached index.html  --> To remove from statging
+git add -A OR git add .   --> To add ALL files
+
+git commit -m "This is first commit rev-1"   --> -m for message
+# git status --> Now it not showing because its commited.
+git show  --> To see commits
+
+git config --global user.name aniket
+git config --global user.email aniket@gmail.com
+cat /root/.gitconfig   --> Save in this path or U can set here directlty
+git show
+
+##rm -rf *
+git checkout .   --> To get files from Local to Working directory
+
+# Versioning Control
+vi bluestyle.css --> Change color or somethinh and save
+touch xyz
+git add .
+git status
+git commit -m "This is 2nd commit rev-2"
+git show
+
+# To see all list of commits
+cd .git/logs/
+ls
+cat HEAD
+
+# Now push to 2.Nginx Server
+insatll git in 2nd server  # firstly need to be keyless password between servers
+cd /home/
+git clone IP:/opt/pharmaproject
+git clone user-name@IP:/opt/pharmaproject
+-yes
+cd /opt/
+mv pharmaproject /var/www/html/
+cd /var/www/html/
+systemctl restart httpd
+
+
+# Git Commands
+git conf
+git remote, add, push, commit, pull, fetch, rm, diff, show, status, show, checkout
+git help  --> For subcommands
+git config --help  --> For Flags
+
+git add --> To add in Staging Area
+git commit  --> To add in Local Repository
+
+#Git Commit Has 2 Phases
+1. Add to staging area from working directory
+2. Taking Snapshot from Staging area to local repository
 
 =====================================================================================================================================================================
 
-=====================================================================================================================================================================
-- Build CI-CD and integrate All servers in Jenkins.
-=====================================================================================================================================================================
+
+=====================================================================================================================================================================# 7th Dec Sat
+# 8th Dec Sun
+# 11th Dec Wed
+# 12th Dec Thu
+# 
