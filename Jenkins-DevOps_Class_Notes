@@ -372,6 +372,55 @@ git commit  --> To add in Local Repository
 
 
 =====================================================================================================================================================================# 7th Dec Sat
+# 7th Dec Sat
+
+#1 Webserver
+yum update
+insatll nginx  --> Its for Ubuntu OS
+ls /etc/nginx/nginx.conf  --> Parent Configure
+cat /etc/nginx/site-enabled/default   --> Child Configure
+
+#Create simlink 
+mkdir /etc/nginx/sites-avaiable
+touch funny.com  --Symlink
+ln -s /etc/nginx/sites-avaiable/funny.com /etc/nginx/site-enabled/funny.com
+#unlink  --> Nginx Tutorial  https://www.ralfebert.com/tutorials/nginx-static-website-with-https/
+
+
+#2 Launch new ec-2 for developer
+yum update
+yum install git -y
+cd /opt/
+mkdir pharmaprj
+cd pharmaprj/
+#git init --bare   --> Only For Push & Pull, Not work for editing.
+git init
+touch index.html bluestyle.css
+git add .
+git status
+#git commit --> Bydefault open NANO Editer
+git commit -m "This is my first commit"
+
+Open GitHub and create new Repo name: Pharmaprj
+
+git branch -M main
+git status
+git remote add origin <Repo_URL.git>
+#git remote remove origin <Repo_URL.git>
+cat .git/config
+git remote -v /-V
+git push -u origin main
+-Username : GIT username
+-Password : Paste Token
+# In GitHub go setting - Developer Setting - Personal access token - Token (classic) - Generate token and select Repo then ADD/UPDATE, copy TOKEN
+echo $? --> To check if perivous command is scuccess or not, 0-means success.
+
+# Go to 1 Webserver
+git clone <Repo_URL.git>
+cp -rvp /var/www/html/
+Search IP 
+
+======================================================================================================
 # 8th Dec Sun
 # 11th Dec Wed
 # 12th Dec Thu
