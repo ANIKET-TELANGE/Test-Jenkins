@@ -1,0 +1,439 @@
+0. Introduction of DevOps
+
+=====================================================================================================================================================================
+1. 6-10-24 Installation Jenkins and EC2 instances in AWS.
+ - Create Account in GITHUB, GITEA & GITLAB
+ - Launch one instance and give name = Jenkins and download key.
+ - Then Open this instance switch to root using command "sudo -i"
+ - Then go to Jenkins website then select Redhat Installation link.
+ - Then copy commands and paste in Jenkins server, then install and check status.
+
+sudo wget -o /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo cpa import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+
+yum install fontconfig java-17-openjdk
+
+java -version
+
+cd /etc/yum.repos.d/ --> To check repo
+
+systemctl start jenkins 
+systemctl enable jenkins
+systemctl status jenkins
+
+- And check in browser with http://IP:8080
+- And Open port in Security group in AWS.
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+2. 13-10-24 
+ 
+Required two instances 
+   1. One EC2 for Webserver Nginx 
+   2. One EC2 for Jenkins Server 
+   3. GitLab ACC 
+In instances select t2.micro, create new key pair, auto assigned IP show be enabled, select second option of AMI(Amazon Machine Image).
+
+Select the instances > Go to Security tab > click the security group ID > Go to Inbound Rule = HTTP.  Port=80.  0.0.0.0 > Save
+
+Then Launch Machine or use Putty through using Public IP.
+CMD
+sudo -i    #Switch to root user
+yum update -y    # To install Nginx
+yum install nginx* -y
+# yum install amazon-linux-extra 
+amazon-linux-extra install nginx 
+# amazon-linux-extra install epl -y
+
+systemctl restart nginx 
+systemctl enable nginx 
+curl ifconfig.me # To check live IP OR check in Instances public IP.
+
+http://IP  ---> Search in browser and get nginx page and should be 80 port open Security-Group in AWS.
+
+# Nginx Default Path & Port  -- 80 PORT TCP
+ls -d /usr/share/nginx/html/
+cd /usr/share/nginx/html/
+ls
+mv index.html index.html.org
+echo "THIS IS MY 1st PAGE" > index.html
+
+# For Apache /var/www/html/
+
+# Create Account in GITHUB and create new Repo name = anon-ecommerce-website.
+Click Code and copy HTTP link. ---> To pull code from Git OR GitClone
+- Firstly install Git in Nginx Server.
+sudo -i
+yum install git -y
+#git clone <pull request URL>  --> Get Clone folder in /html/
+git clone HTTP Link
+ls 
+cd anon-ecommerce-website/
+ls
+l.
+http://IP/anon-ecommerce-website/  --> To search in browser  18.218.150.145
+
+# Go to Fork > Select Import Repo > paste link and get Repo (https://github.com/codewithsadee/anon-ecommerce-website.git)
+
+# Launch new instance for Jenkins-Server SELECT t3.micro 
+JENKINs    INSTALLATION
+
+yum install -y java-17-amazon-corretto
+  
+  
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+yum install jenkins -y
+
+-------
+vim /etc/sysconfig/jenkins >>
+
+# Jenkins configuration
+
+# Default Jenkins home directory
+JENKINS_HOME="/var/lib/jenkins"
+
+# Default Jenkins port
+JENKINS_PORT="8080"
+
+# Jenkins log directory
+JENKINS_LOG="/var/log/jenkins"
+
+# Java options (adjust memory limits if needed)
+JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Xmx512m"
+
+# Path to Java
+JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+
+# Jenkins WAR file
+JENKINS_WAR="/usr/lib/jenkins/jenkins.war"
+
+# Additional Jenkins arguments
+JENKINS_ARGS=""
+
+
+systemctl restart  jenkins
+systemctl enable jenkins
+
+http://<Serverip>:8080
+---------------
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+3. 20-10-24
+
+- Launch new instance for Jenkins 
+Name : Jenkins-Server-1
+Amazon Linux 2 AMI (HVM)
+Type : t3.micro
+Add inbound rule in SG Port-8080
+sudo -i
+yum install -y java-17-amazon-corretto
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo
+# rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key  --> Only use if gives errors while installations
+yum install jenkins -y
+yum install git -y
+systemctl start jenkins 
+systemctl enable jenkins
+systemctl status jenkins
+
+https://IP:8080 ---> To search Jenkins in browser.
+# If Jenkins not installed follow this steps.
+cd /etc/yum.repo.d/
+#cat jenkins.repo  --> In this "gpgcheck=0" shoulde be 0 for install purpose, if only it give errors change this and revert this after use. 
+
+http://IP:8080
+--> /var/lib/jenkins/secrets/initialAdminPassword  # In this path copy and paste in the browser for Authentication.
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+# GITHUB copying others repo in our Git
+Seclect "+" To import Repo from others --> Paste URL(https://github.com/codewithsadee/anon-ecommerce-website.git), Your Username of GIT,GIT PW. Give Repository Name= Econ-Web-Ani
+
+# Customize Jenkins --> Insatlled Suggested Plugins --> 
+admin, admin --> Save & Contuine --> Save & Finish
+# New Item --> Give name = Sample-Ecom-Project -->Select = Freestyle project --> Ok
+# Description = My first project --> Select Check Box = GitHub project = Paste Path of Repo from browser search box
+--> Scorce Code Management(SCM) = Git, GitURL = HTTP(https://github.com/... .git) ---> Branch = /master
+--> Go to Git New Repo and copy HTTP from our Git-Repo and paste in Git Section
+#--> Build Triggers = Select = GitHub hok tigger fot GITscm polling
+---> Apply --> Save
+
+#CD
+Now communicate Nginx server to Jenkins
+Install Nginx webserver
+rpm -qa | grep -i nginx
+Delete existing code in html-path folder rm -rf *
+
+# Insatall New Plugins
+--> Go to Dashboard of Jenkins --> Manage Jenkins --> Plugins --> Avaiable PLugins -- Search = ssh (Public Over SSH) -> Insatll
+--> Go to Dashboard of Jenkins --> Manage Jenkins --> System --> srcoll down to bottom, Click on ADD in SSH Servers, Name=Nginx-Webser, Hostanme=PublicIP og Nginx,
+    username = ec2-user, Remote Directory To where Deployment path = /var/share/nginx/html
+--> In Public Over SSH paste key of Nginx-Webser.pem using notepad in Key Section
+---> Apply --> Save
+
+# CASE 1
+--> Go to Your Project --> Configure --> Build Enivronment --> Select = Send files or execute commands over SSH after the build runs
+   --> Transfer --> Source files = **/*
+--> Apply --> Save
+---> Project --> Build Now  --> Console Output # To see errors any if comes
+
+# Now give file permission to avoid error in Nginx-Webser
+chmod 777 /var/share/nginx/html
+chmod 777 /var/share/nginx
+
+--> Now again Build Now
+
+# CASE 2 - Automate Webhook Trigger
+--> Go the Github --> Specific Repo --> Settings --> Webhooks --> Add Webhook --> Payload URL = http://IP:8080/github-webhook/ (Jenkins URL) --> Active & Add Webhook
+--> Go to Jenkins --> Project --> Configure --> Build Triggers = Select = GitHub hok tigger fot GITscm polling --> Apply & Save
+--> Now change TITLE in Github html file and save commit changes.
+---> Then Refersh Website Page 2-3 times, You can the changes Automatically Done.
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+4. 27-10-24
+
+# Install Git Bash
+Open Website --> Windows --> 64-bit
+git --version
+--> Create new folder in that open CMD.
+git clone https://github.com/codewithsadee/anon-ecommerce-website.git #Clone the repo
+powershell # To download for runs like Linux Commands
+cd Econ-Web-Ani
+git remote -v # To check Origin Of Repo
+
+# Open GitHub 
+Create a new Repository
+Go to + sign --> New Repository --> Repo Name = Multi-BMSs --> Public --> Create Repository
+Copy Git Repo Link From Multi-BMSs
+Then Open Cmd inside that Project Folder and paste the link
+git remote set-url origin Link  # To create Alias OR Shortcut of Repo, Origin is just a name youcan give anything.
+git remote -v  # To remove existing owner to You
+
+# Now creating Branches through commands
+git checkout -b Uat # Creating branch and switch also
+git push origin Uat # To push from origin to Uat OR instead of origin you can use Http-Link
+> Give Credentails for that and login then Authorize
+
+# If this not working Go to Setting --> Developer Settings --> Password access tokens --> Select = Classic --> Generate new token (Classic). --> Give PW --> Note = For Git --> Selcet scopes = repo --> Generate Token. PW is equal to 12-digit Token for using credentails
+
+git checkout -b Dev
+git push origin Dev
+
+git checkout -b Prod
+git push origin Prod
+ 
+
+# Now Creating Three new instance for Uat, Dev & Prod
+Amazon Linux 2 AMI (HVM) --> t2.micro --> Key-pair select existing --> Allow HTTP --> Number of Instances = 3. Then change names to deticated servers.
+Connect then Install Nginx in all servers.
+
+
+# Now Login to Jenkins Server
+# Manage Jenkins --> Plugins --> install ssh and git
+
+# CD Now Add this Machine 
+Manage Jenkins --> System --> In bottom SSH Add this machine  Name = dev-server, Hostname = Public IP, Username = ec2-user, Remote Directory = /usr/share/nginx/html
+- Then Add Key = Paste Key-pair # To Authentication, OR Go to Advanced option for differnts Key-pair then paste in Use Password Key. --> Apply & Save
+- Add like this for others also
+
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+5. 10-11-24
+
+cd /root
+cd .ssh/
+ls
+cat id_rsa.pub >> authorized_keys 
+cat id_rsa
+
+- Build CI-CD and integrate All servers in Jenkins.
+
+#In Nginx Server remove pages in all three servers
+rm -rf /usr/share/nginx/html/*
+
+Should be install GIT in Jenkins servers also
+yum install git -y
+
+# In Jenkins Server
+Manage Jenkins --> System --> Go to Bottom SSH Server Add servers - Name etc. Then verify with Test configuration.
+
+# Now Creating Projets
+Dashboard --> New Item --> Name = Multi-BMSs --> Select Type = Pipeline --> Ok
+General  --> Select GitHub project = Give Project URL from Search Box in Reps.
+Advanced Project Options --> Select Pipeline Script (Groove Script Language) Check the Use Box in that changes the Your Repos URL and Configure names and Branch Name --> Apply & Save
+
+Manage Jenkins --> Credentails --> Global --> Add credentails --> Username of GIT & PW also OR use key, ID = Git-Pat (As mentioned in Groove Srcipt) --> Create
+Give permission
+chmod 777 /usr/share/nginx/html # In all Three Servers
+
+# Now Build
+Project --> Build Now
+
+# Case 2 for Dev
+Now changes in Title and Push to Dev Branch
+Changes in the index.html then open Cmd inside that folder
+# git checkout -b Dev OR git checkout Dev
+git add .
+git remote -v
+git commit -m "Aniket Modified Dev-Branch-IndexFile"
+git push origin Dev
+
+Then again Run new Build Now # Check browser to see changes in all
+
+# Case 3 for Uat
+git checkout Uat
+git merge Dev
+Then Again Build Now
+
+=====================================================================================================================================================================
+6. 24-11-24 DevOps-git
+7. 1-12-14  
+=====================================================================================================================================================================
+# 30th Nov Sat NEW 
+
+Create folder in that create index.html   /opt/pharmaproject
+..
+create bluestyle.css
+..
+git init # To record all versions and history of edited
+=====================================================================================================================================================================
+
+
+=====================================================================================================================================================================
+# 1st Dec Sun
+In devloper Machine
+yum insatll git -y
+cd /opt/pharmaproject
+touch index.html bluestyle.css  --> In working Directory
+git init 
+ls -a
+cd .git
+ls
+git status  --> To check statging status
+git add index.html
+git status
+#git rm --cached index.html  --> To remove from statging
+git add -A OR git add .   --> To add ALL files
+
+git commit -m "This is first commit rev-1"   --> -m for message
+# git status --> Now it not showing because its commited.
+git show  --> To see commits
+
+git config --global user.name aniket
+git config --global user.email aniket@gmail.com
+cat /root/.gitconfig   --> Save in this path or U can set here directlty
+git show
+
+##rm -rf *
+git checkout .   --> To get files from Local to Working directory
+
+# Versioning Control
+vi bluestyle.css --> Change color or somethinh and save
+touch xyz
+git add .
+git status
+git commit -m "This is 2nd commit rev-2"
+git show
+
+# To see all list of commits
+cd .git/logs/
+ls
+cat HEAD
+
+# Now push to 2.Nginx Server
+insatll git in 2nd server  # firstly need to be keyless password between servers
+cd /home/
+git clone IP:/opt/pharmaproject
+git clone user-name@IP:/opt/pharmaproject
+-yes
+cd /opt/
+mv pharmaproject /var/www/html/
+cd /var/www/html/
+systemctl restart httpd
+
+
+# Git Commands
+git conf
+git remote, add, push, commit, pull, fetch, rm, diff, show, status, show, checkout
+git help  --> For subcommands
+git config --help  --> For Flags
+
+git add --> To add in Staging Area
+git commit  --> To add in Local Repository
+
+#Git Commit Has 2 Phases
+1. Add to staging area from working directory
+2. Taking Snapshot from Staging area to local repository
+
+=====================================================================================================================================================================
+
+
+=====================================================================================================================================================================# 7th Dec Sat
+
+#1 Webserver
+yum update
+insatll nginx  --> Its for Ubuntu OS
+ls /etc/nginx/nginx.conf  --> Parent Configure
+cat /etc/nginx/site-enabled/default   --> Child Configure
+
+#Create simlink 
+mkdir /etc/nginx/sites-avaiable
+touch funny.com  --Symlink
+ln -s /etc/nginx/sites-avaiable/funny.com /etc/nginx/site-enabled/funny.com
+#unlink  --> Nginx Tutorial  https://www.ralfebert.com/tutorials/nginx-static-website-with-https/
+
+
+#2 Launch new ec-2 for developer
+yum update
+yum install git -y
+cd /opt/
+mkdir pharmaprj
+cd pharmaprj/
+#git init --bare   --> Only For Push & Pull, Not work for editing.
+git init
+touch index.html bluestyle.css
+git add .
+git status
+#git commit --> Bydefault open NANO Editer
+git commit -m "This is my first commit"
+
+Open GitHub and create new Repo name: Pharmaprj
+
+git branch -M main
+git status
+git remote add origin <Repo_URL.git>
+#git remote remove origin <Repo_URL.git>
+cat .git/config
+git remote -v /-V
+git push -u origin main
+-Username : GIT username
+-Password : Paste Token
+# In GitHub go setting - Developer Setting - Personal access token - Token (classic) - Generate token and select Repo then ADD/UPDATE, copy TOKEN
+echo $? --> To check if perivous command is scuccess or not, 0-means success.
+
+# Go to 1 Webserver
+git clone <Repo_URL.git>
+cp -rvp /var/www/html/
+Search IP 
+
+=====================================================================================================================================================================
+
+
+
+=====================================================================================================================================================================
+# 8th Dec Sun
+AWS - IAM Therory
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+# 11th Dec Wed
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+# 12th Dec Thu
+=====================================================================================================================================================================
+
+# 
