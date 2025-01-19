@@ -1,0 +1,248 @@
+Centos 6 IP - 192.168.1.9
+Centos 7 IP - 192.168.1.11
+Centos 8 IP - 192.168.1.3 
+
+=========================================================================================================================
+yum upgrade
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum install fontconfig java-17-openjdk
+yum install jenkins
+
+systemctl status jenkins.service
+systemctl start jenkins.service
+
+# Troubleshoots steps n commands
+java -version
+sudo yum install java-11-openjdk -y
+sudo tail -n 50 /var/log/jenkins/jenkins.log
+ping -c 4 google.com
+sudo sed -i 's|mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-*.repo
+sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*.repo
+sudo yum clean all
+sudo yum update -y
+sudo yum install epel-release -y
+sudo yum install java-11-openjdk -y
+sudo yum clean all
+sudo yum install epel-release -y
+sudo yum install java-11-openjdk -y
+#
+
+ifconfig --> for ip inet=192.168.1.3
+open internal browser, it means in Linux, then paste 192.168.1.3:8080 --> To unlock
+It gives path /var/lib/jenkins/secrets/initialAdminPassword
+cat /var/lib/jenkins/secrets/initialAdminPassword
+# Then copy the key and paste in browser ---> Paste ---> Select - Install suggested plungs, if its not works then reboot linux.
+username = admin, password, confirm password, Full name = jenkins admin, e-mail ---> save & contuine.
+Copy the jenkins urls and SS also. ---> save and finish.   http://192.168.1.3:8080/
+start using jenkins.
+
+# To access jenkinjs dashboard from external or windows browser, then open the firewalls and reload
+firewall-cmd --permanent --zone=public --add-port=8080/tcp
+firewall-cmd --reload 
+
+										# Creating jenkins first job #
+Go to + new item ---> enter_name = first-job ---> select free style project ---> OK.
+Description - this is our first demo job ---> Add build steps = select execute shell in this write = echo "Hello Buddy!!!" ---> Save.
+Go to Dashboard ---> name = first-job ---> in left side click Build Now ---> Now you can see in left bottom side its run or not and no.0f run's & time & scussesful.
+Go to #1 ---> Console Output 
+first-job ---> Configure ---> Add new ling = echo "Hiiiii, How are yoy"> /tmp/first-job.txt
+
+# In linux create file in /tmp
+vi basic.sh
+#!/bin/bash
+echo " This is from script under tmp folder"
+:wq!
+
+bash basic.sh ---> If not runs then give permission 755
+
+Now go to configure and lines = bash /tmp/basic.sh --->Save --->Build Now. ---> you can see console output
+
+                                       # BASIC SCRIPTS WITH PARAMETERS #
+
+Now go to first-job or create new job. ---> Check = This project is parameterized --->
+Add String Parameter ---> name = FNAME, Default Value = Aniket, and add parameter LNAME, Telange. 
+
+Now Build steps ---> clear all or ADD then = echo $FNAME $LNAME --->Save --->Build with Parameters
+Then its ask you can change dynamically change the name --->Save. --->Console Output
+And in add parameter as a Choice Parameter ---> Name = Gender, Choice = Male, in second line Female, then third line Others. ---> Save and add in shell $Gender
+
+										# SCHEDULING JENKINS JOBS #
+										
+Create  a new job = cron-job ---> Freestyle ---> OK. add description = This will auto build in every 5 min.
+---> Execute shell = echo "Hello CRON JOB !!!"
+---> Go to the Build Triggers ---> Check Build Periodically ---> type or provide time = ***** or*/5**** --->Save.
+---> Does not required to build beacuse of cron & wait for 1minute. After that remove it.
+
+										# WORKING WITH GIT HUB #
+										
+---> Go to the Manage Jenkins ---> Plugins ---> Installed plugins serach for GIT if not insall then install from avaiable plugins.	
+Create a new job = git-demo ---> Freestyle ---> OK. add Description = This will pull code from GitHub and run on the server.
+---> Source Code Management ---> Check and click Git. 
+---> open Github and go to code or file.py then copy HTTPS link make sure end with ".git" THEN paste in Repository URL.
+---> Credentials required if code is PRIVATE Repository
+---> Branch to build ---> Brancher Specifer = Should be blank or check in GitHub there is branch or not.
+---> Save ---> Buld Now ---> Check Output.
+---> Go to --> git-demo --> Workspace  You can see your file.py
+
+---> Go to Linux cd /var/lib/jenkins/
+ls 
+cd workspace
+ls you can see folders and their files inside this
+python3 OR rpm -qi python OR python ---> check python install or not
+
+To login use python3 and for exit use quit()	
+
+---> Go to JENKINS page ---> Execute shell = python3 test.py (filename).
+---> Save ---> Build Now ---> Check Output.		
+
+										# GITHHUB AUTO BUILD #
+										
+Go to GITHHUB and one line in test.py and commit change and save.
+---> Save ---> Buld Now ---> Check Output.
+
+# To automatically Run if coders changes the codes.
+--> Go to Build Triggers --> Check Poll SCM ---> Schedule = * * * * *
+---> Save
+---> Go to GITHHUB add something in code and save update5 commit change.
+Now you can see automatically Build and Run.
+
+										# EMAIL NOTIFY ON JOB FAILURE #
+										
+---> Manage Jenkins ---> System ---> Go to bottom, E-mail Notification ---> SMPT SERVER = smpt.gmail.com --->Advance , username = your gmailID, Password =
+for PW go to your google setting --> Security --> Search = App password --> enter --> give ur pw then --> Ask app name = jenkinks -->create --> U can see pw copy ->DONE. this and paste in the jenkins smpt password place.
+ ---> Check Use SSL ---> SMPT Port = 465 OR its takes default.  e-mail suffix means your orgnization name. Check the Test configuration e-mail.
+ ---> configuration ---> In bottom Post-Build Actions Add = E-mail notification ---> Check for Send e-mail for every unstable build. and second option also. and your e-mail in Recipients.--->Save
+ ---> Go to GITHHUB and make some code mistake and commit. Wait for automaticallybuild and check mail is received or not.
+ 
+										# JENKINS JOBS FOR REMOTE SERVER #
+										
+---> open second Centos2 and copy ip-address ifconfig = 192.168.1.9	
+---> open first machine Centos1 in which install jenkins then try to connect with Centos2
+     ssh root@192.168.1.9 ---> put pw. and exit.
+
+# ssh-key use for passwordless login #
+Centos1 ---> ssh-keygen ---> Enter ---> Enter ---> Enter.
+---> ssh-copy-id root@192.168.1.9 ---> PW # After that this not asking again password 
+
+Now Manage Jenkins ---> Avaiable plugins ---> search ssh go for Publish Over SSH 1.25 ---> Install and sometimes required restart.
+---> Manage Jenkins ---> System ---> Go to Bottom  JENKINS SSH---> key = paste private key! Centos1. Add SSH Servers name=C1, hostname = ipadd of C1,username=r,Remote directory  --->Save.
+open Centos1 ---> cd /root/.ssh ; ls
+cat id_rsa #copy the content OR U can also give path in private key place.
+--->Create new job = remote-job ---> freestyle project ---> Save ---> Build Steps ---> Add Build Steps --> Send files or execute commands over SSH. #its shows centos1 by default.
+---> Transfer Set 
+--> Source File = files/basic.sh #its take automatically to remote-job, OR files/* for all inside the files, firstly create f1,f2rm,f3,f4 then use this. 
+-->  Remove prefix # To remove files.
+--> Remote Directory
+-->  Exec command = bash /home/aniket/files/basic.sh # OR u can see first where its file then give cmd to execute.
+---> Advance -->Exelude files = files/f3
+--> Pattern Separator = [,]+
+
+open C1---> cd /var/lib/jenkins/workspace/remote-job/
+ls
+mkdir files, touch f1,f2rm,f3,f4
+cp /tmp/basic.sh files/
+add in vi basic.sh ---> in 3rd line touch /tmp/testfile2.txt
+
+---> Save ---> Buld Now ---> Check Output. In C2 u can see /tmp/testfile2.txt file.
+
+# Its give error beacuse we dont have jenkins user in C2, we are build with jenkins user, so create useradd and give pw = jenkins in C2.
+IN C1 = sudo su  -s /bin/bash jenkins ---> its create new bash shell for jenkins, whoami, hostname
+Now again create key for jenkins to jenkins users
+ssh-keygen --->Enter --->Enter --->Enter
+ssh-copy-id jenkins@10ipofC2 ---> yes --->pw of jen	
+ssh jenkins@10ipofC2 ---> To check connection
+
+IN C2 id jenkins # Its not have sudo access so add in wheel group.
+sudo visudo --> To see only wheel grps
+sudo usermod -aG wheel jenkins
+id jenkins 
+
+										# JENKINS + ANSIBLE PLAYBOOK WITH JOB #
+
+First Install ANSIBLE in C1.
+---> Manage Jenkins ---> Plugins ---> Avaliable plugins then search = Ansible (307.va1f3ef06575a)Ad-Hoc Install 
+---> New item ---> ansible-job, freestyle proj -> OK 
+---> config ---> Build Steps ---> Invole Ansible Playbook ---> Playbook path = /etc/ansible/playbooks/first.yml --> Save --> Build Now O/P
+
+										# PROJECT REMOTE WEBSERVER CHANGES #
+
+IN C2 insatll APACHE WEB SERVER
+sudo yum install httpd
+systemctl status httpd.service
+systemctl start httpd.service
+systemctl enable httpd.service
+search ip of C2 in Linux browser port 80
+cd /var/www/html/
+ls
+create file.html
+
+---> New item ---> web-server-update, freestyle OK. 
+---> Configure ---> Source code Management ---> Select GIT, Repo URL (.git) (Add in github update webpage)---> Clear Branch Specifer --->OK 
+First create /etc/ansible/playbooks/web_server_update.yml this file and edit.
+---> Add build step ---> Invoke Ansible PLAYBOOK
+--> Playbook Path = /etc/ansible/playbooks/web_server_update.yml  
+--> Advance --> Extra Variables --> key = ansible_become_pass, Value = jenkins # This is pw of jenkins. Check Hidden Box ---> Save ---> Build Now O/P.
+---> Build Triggers --> Add SCM, Schedule = * * * * *	
+---> Post-Build Actions --> E-mail noti ---> Save.
+Now you can change in file of Github, then it reflect automatically.	
+
+										# USER  MANAGEMENT 	JENKINS #
+
+---> Manage Jenk --> Users -> + User add ... Create user.
+--->  Add plugin = Role-Based Authorization Strategy Install --->  Restart. Now try to login with new user --->  Logout
+---> Login with admin ---> Manage --> Security --> Authorization change to = Role-Based Strategy ---> Save. Now U can check with user login he has no rights.
+---> Manage --> Manage & Assign Roles --> Role to add = read-only. Overall = Read : Job = Build, Read. Check this permission --> Save
+Now Assign Role to USER
+---> Assign Role --> Global Role --> Add user --> check with read-only. ---> Save # Now U can check with user.
+
+										#  ENVIRONMENT  VARIABLES  JENKINS #
+										
+---> Go to first job & change in Build Execute shell --> echo $WORKSPACE # It's just give full path, u can see in website.
+#You can add ur variables to use all different project also Globally.
+---> Manage --> System --> Global Properties --> Environment Variables --> Name = REMOTESERVER : Value = CENTOS02 --> Save
+---> Go to first job & change in Build Execute shell --> echo $REMOTESERVER. -->Build o/p.
+
+
+										# JENKINS  +  MAVEN # 
+
+
+Search Sample java maven app --> GITHHUB copy HTTPS .git 
+---> New Item --> maven-project, freestyle --> Ok. --> SOURCE C-M = paste link in Repo URL, use same as Master Branch --> Save --. Build, O/P, Workspace
+---> Manage --> Plugin --> Maven Integration 3.23 Install
+---> Manage --> Tools --> Maven Installion -->Add Maven --> Name= jenkins-maven, version= 3.9.6 default & U can use multiple Maven also. --> Save
+---> maven-project --> config --> Build Steps ADD --> Invoke top-level Maven targets --> Maven version= jenkins-maven: Goals= -B -DskipTests clean package -->Save, Build, O/P.
+
+IN C1 Maven application required in C1.
+rpm -qa | grep -i jdk 
+yum install java-17-openjdk-level.arch64
+javac
+Go to /var/lib/jenkins/workspace/maven-project ; ls ; cd target/ ; ls. U can see my-app.jar here.
+
+---> Add new goals in Configure Goals=test -->Save, Build, O/P # To Testing app
+# LOCAL DEVLOYMENT #
+---> Configure --> Execute shell = java -jar /var/lib/jenkins/workspace/maven-project/target/my-app-1.0-SNAPSHOT.jar --> Save,Build,O/P. o/p = Hello World!
+
+# Test Graph #
+---> Configure --> Post-Build Actions --> Publish JUnit test result report --> Test reports XML's = target/surefire-reports/*.xml --> Save,Build --> Go to maven-project see top bottom side for graph.
+
+										#  ARCHIVE  ARTIFACTS #
+
+---> Configure --> Post-Build Actions --> Archive the Artifacts --> Files to archive = target/*.jar --> Advance Check the box= Archive artifacts only if build is successful. -->Save,Build --> U can see .jar in [STATUS], U can download previous onces also.
+---> Configure --> Post-Build Actions --> e-mail.....
+
+
+										#	JENKINS	PIPELINE	#
+										
+---> New Item --> pipeline-demo : Pipeline Style --> OK --> Pipeline --> Script = select Hello world from top-right-side. -->Save,Build 
+# To use secret PW.
+---> Manage --> Credentials --> Stores scoped to jenkinks --> System --> Gloabl Credentials -- ADD --> Kind -- Secret Text --> Secret = PW : Id = PASS # U can use ID for secretly for using PW look like ***, Use in Pipeline scripts $PASS.
+
+
+										#	PROJECT - CI/CD PIPELINE FOR JAVA APPLICATION	#
+
+---> New Item --> maven-pipeline ; Pipeline --> OK. --> Script = GitHub + Maven select. Then copy and edit in VSCode.
+
+#To get Snippet Generator 
+search this = 19IP:8080/pipeline-syntax/
+Snippet Generator --> Steps --> Sample step = archiveArtifacts --> Files to archieve = target/*.jar --> Advance = Archieve ... Sucessful. --> Generator Pipeline Script

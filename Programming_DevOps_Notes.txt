@@ -1,0 +1,68 @@
+================================================================================================================================================================
+#11 Dec Programming Notes
+
+Download VS code
+Then create one folder name: Git-Practical-Project.
+Then open that folder in VScode.
+Then create one in that folder name: Project-1.
+
+Then create index.html
+In that - "This is my First Website"
+Then click the right side of toogle, to open terminal 
+Then select git bash terminal in right side of plus sign (+)
+(And create new Repo : Project-1).
+(Install Git from chrome).
+
+ls
+cd Project-1/
+git init
+git add index.html
+git status
+git config --global user.name "Dev1"
+git config --gloab user.email "Dev1@gmail.com"
+git congfig --global --list
+git commit -m " This is 1st"
+git log
+git status 
+git remote add origin https....
+
+git push origin master
+Now its open new small box --> Open with code and copy the code and open same link in mentioned below. Then paste the code, Authentication and PW. Is called as OAUTH Authentication.
+In setting, 1. SSH setting. 2. Interval Application.
+
+#git push --set-upstream origin master # Only for one time.
+
+Ctrl + r = To reverse search command, type unique keyword
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 12 Dec Programming Notes 1:15
+
+git log
+git log --oneline
+git status <Commit I'D>
+git log --name-only
+History restored
+Download extension in VScod : Git History - Don.
+
+Create new file: .gitignore  # To ignore the files and dont push 
+In that write file name like : note.txt
+Funny.css
+
+git fetch  # To see new commits from different Devlopers
+git watchchanged origin/master -n 1  # To see changes
+# Only see changes using git fetch H.Website and how to see, where is save?
+================================================================================================================================================================
+
+================================================================================================================================================================
+
+
+
+================================================================================================================================================================
+================================================================================================================================================================
+================================================================================================================================================================
+================================================================================================================================================================
+================================================================================================================================================================
+================================================================================================================================================================
+================================================================================================================================================================
+
