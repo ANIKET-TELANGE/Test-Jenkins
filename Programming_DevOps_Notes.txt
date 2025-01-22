@@ -36,7 +36,7 @@ Ctrl + r = To reverse search command, type unique keyword
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 12 Dec Programming Notes 1:15
+# 12 Dec Programming Notes
 
 git log
 git log --oneline
@@ -55,6 +55,47 @@ git watchchanged origin/master -n 1  # To see changes
 ================================================================================================================================================================
 
 ================================================================================================================================================================
+# 13th Dec Fri
+Git 
+
+Change in line in direct GitHub file and commit.
+git log
+git log --oneline
+git show <ID>
+git log -name-only
+git fetch
+git show -r origin/master
+git log --oneline origin/master
+git diff -r origin/master   --> To see differnce and changes
+
+# Branches #
+#Hotfix branch for Direct solve the issue in Main Branch
+
+git branch  --> To see branch
+git branch <name>UAT  --> To create Branch
+git checkout UAT  --> To switch into other Branch
+git branch  --> * start marks shows current working Branch
+
+git checkout -b hotfix  --> TO Create and same time to switch that Branch
+git branch
+
+git checkout master
+git show -r origin/master
+git pull
+
+git checkout hotfix
+add lines in html
+git status
+git add index.html
+git status
+git commiit -m "This is line add in hotfix"
+
+git checkout master
+git merge hotfix 
+
+ 
+
+
 
 
 
