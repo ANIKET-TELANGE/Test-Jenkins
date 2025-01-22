@@ -418,7 +418,6 @@ echo $? --> To check if perivous command is scuccess or not, 0-means success.
 git clone <Repo_URL.git>
 cp -rvp /var/www/html/
 Search IP 
-
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
@@ -441,6 +440,45 @@ Git  Branching
 
 =====================================================================================================================================================================
 # 14th Dec SAT-
+Java Backend Devployment
+
+apt install nginx in Ubuntu
+cd /var/www/html/
+git clone httpsrepo.git
+cd project;ls
+start nginx, port should be open firewall80 and check in browser http:IP/project/index.html
+
+# Task
+change in code direct github html
+git pull --> In server
+then again see in browser and Refersh
+
+Nginx is Static webserver
+JBOSS & TOMCAT is Dyanmic webserver for JAVA 
+
+Download eclipse and Install IDE- Integrated Devployment Enivronment
+Object, Classes, Connector
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
