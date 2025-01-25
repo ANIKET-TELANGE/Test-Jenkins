@@ -222,7 +222,7 @@ docker inspect <docker-ID>  -->  To see all details
 # 20th Dec Fri - Git + Docker
 # 21th Dec SAT-
 # 22th Dec SUN-
-# 24th Dec Tue
+# 24th Dec Tue 
 # 25th Dec Wed
 # 26th Dec Thu
 # 28th Dec SAT-
