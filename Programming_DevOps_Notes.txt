@@ -1,5 +1,5 @@
 ================================================================================================================================================================
-#11 Dec Programming Notes
+#11 Dec - Git Notes 1
 
 Download VS code
 Then create one folder name: Git-Practical-Project.
@@ -36,7 +36,7 @@ Ctrl + r = To reverse search command, type unique keyword
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 12 Dec Programming Notes
+# 12 Dec - Git Notes 2
 
 git log
 git log --oneline
@@ -55,7 +55,7 @@ git watchchanged origin/master -n 1  # To see changes
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 13th Dec Fri
+# 13th Dec Fri - Git Notes 3
 Git 
 
 Change in line in direct GitHub file and commit.
@@ -94,12 +94,12 @@ git checkout master
 git merge hotfix 
 
 ================================================================================================================================================================
-# 18th Dec Wed - Programming Notes
+# 18th Dec Wed - Git Notes 4
 Git - PR, MR & FORK
 
 To change commit name or rename 
-git commit -amend -m "This is correect spelling commit"
-git commit -amend  --> To pen and change to commit name
+git commit --amend -m "This is correect spelling commit"
+git commit --amend  --> To pen and change to commit name
 
 git reset HEAD~0  --> To delete last commit ID, 0,1,2 shows commits list
 git reset HEAD --hard~1  --> To delete content and commit ID also.
@@ -109,7 +109,7 @@ git reset --soft <commitID>  --> To remove only from commit
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 19th Dec Thu - Programming Notes
+# 19th Dec Thu - Git Notes 5
 Git - Stash, Reflog & CheeryPick
 
 git comit -m "This is Temp"
@@ -132,14 +132,67 @@ git reset --hard <commitID>  # To Recover
  #Means when you create new branch then check for commits its shows all old commits from which you switch to this new branch  automatically.
  #crate new branches examples: one-barnch to two-branch to three-branch
 git log --graph   --> To see all when and which branch created new branch
+git log --graph --decorate
+git log --oneline --graph --decorate --all
+git log --oneline --all --graph --decorate --all
+
 
 git branch main
 git cheery-pick <commitID>  --> To get cheery-pickfile into main branch
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 20th Dec Fri  - Programming Notes
-Git - 
+# 20th Dec Fri  - Git Notes 6
+Git - Rebase
+
+git commit -am "Message"  --> Without add command, we can commit.
+
+#Rebase  --> To take pointer another branch content without merge
+git branch -b rebase-branch-name
+#add some line in text file
+git commit -am "Message"
+git branch main
+git rebase rebase-branch-name
+
+#   DOCKER   #
+
+Ubuntu - t2.micro  - Configure 8 / gp2 --Launch
+
+sudo -i
+
+Open Docker-Site Ubuntu
+
+# Add Docker's official GPG key:
+
+sudo apt-get update
+echo $?  --> To check previous RUN or not
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo docker run hello-world
+
+docker help
+
+docker run -d -p 80:80 --name webserver nginx:latest  --> To install Nginx & Allow Ports
+#Then check direct in browser, showing running
+
+docker run -d -p 8080:80 --name webserver-2 nginx:1.10  --> To install specfic version and run at a same time
+
+docker ps   --> To show running DOCKER
+docker ps -a
+docker inspect <docker-ID>  -->  To see all details 
+
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
@@ -166,13 +219,14 @@ Git -
 
 # 18th Dec Wed - Programming Notes
 # 19th Dec Thu - Programming Notes
-# 20th Dec Fri
+# 20th Dec Fri - Git + Docker
 # 21th Dec SAT-
 # 22th Dec SUN-
 # 24th Dec Tue
 # 25th Dec Wed
 # 26th Dec Thu
-
+# 28th Dec SAT-
+# 29th Dec SUN-
 
 git init
 #git remote add origin https://github.com/A-T/Test-Jenkins.git
