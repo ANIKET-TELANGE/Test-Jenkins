@@ -94,7 +94,28 @@ git checkout master
 git merge hotfix 
 
 ================================================================================================================================================================
+# 18th Dec Wed - Programming Notes
+Git
+
+To change commit name or rename 
+git commit -amend -m "This is correect spelling commit"
+git commit -amend  --> To pen and change to commit name
+
+git reset HEAD~0  --> To delete last commit ID, 0,1,2 shows commits list
+git reset HEAD --hard~1  --> To delete content and commit ID also.
+git reset --hard <commitID>  -->To DELETE content
+git reset --soft <commitID>  --> To remove only from commit
+# Revert
+================================================================================================================================================================
+
+================================================================================================================================================================
 #
+================================================================================================================================================================
+
+
+
+  
+
 
 
 
