@@ -95,7 +95,7 @@ git merge hotfix
 
 ================================================================================================================================================================
 # 18th Dec Wed - Programming Notes
-Git
+Git - PR, MR & FORK
 
 To change commit name or rename 
 git commit -amend -m "This is correect spelling commit"
@@ -109,25 +109,76 @@ git reset --soft <commitID>  --> To remove only from commit
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-#
+# 19th Dec Thu - Programming Notes
+Git - Stash, Reflog & CheeryPick
+
+git comit -m "This is Temp"
+#Change some lines in codes in file1.txt
+git stash  --> To save Tempoary Location
+git checkout -b NewBranch  --> Its shows file1.txt, because You not commited yet thats why showing this file also.
+git stash pop  --> To remove from commit
+git stash list  --> To show stash file
+git stash pop stash@{1}
+
+# Reflog   --> Avaiable all Logs and Records & Recover delete files
+git reflog   --> To see all logs
+# H.W git rm, delete
+git reset --hard <commitID>  # To delete
+git log --oneline
+git reflog
+git reset --hard <commitID>  # To Recover
+
+# CheeryPick
+ #Means when you create new branch then check for commits its shows all old commits from which you switch to this new branch  automatically.
+ #crate new branches examples: one-barnch to two-branch to three-branch
+git log --graph   --> To see all when and which branch created new branch
+
+git branch main
+git cheery-pick <commitID>  --> To get cheery-pickfile into main branch
 ================================================================================================================================================================
 
-
-
-  
-
-
-
-
-
-
-
-
 ================================================================================================================================================================
-
+# 20th Dec Fri  - Programming Notes
+Git - 
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
 
+1. 6-10-24
+2. 13-10-24
+3. 20-10-24
+4. 27-10-24
+5. 10-11-24
+
+6. 24-11-24 DevOps-git -NA
+7. 1-12-24 -NA 9.
+
+# 30th Nov Sat NEW
+# 1st Dec Sun
+# 7th Dec Sat
+# 8th Dec Sun
+# 11th Dec Wed - Programming Note
+# 12th Dec Thu - Programming Notes
+# 13th Dec Fri - Programming Notes
+# 14th Dec SAT-
+
+# 18th Dec Wed - Programming Notes
+# 19th Dec Thu - Programming Notes
+# 20th Dec Fri
+# 21th Dec SAT-
+# 22th Dec SUN-
+# 24th Dec Tue
+# 25th Dec Wed
+# 26th Dec Thu
+
+
+git init
+#git remote add origin https://github.com/A-T/Test-Jenkins.git
+git status
+git add J1.txt P1.txt
+git commit -m "Added J1.txt and P1.txt files"
+git push origin main
+#git push origin <Branch Name>
+git push origin main --force
