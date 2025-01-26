@@ -472,11 +472,97 @@ Git - Stash, Reflog & CheeryPick
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
-# 20th Dec Fri
+# 20th Dec Fri  - Git Notes 6
+Git - Rebase  & DOCKER
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
 # 21th Dec SAT-
+
+Project Maven
+
+Maven Phase - 
+Validate
+Compile
+TEST
+BUILD
+DEPLOY - As a WAR
+
+#1. Launch One Ubuntu instance for Maven
+sudo -i
+apt update 
+apt install maven
+dpkg -l | grep -i maven
+
+mvn
+
+mkdir /opt/javproject
+cd /opt/javproject
+# mvn archetype:generate -DgroupID=com.example -DartifcatID=DemoApp - DarchetypeArtifactID=maven=archetype-webapp -DinteractiveMode=false 
+mvn archetype:generate -DgroupID=com.example -DartifcatID=javaapp - DarchetypeArtifactID=maven=archetype-webapp -DinteractiveMode=false 
+echo $?
+stty -ctlecho
+ls
+apt install tree
+tree 
+cd javaapp/ ; ls
+cat src/main/webapp/index.js
+cat /opt/javproject/javaapp/pom.xml
+
+pom.xml --> Project Object Model is a refernce file for the maven and IT IS HEART OF MAVEN.
+Or POM is the fundamental, It is an XML file contains information about the project and configuration details used by Maven to build the project.
+
+# Creating WAR file and give to TOMCAT
+cd /opt/javproject/javaapp/  --> For creating war always inside the App
+ls  --> O/P shows po.xml
+tree
+#mvn clean  --> To remove created Build
+#mvn clean package --> first remove then create new Build at one command.
+
+mvn package  --> Creating Build
+ls : tree
+mvn clean
+
+mkdir -p src/main/java/com/example
+cd src/main/java/com/example/
+
+vi HelloServlet.java
+Paste code and save
+
+cd /opt/javproject/javaapp/
+tree
+mvn package  # Fail beacuse of version
+
+vi pom.xml
+paste and save 
+
+mvn package ; tree
+
+#2. Launch Ubuntu new instance for TOMCAT server
+version 9 & 10 in Tomcat
+
+download rpm or tar.gz
+cd /opt/
+wget .....tar.gz
+echo $? ; ls
+tar -zxvf apc...tar.gz
+ls
+cd tomcat
+ls
+apt update
+#apt search jdk
+apt-get  install default-jdk -y
+java -version
+
+/opt/tomcat10/bin/startup.sh run   # Start Tomcat & run on port 8080, Requires Java, open port also 
+/opt/tomcat10/bin/shutdown.sh run  --> To Stop
+ss -ant | grep -i 8080
+
+search IP:8080 in browser
+
+# cd /opt/tomcat10/webapps/
+Paste the javaapp.war file in that location
+http://IP:8080/javaapp
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
