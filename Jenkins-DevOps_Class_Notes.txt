@@ -477,15 +477,16 @@ Git - Rebase  & DOCKER
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
-# 21th Dec SAT-
+# 21th Dec SAT-  MAVEN
 
-Project Maven
+### Project Maven ###
 
 Maven Phase - 
 Validate
 Compile
-TEST
+TEST - Unit Test
 BUILD
+PACKAGE, INTEGRATION, INSTALL
 DEPLOY - As a WAR
 
 #1. Launch One Ubuntu instance for Maven
@@ -567,6 +568,63 @@ http://IP:8080/javaapp
 
 =====================================================================================================================================================================
 # 22th Dec SUN-
+
+1. Maven definations 
+2. TOMCAT - WAR Deployment
+3. TOMCAT - manager deploy (multiple branches)
+4. NGINX - REVERSE PROXY TO TOMCAT - Prod
+5. ANSIBLE 
+
+Maven is a build automation tool primarly used for java projects, Main two main aspects of building software
+1. Project build lifecycle managemnet. 2. Dependency management.
+
+Only for JAVA 
+
+Plugins - use goals 
+Heart - all work is done by plugins. Looking for a specific goal to execute.
+
+Maven - POM.xml
+Dependencies - List all the external libraries your project depends on. Maven will download these libraries automatically from the central repository.
+Three Repository :
+Local,   Central,   Remote Repository 
+Local - Local folder structure.
+Central - Repos over the internet.
+Remote Repository - Repos over the internet.
+
+# When we create Artifact (JavaApp), we not send in Git instead of send Artifact Repository and versioning also. Software like jfrog and nexus etc.
+
+# What is Artifactory 
+For hosting and managing, and distributing binaries and artifacts. Any type of software in binary form - such as application installers, container images etc.
+
+
+# Now in Tomcat Server.
+Install Tomcat and configure 
+sudo -i
+sudo apt-get install default jdk -y 
+sudo useradd -m -U -d /opt/tomcat -s /bin/false tomcat
+sudo wget download from link browser and paste here in /opt.
+sudo tar -xzvf apache-tomcat-10.0.20.tar.gz
+Rename the folder to short name.
+sudo mv apache-tomcat-10.0.20.tar.gz /opt/tomcat/tomcat
+sudo chown -R tomcat:tomcat /opt/tomcat/tomcat
+
+
+
+Tomcat is a Dynamic server 
+Tomcat is a Java Servlet Container 
+Tomcat can run JVMS.
+Tomcat Port : 8080
+Tomcat to start requires - Java and Java_home path
+
+What is Servlet?
+It is a type of Program which is deployed in Java - Java Servlet.
+
+
+
+
+
+
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
