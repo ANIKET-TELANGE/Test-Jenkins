@@ -273,3 +273,31 @@ git commit -m "Added J1.txt and P1.txt files"
 git push origin main
 #git push origin <Branch Name>
 git push origin main --force
+
+# 03 Jan Fri docker
+# 04 JAN SAT-
+# 05 JAN SUN- 
+# 05 Jan Sun Eve
+# 08 Jan Wed
+# 09 Jan Thu
+# 10 Jan Fri
+# 11 JAN SAT-
+# 12 JAN SUN-
+# 12 Jan Sun Eve 
+# 16 Jan Thu
+# 17 Jan Fri docker
+# 18 JAN SAT-
+# 19 JAN SUN-
+# 19 Jan Sun Eve
+# 21 Jan Tue
+# 22 Jan Wed
+# 23 Jan Thu
+# 24 Jan Fri
+# 25 JAN SAT- Jenkins
+# 26 JAN SUN- Jenkins
+# 26 Jan sun Eve Js
+# 27 Jan Mon Jenkins
+# 29 Jan Wed Jenkins
+# 31 Jan Fri Jenkins
+# 01 FEB SAT- JENKINS Problem
+Total - 26
