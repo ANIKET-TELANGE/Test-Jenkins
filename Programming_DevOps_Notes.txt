@@ -207,15 +207,30 @@ sudo systemctl enable --now docker
 sudo docker run hello-world
 
 ================================================================================================================================================================
-# 24th Dec Tue  - Docker
+# 24th Dec Tue  - Docker Images
 Missing lecture of 23 Dec Not recorded for Docker Architecture 
  
 dockerd  #start service with log
 dockerd --debug 
 
+docker run hello-world
+docker ps   # To see running state of conatiner
+docker run -it nginx  # To install, run and to see contuinous logs, -it = Intractive Mode Terminal.
+docker inspect <containerID>  # To see IPs and configure about that conatiner
+docker ps -a   # To see closed containers
+docker run -itd nginx   # Its called docker daemon, To run in background, -d = Detached Mode Run.
+#nohup command is giving name to containerd
+#docker Image name pulls from DokerHub, who created by.
+docker images   # To see Images
 
+#To give our name
+docke run -itd --name tom nginx
+docker ps
+docker inspect <conatinerID> | grep -i "tom"
 
-
+#To start existing conatiner
+docker ps -a
+docker start <conatinerID>
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
@@ -243,8 +258,8 @@ dockerd --debug
 # 19th Dec Thu - Programming Notes
 # 20th Dec Fri - Git + Docker
 # 21th Dec SAT-  Maven
-# 22th Dec SUN-
-# 24th Dec Tue 
+# 22th Dec SUN-  Maven + Tomcat
+# 24th Dec Tue - Docker Images
 # 25th Dec Wed
 # 26th Dec Thu
 # 28th Dec SAT-

@@ -568,7 +568,8 @@ http://IP:8080/javaapp
 
 =====================================================================================================================================================================
 # 22th Dec SUN-
-
+ Maven + Tomcat
+ 
 1. Maven definations 
 2. TOMCAT - WAR Deployment
 3. TOMCAT - manager deploy (multiple branches)
