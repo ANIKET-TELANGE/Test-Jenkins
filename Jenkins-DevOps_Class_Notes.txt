@@ -609,7 +609,6 @@ sudo mv apache-tomcat-10.0.20.tar.gz /opt/tomcat/tomcat
 sudo chown -R tomcat:tomcat /opt/tomcat/tomcat
 
 
-
 Tomcat is a Dynamic server 
 Tomcat is a Java Servlet Container 
 Tomcat can run JVMS.
@@ -619,16 +618,59 @@ Tomcat to start requires - Java and Java_home path
 What is Servlet?
 It is a type of Program which is deployed in Java - Java Servlet.
 
+whereis java
+find / -iname java
+
+When you install package from using tar, it's  install in a single folder and create all folders like /bin /etc.
+In other when you install package from using yum/apt-get it's install in all folders like /bin /etc.
+
+# There are three types of commands to start Tomcat 
+1. /opt/tomcat/tomcat/bin/catalina.sh run #Run with logs and Debug mode.
+2. /opt/tomcat/tomcat/bin/startup.sh run #Background starts
+3. systemctl start tomcat #But required unit service files.
+
+# To stop
+/opt/tomcat/tomcat/bin/shutdown.sh run
+
+IP:8080 #To see webpage in browser and open port.
+
+# Three are main folders in Tomcat.
+1. bin
+    - Binaries and start service files.
+2. config  
+    - server.xml file.
+3. webapps
+     -  webapplication host war.app file.
+     -  ROOT
+          - index.jsp
 
 
+# Now from Devloper machine Maven, push war file in Git. Or Take sample project from Net like sample Hello world project using wget command.
+Then Pull war file in Tomcat server and move to webapps folder.
+- When you provide war in webapps folder, it's automatically untar and start the Artifact.
+
+# jar -tf file.war  --> To see content of war file # Search exact command in NET.
 
 
+# Now Reverse Proxy 
+In same machine of Tomcat 
+Install Nginx.
+cd /
+apt install nginx -y
+systemctl restart nginx and check status/enable 
+vim /etc/nginx/conf.d/tomcat.conf  --> create this file and paste
+proxy......... And your instance IP.
+In last give redirect IPandPort, it's means Tomcat webpage link http..../;
 
-
+Then restart nginx service.
+Then search in browser 
+https//IP only
+http://IP/ad1-projetname/
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
-# 24th Dec Tue
+# 24th Dec Tue  - DOCKER
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================

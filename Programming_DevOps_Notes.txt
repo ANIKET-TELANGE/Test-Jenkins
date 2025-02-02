@@ -196,14 +196,26 @@ docker inspect <docker-ID>  -->  To see all details
 # code .
 
 ### For Centos
+
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 #If prompted to accept the GPG key, verify that the fingerprint matches -  060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
 sudo systemctl enable --now docker
 sudo docker run hello-world
 
 ================================================================================================================================================================
+# 24th Dec Tue  - Docker
+Missing lecture of 23 Dec Not recorded for Docker Architecture 
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+
+
+
 ================================================================================================================================================================
 ================================================================================================================================================================
 ================================================================================================================================================================
