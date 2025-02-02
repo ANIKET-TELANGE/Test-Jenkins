@@ -207,7 +207,7 @@ sudo systemctl enable --now docker
 sudo docker run hello-world
 
 ================================================================================================================================================================
-# 24th Dec Tue  - Docker Images
+# 24th Dec Tue  - Docker Images -2 
 Missing lecture of 23 Dec Not recorded for Docker Architecture 
  
 dockerd  #start service with log
@@ -232,7 +232,47 @@ docker inspect <conatinerID> | grep -i "tom"
 docker ps -a
 docker start <conatinerID>
 ================================================================================================================================================================
+# 25th Dec Wed
+Pending 3hrs++
+
 ================================================================================================================================================================
+# 26th Dec Thu
+
+docker container ls
+docker container ls -a   # Simliar to command docker ps
+docker container rm <conatinerID> <conatinerID>
+docker container run -d -it ubuntu
+docker conatiner ls
+docker conatiner --help
+docker conatiner rename <conatinerID> champu   # To rename NAMES
+docker conatiner ls
+
+# To go inside conatiner
+docker conatiner attach champu
+create files or folders
+Ctrl p+q, dont write exit its stop the container or ctrl+d also.
+
+docker conatiner ls
+docker conatiner stats champu   # To see Ram, Memory
+
+# To Pause docker conatiner temporary bases
+docker conatiner pause champu  --> NAME or ID
+docker conatiner unpause champu  # To unpause or running
+docker conatiner ls
+
+# To Stop docker conatiner
+docker conatiner stop champu
+docker conatiner stats  # To see Memory
+
+# To start docker conatiner
+docker conatiner start champu
+
+# Exaples: To see RAM utlization in other tab
+docker conatiner attach container
+## apt-get update
+#apt-get install apacahe
+service apacahe2 start
+
 ================================================================================================================================================================
 ================================================================================================================================================================
 
@@ -259,7 +299,7 @@ docker start <conatinerID>
 # 20th Dec Fri - Git + Docker
 # 21th Dec SAT-  Maven
 # 22th Dec SUN-  Maven + Tomcat
-# 24th Dec Tue - Docker Images
+# 24th Dec Tue - Docker Images - 2 
 # 25th Dec Wed
 # 26th Dec Thu
 # 28th Dec SAT-
