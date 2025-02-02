@@ -261,7 +261,7 @@ docker conatiner unpause champu  # To unpause or running
 docker conatiner ls
 
 # To Stop docker conatiner
-docker conatiner stop champu
+docker conatiner stop champu   # Its means Gracefully Kill
 docker conatiner stats  # To see Memory
 
 # To start docker conatiner
@@ -272,6 +272,59 @@ docker conatiner attach container
 ## apt-get update
 #apt-get install apacahe
 service apacahe2 start
+
+watch date  # To watch executed commands memory, cpu etc. exit code to see. || Run this command in another tab
+docker conatiner top champu
+
+docker conatiner wait champu
+docker conatiner kill champu  # Its means forcefully Kill
+
+
+# Data Migration
+ Now send file or copy from Ubuntu server to inside of container (Same Machine)
+
+Now create container
+docker conatiner run -it --name data-bkp ubuntu /bin/bash   # bin-bash for direct go the conatiner
+
+Now go the Ubuntu /etc or select exact file
+tar -czvf web.tar /etc
+docker conatiner cp web.tar data-bkp:/tmp/   # To copy the file same as SCP command, Now U can see into container data-bkp /tmp/
+
+# If you index.html in Container nginx, Then U can curl the Ip of that container from Ubuntu Server
+curl http://IP 
+
+#Now Move Container to NEW Ubuntu Server
+Launch New Instance 
+And install Docker in new Machine
+vim /etc/ssh/sshd_config.d/ssh.config   --> for sharing files and access  OR Change in 60-clouding-settings.conf  file and change to yes
+ #Comment out the PasswordAuthencation yes  --> Remove the hash'#'
+systemctl restart ssh
+passwd Ubuntu  --> To set password
+
+#In Old Ubuntu Server | Export
+docker ps
+docker conatiner ls
+docker conatiner export data-bkp > old-container.tar
+scp old-container.tar ubuntu@IpUbuntuServer:/home/ubuntu 
+
+# In New Ubuntu Server | Import
+cd /home/ubuntu/  --> U can see old-container.tar in that folder
+#docker image import old-container.tar
+docker image import old-container.tar new-conatiner   --> To give name 
+echo $?
+docker images
+docker conatiner ls
+docker conatiner run -it --name new-data-bkp new-conatiner /bin/bash
+Now U can see the files index.html etc 
+
+
+
+
+
+
+
+
+
 
 ================================================================================================================================================================
 ================================================================================================================================================================
@@ -301,7 +354,7 @@ service apacahe2 start
 # 22th Dec SUN-  Maven + Tomcat
 # 24th Dec Tue - Docker Images - 2 
 # 25th Dec Wed
-# 26th Dec Thu
+# 26th Dec Thu - Docker Containers - 
 # 28th Dec SAT-
 # 29th Dec SUN-
 
