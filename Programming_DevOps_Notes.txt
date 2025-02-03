@@ -231,12 +231,44 @@ docker inspect <conatinerID> | grep -i "tom"
 #To start existing conatiner
 docker ps -a
 docker start <conatinerID>
-================================================================================================================================================================
-# 25th Dec Wed
-Pending 3hrs++
 
 ================================================================================================================================================================
-# 26th Dec Thu
+# 25th Dec Wed Docker -3
+PORT MAPPING
+docker container run centos # docker - container,images,network all we can run 
+docker container run centos sleep 60
+docker container run -d centos sleep 60 # -d runs in background, screen will not freeze 
+docker container run -d -it centos docker container stop <ContainerID> Or NAMES 
+docker container start <ContainerID> docker container ls -a 
+docker container restart <ContainerID> 
+docker container rm <ContainerID> # If container running state we can't delete 
+docker container rm <cec7> <ContainerID> <ContainerID> <ContainerID> 
+docker container rm -f <ContainerID> # To remove running container using '-f' flag 
+
+docker container run -it centos /bin/bash # To go direct container 
+
+docker container ls 
+docker container inspect <ContainerID> | grep -i "ipadd" # To see container IP 
+curl http://ip
+
+ctrl + p + q # To exit without shutdown container
+docker container <containerID> new-name # To change the container name 
+
+docker container stats centos # To see Usage of RAM, MEM etc
+docker container top centos 
+
+## PORT MAPPING ##
+docker container run -p 3600:80 -it --name webapache3 ubuntu /bin/bash   # Mapping with 3600 port, It means when U hit 3600 port it redirect to port 80 of container is called mapping.
+
+install apache2 
+cd /var/www/html/ #Blank the index.html file first 
+echo "This is apache container" >> index.html
+docker container ls 
+curl http://IP:3600  # Allow port in Main Server.
+
+================================================================================================================================================================
+# 26th Dec Thu Docker - 4
+Docker Containers, Data Migration
 
 docker container ls
 docker container ls -a   # Simliar to command docker ps
@@ -317,15 +349,6 @@ docker conatiner ls
 docker conatiner run -it --name new-data-bkp new-conatiner /bin/bash
 Now U can see the files index.html etc 
 
-
-
-
-
-
-
-
-
-
 ================================================================================================================================================================
 ================================================================================================================================================================
 
@@ -353,8 +376,8 @@ Now U can see the files index.html etc
 # 21th Dec SAT-  Maven
 # 22th Dec SUN-  Maven + Tomcat
 # 24th Dec Tue - Docker Images - 2 
-# 25th Dec Wed
-# 26th Dec Thu - Docker Containers - 
+# 25th Dec Wed - Docker PORT MAPPING - 3
+# 26th Dec Thu - Docker Containers, Data Migration - 4 
 # 28th Dec SAT-
 # 29th Dec SUN-
 
