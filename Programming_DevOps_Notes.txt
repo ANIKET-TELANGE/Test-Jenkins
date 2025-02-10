@@ -232,6 +232,55 @@ docker inspect <conatinerID> | grep -i "tom"
 docker ps -a
 docker start <conatinerID>
 
+--------------xxxxxxxx------------
+Missing 23 Dec Not recorded 
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+server {
+
+    listen                           80;
+
+    server name              18.116.40.70;
+
+    root                           /opt/tomcat/tomcat/webapps/;
+
+location / {
+
+             proxy_set_header X-Forwarded-Host $host;
+
+             proxy_set_header X-Forwarded-Server $host;
+
+             proxy set header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+             proxy pass http://18.116.40.70:8080/;
+}
+}
+---------
+
+
+your website/application-
+
+Rele
+
+Mrve same
+
+tomcat.tample.com
+
+rwol
+
+location
+
+prety at hender X-Forwarded-Hont Shost, praty at header X-Forwarded-Server Shest
+
+pravy set header X-Forwarded-Est way add forwarded
+
+
+---------
+
+18 Jan half recording 
+
 ================================================================================================================================================================
 # 25th Dec Wed Docker -3
 PORT MAPPING
@@ -350,8 +399,88 @@ docker conatiner run -it --name new-data-bkp new-conatiner /bin/bash
 Now U can see the files index.html etc 
 
 ================================================================================================================================================================
+
+================================================================================================================================================================
+# 28th Dec SAT-
+
+POC - Prove of Concept, Build and Test, Dummy Replica
+
+TSD - Technical Solution Document
+
+
+# POC-PROOF OF CONCEPT
+
+A proof of concept, or POC, is an experiment intended to show that a program, product, or system can be successfully deployed in the real world
+demo project that reflects a real-world scenario.
+
+DEMO SERVER-- A demo is a quick illustration for potential clients (ARCHITECTURE)
+A proof of concept helps prove that a system can work effectively in the market itsel
+
+LOAD-STRESS TESTING
+
+# POC --- same as prod process will be done
+
+1. development code
+2. GIT --- repso - GIT push code = GIT hub
+3. Frontend + application code ---- direct nginx/apache host
+4. Bacekend -- Java + maven or ant or gradle build---- junit test +  code scan (sonarcube) + tomcat deploy -to nginx redirect
+
+
+Get war file via using Git or SCP in webapps folder not ROOT Folder.
+
+jar -tf sample.war
+Install Tomcat and untar the war file
+
+The start the file via using shartup command.
+
+ps -el | grep -i java
+ss -tulnp | grep -i <PID>
+lsof -i :8080
+
+---- webapps/ROOT/
+Here index.js  --> Available 
+Search IP and webapps path --> To see Page
+
+Set-up systemctl service.
+
+1. Uncomment the user details section and change the password for user & robot also : vi opt/tomcat/tomcat/config/tomcat-users.xml
+
+2. Paste the code : vi opt/tomcat/tomcat/webapps/manager/META-INF/context.xml
+
+3. Then restart the service 
+
+/startup.sh
+
+Tomcat port -security groupport opn 8080
+
+WE DEPLOYED A WEB APPLICATION (javapplication WAR) --15 WEBAPPLICATION WAR-DEPLOY -
+
+
+TOMCAT VERSIOn 9 and TOMCAT 10
+
+get the application from any source git winscp s3
+
+copy to webapp
+
+HOW TO DEPLOY WEBAPP WAR FILES WITH TOMCAT WEBGUI
+- Using Web Application.
+
+
+ant
+maven
+gradle
+
+INTERVIEW QS
+
+ant vs maven gradle
+maven-xml --
+gradle grrovy script
+gradle advanced
 ================================================================================================================================================================
 
+
+================================================================================================================================================================
+================================================================================================================================================================
 1. 6-10-24
 2. 13-10-24
 3. 20-10-24
@@ -417,3 +546,27 @@ git push origin main --force
 # 31 Jan Fri Jenkins
 # 01 FEB SAT- JENKINS Problem
 Total - 26
+
+
+================================================================================================================================================================
+# 05 Feb 25
+
+Kubernetes 
+
+Required 2 Machines 
+1. Control Plane / Master 
+2. Worker 
+And Swap Memory should be OFF it's is mandatory.
+And required Network drive rule.And Kernel module.
+
+Then install perquisites and install Kubernetes.
+Vinala set-up.
+
+kubectl create deployment nginx --image=nginx
+kubectl get pod   --> To see running Pods
+
+kubectl expose deployment nginx --type=NodePort --port=80
+kubectl get svc nginx 
+
+Search with port which kub bydefault open for Nginx webpage & Open Port in worker node
+================================================================================================================================================================
