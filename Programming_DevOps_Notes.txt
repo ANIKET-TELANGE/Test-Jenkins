@@ -545,11 +545,17 @@ git push origin main --force
 # 27 Jan Mon Jenkins
 # 29 Jan Wed Jenkins
 # 31 Jan Fri Jenkins
-# 01 FEB SAT- JENKINS Problem
-Total - 26
+Total - 25
 
-
-
+# 01 FEB SAT- JENKINS Problem Only Audio Avaiable
+# 05 Feb Wed Repeat Required
+# 07 Feb Fri
+# 08 Feb SAT-
+# 09 Feb SUN-
+# 09 Feb Sun Eve
+# 10 Feb Mon
+# 12 Feb Wed
+# 15 Feb SAT-
 ================================================================================================================================================================
 # 03 JAN Fri 25
 
@@ -563,7 +569,7 @@ Incomplete
 
 
 ================================================================================================================================================================
-# 05 Feb 25
+# 05 Feb Wed 25
 
 Kubernetes 
 
@@ -583,5 +589,32 @@ kubectl expose deployment nginx --type=NodePort --port=80
 kubectl get svc nginx 
 
 Search with port which kub bydefault open for Nginx webpage & Open Port in worker node
+================================================================================================================================================================
+
+
+
+
+================================================================================================================================================================
+# 14 Feb Fri 25 - Only 1hr completed, other remaining
+Topic : K8s Cluster Reset and Token Management 
+kubeadm, etcd --> IQ 
+
+Kubeadm reset: Phases - 
+1. preflight 
+2. update-cluster-status 
+3. remove-etcd-member
+4. cleanup-nodes 
+
+kubeadm reset --preflight
+kubeadm reset --skip-phases remove-etcd-member    #To remove only etcd. 
+
+# Launch two instnace for Master & Node then install Kubernetes
+ 
+systemctl status containerd.service
+watch kubectl get node -A    # To see Ip Also In master 
+cd /var/lib/etcd/member/snap # To see datebase 
+cd /etc/kubernetes/manifests # To see Configuration
+
+
 ================================================================================================================================================================
 
