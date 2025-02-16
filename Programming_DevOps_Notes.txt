@@ -385,7 +385,7 @@ passwd Ubuntu  --> To set password
 #In Old Ubuntu Server | Export
 docker ps
 docker conatiner ls
-docker conatiner export data-bkp > old-container.tar
+docker conatiner export data-bkp > old-container.tar   # To take backup, instead of ">" U can use this flag "-o"
 scp old-container.tar ubuntu@IpUbuntuServer:/home/ubuntu 
 
 # In New Ubuntu Server | Import
@@ -402,86 +402,49 @@ Now U can see the files index.html etc
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 28th Dec SAT-
+# 03 Jan Fri Docker - 5
 
-POC - Prove of Concept, Build and Test, Dummy Replica
+docker container ls
+docker volume ls
+docker network ls   # To see network details 
 
-TSD - Technical Solution Document
+docker state less    ## Means it's doesn't not store data, Voulme is used for storing data, Interview Question.
 
+# Play with docker --> search and practise.
 
-# POC-PROOF OF CONCEPT
+docker container restart
+docker container kill <ContainerID>
+docker conatiner rename <ContainerID> New_Name   # To chnage running container
+docker container ls
+docker container top  # Its doesnot show all.
+docker container top <ContainerID>
+docker container stats  # To see Memory
+docker container kill $(docker ps -a)  # To kill all process
 
-A proof of concept, or POC, is an experiment intended to show that a program, product, or system can be successfully deployed in the real world
-demo project that reflects a real-world scenario.
-
-DEMO SERVER-- A demo is a quick illustration for potential clients (ARCHITECTURE)
-A proof of concept helps prove that a system can work effectively in the market itsel
-
-LOAD-STRESS TESTING
-
-# POC --- same as prod process will be done
-
-1. development code
-2. GIT --- repso - GIT push code = GIT hub
-3. Frontend + application code ---- direct nginx/apache host
-4. Bacekend -- Java + maven or ant or gradle build---- junit test +  code scan (sonarcube) + tomcat deploy -to nginx redirect
+docker container run -itd --name webserver -p 8080:80 nginx  # Mappinh insatll nginx
+docker container run -itd --name webserver2 -p 80:80 nginx:1.7.11   # To specfic nginx version, If you give older version it give error of depecrated. So give latetst version or Moderate 1.14.
 
 
-Get war file via using Git or SCP in webapps folder not ROOT Folder.
-
-jar -tf sample.war
-Install Tomcat and untar the war file
-
-The start the file via using shartup command.
-
-ps -el | grep -i java
-ss -tulnp | grep -i <PID>
-lsof -i :8080
-
----- webapps/ROOT/
-Here index.js  --> Available 
-Search IP and webapps path --> To see Page
-
-Set-up systemctl service.
-
-1. Uncomment the user details section and change the password for user & robot also : vi opt/tomcat/tomcat/config/tomcat-users.xml
-
-2. Paste the code : vi opt/tomcat/tomcat/webapps/manager/META-INF/context.xml
-
-3. Then restart the service 
-
-/startup.sh
-
-Tomcat port -security groupport opn 8080
-
-WE DEPLOYED A WEB APPLICATION (javapplication WAR) --15 WEBAPPLICATION WAR-DEPLOY -
 
 
-TOMCAT VERSIOn 9 and TOMCAT 10
-
-get the application from any source git winscp s3
-
-copy to webapp
-
-HOW TO DEPLOY WEBAPP WAR FILES WITH TOMCAT WEBGUI
-- Using Web Application.
+Incomplete
+================================================================================================================================================================
 
 
-ant
-maven
-gradle
-
-INTERVIEW QS
-
-ant vs maven gradle
-maven-xml --
-gradle grrovy script
-gradle advanced
 ================================================================================================================================================================
 
 
 ================================================================================================================================================================
 ================================================================================================================================================================
+git init
+#git remote add origin https://github.com/A-T/Test-Jenkins.git
+git status
+git add J1.txt P1.txt
+git commit -m "Added J1.txt and P1.txt files"
+git push origin main
+#git push origin <Branch Name>
+git push origin main --force
+
 1. 6-10-24
 2. 13-10-24
 3. 20-10-24
@@ -508,17 +471,8 @@ gradle advanced
 # 24th Dec Tue - Docker Images - 2 
 # 25th Dec Wed - Docker PORT MAPPING - 3
 # 26th Dec Thu - Docker Containers, Data Migration - 4 
-# 28th Dec SAT-
-# 29th Dec SUN-
-
-git init
-#git remote add origin https://github.com/A-T/Test-Jenkins.git
-git status
-git add J1.txt P1.txt
-git commit -m "Added J1.txt and P1.txt files"
-git push origin main
-#git push origin <Branch Name>
-git push origin main --force
+# 28th Dec SAT-  Tomcat Deploy
+# 29th Dec SUN-  Git Branching & Basic HTML
 
 # 03 Jan Fri docker
 # 04 JAN SAT-
@@ -558,14 +512,7 @@ Total - 25
 # 15 Feb SAT-
 
 ================================================================================================================================================================
-# 03 JAN Fri 25
-
-docker container ls
-docker volume ls
-docker network ls   # To see network details 
-
-docker state less    ## Means it's doesn't not store data, Voulme is used for storing data, Interview Question.
-Incomplete
+# 
 ================================================================================================================================================================
 
 
