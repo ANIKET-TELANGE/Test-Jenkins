@@ -1,0 +1,236 @@
+###  DOCKER TOPIC  ###
+
+# 24th Dec Tue - Docker Images - 2 
+# 25th Dec Wed - Docker PORT MAPPING - 3
+# 26th Dec Thu - Docker Containers, Data Migration - 4 
+# 03th Jan Fri - Docker State - 5
+
+
+================================================================================================================================================================
+# 24th Dec Tue  - Docker Images -2 
+Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+docker run hello-world
+docker ps   # To see running state of conatiner
+docker run -it nginx  # To install, run and to see contuinous logs, -it = Intractive Mode Terminal.
+docker inspect <containerID>  # To see IPs and configure about that conatiner
+docker ps -a   # To see closed containers
+docker run -itd nginx   # Its called docker daemon, To run in background, -d = Detached Mode Run.
+#nohup command is giving name to containerd
+#docker Image name pulls from DokerHub, who created by.
+docker images   # To see Images
+
+#To give our name
+docke run -itd --name tom nginx
+docker ps
+docker inspect <conatinerID> | grep -i "tom"
+
+#To start existing conatiner
+docker ps -a
+docker start <conatinerID>
+
+--------------xxxxxxxx------------
+Missing 23 Dec Not recorded 
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+server {
+
+    listen                           80;
+
+    server name              18.116.40.70;
+
+    root                           /opt/tomcat/tomcat/webapps/;
+
+location / {
+
+             proxy_set_header X-Forwarded-Host $host;
+
+             proxy_set_header X-Forwarded-Server $host;
+
+             proxy set header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+             proxy pass http://18.116.40.70:8080/;
+}
+}
+---------
+
+
+your website/application-
+
+Rele
+
+Mrve same
+
+tomcat.tample.com
+
+rwol
+
+location
+
+prety at hender X-Forwarded-Hont Shost, praty at header X-Forwarded-Server Shest
+
+pravy set header X-Forwarded-Est way add forwarded
+
+
+---------
+
+18 Jan half recording in App
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 25th Dec Wed Docker -3
+PORT MAPPING
+docker container run centos # docker - container,images,network all we can run 
+docker container run centos sleep 60
+docker container run -d centos sleep 60 # -d runs in background, screen will not freeze 
+docker container run -d -it centos docker container stop <ContainerID> Or NAMES 
+docker container start <ContainerID> docker container ls -a 
+docker container restart <ContainerID> 
+docker container rm <ContainerID> # If container running state we can't delete 
+docker container rm <cec7> <ContainerID> <ContainerID> <ContainerID> 
+docker container rm -f <ContainerID> # To remove running container using '-f' flag 
+
+docker container run -it centos /bin/bash # To go direct container 
+
+docker container ls 
+docker container inspect <ContainerID> | grep -i "ipadd" # To see container IP 
+curl http://ip
+
+ctrl + p + q # To exit without shutdown container
+docker container <containerID> new-name # To change the container name 
+
+docker container stats centos # To see Usage of RAM, MEM etc
+docker container top centos 
+
+## PORT MAPPING ##
+docker container run -p 3600:80 -it --name webapache3 ubuntu /bin/bash   # Mapping with 3600 port, It means when U hit 3600 port it redirect to port 80 of container is called mapping.
+
+install apache2 
+cd /var/www/html/ #Blank the index.html file first 
+echo "This is apache container" >> index.html
+docker container ls 
+curl http://IP:3600  # Allow port in Main Server.
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 26th Dec Thu Docker - 4
+Docker Containers, Data Migration
+
+docker container ls
+docker container ls -a   # Simliar to command docker ps
+docker container rm <conatinerID> <conatinerID>
+docker container run -d -it ubuntu
+docker conatiner ls
+docker conatiner --help
+docker conatiner rename <conatinerID> champu   # To rename NAMES
+docker conatiner ls
+
+# To go inside conatiner
+docker conatiner attach champu
+create files or folders
+Ctrl p+q, dont write exit its stop the container or ctrl+d also.
+
+docker conatiner ls
+docker conatiner stats champu   # To see Ram, Memory
+
+# To Pause docker conatiner temporary bases
+docker conatiner pause champu  --> NAME or ID
+docker conatiner unpause champu  # To unpause or running
+docker conatiner ls
+
+# To Stop docker conatiner
+docker conatiner stop champu   # Its means Gracefully Kill
+docker conatiner stats  # To see Memory
+
+# To start docker conatiner
+docker conatiner start champu
+
+# Exaples: To see RAM utlization in other tab
+docker conatiner attach container
+## apt-get update
+#apt-get install apacahe
+service apacahe2 start
+
+watch date  # To watch executed commands memory, cpu etc. exit code to see. || Run this command in another tab
+docker conatiner top champu
+
+docker conatiner wait champu
+docker conatiner kill champu  # Its means forcefully Kill
+
+
+# Data Migration
+ Now send file or copy from Ubuntu server to inside of container (Same Machine)
+
+Now create container
+docker conatiner run -it --name data-bkp ubuntu /bin/bash   # bin-bash for direct go the conatiner
+
+Now go the Ubuntu /etc or select exact file
+tar -czvf web.tar /etc
+docker conatiner cp web.tar data-bkp:/tmp/   # To copy the file same as SCP command, Now U can see into container data-bkp /tmp/
+
+# If you index.html in Container nginx, Then U can curl the Ip of that container from Ubuntu Server
+curl http://IP 
+
+#Now Move Container to NEW Ubuntu Server
+Launch New Instance 
+And install Docker in new Machine
+vim /etc/ssh/sshd_config.d/ssh.config   --> for sharing files and access  OR Change in 60-clouding-settings.conf  file and change to yes
+ #Comment out the PasswordAuthencation yes  --> Remove the hash'#'
+systemctl restart ssh
+passwd Ubuntu  --> To set password
+
+#In Old Ubuntu Server | Export
+docker ps
+docker conatiner ls
+docker conatiner export data-bkp > old-container.tar   # To take backup, instead of ">" U can use this flag "-o"
+scp old-container.tar ubuntu@IpUbuntuServer:/home/ubuntu 
+
+# In New Ubuntu Server | Import
+cd /home/ubuntu/  --> U can see old-container.tar in that folder
+#docker image import old-container.tar
+docker image import old-container.tar new-conatiner   --> To give name 
+echo $?
+docker images
+docker conatiner ls
+docker conatiner run -it --name new-data-bkp new-conatiner /bin/bash
+Now U can see the files index.html etc 
+
+##>   Or use -o # To tar ##
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 03 Jan Fri Docker - 5
+Docker state
+
+docker container ls
+docker volume ls
+docker network ls   # To see network details 
+
+docker state less    ## Means it's doesn't not store data, Voulme is used for storing data, Interview Question.
+
+# Play with docker --> search and practise.
+
+docker container restart
+docker container kill <ContainerID>
+docker conatiner rename <ContainerID> New_Name   # To chnage running container
+docker container ls
+docker container top  # Its doesnot show all.
+docker container top <ContainerID>
+docker container stats  # To see Memory
+docker container kill $(docker ps -a)  # To kill all process
+
+docker container run -itd --name webserver -p 8080:80 nginx  # Mapping insatll nginx
+docker container run -itd --name webserver2 -p 80:80 nginx:1.7.11   # To specfic nginx version, If you give older version it give error of depecrated. So give latest version or Moderate 1.14.
+
+# Path of Conatiners and Images store the data.
+cd /var/lib docker image
+
+docker state less - means no date attach for simple process and like practise.
+docker state full - means Voulme data attached and data will be saved.
+================================================================================================================================================================

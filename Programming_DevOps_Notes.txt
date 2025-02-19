@@ -1,5 +1,5 @@
 ================================================================================================================================================================
-#11 Dec - Git Notes 1
+#11 Dec Wed - Git Notes 1
 
 Download VS code
 Then create one folder name: Git-Practical-Project.
@@ -36,7 +36,7 @@ Ctrl + r = To reverse search command, type unique keyword
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 12 Dec - Git Notes 2
+# 12 Dec Thu - Git Notes 2
 
 git log
 git log --oneline
@@ -94,6 +94,8 @@ git checkout master
 git merge hotfix 
 
 ================================================================================================================================================================
+
+================================================================================================================================================================
 # 18th Dec Wed - Git Notes 4
 Git - PR, MR & FORK
 
@@ -142,7 +144,7 @@ git cheery-pick <commitID>  --> To get cheery-pickfile into main branch
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 20th Dec Fri  - Git Notes 6
+# 20th Dec Fri  - Git Notes 6 + Basic Docker - 1
 Git - Rebase  & DOCKER
 
 git commit -am "Message"  --> Without add command, we can commit.
@@ -205,10 +207,12 @@ sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 #If prompted to accept the GPG key, verify that the fingerprint matches -  060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
 sudo systemctl enable --now docker
 sudo docker run hello-world
+================================================================================================================================================================
+
 
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
-Missing lecture of 23 Dec Not recorded for Docker Architecture 
+Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
  
 dockerd  #start service with log
 dockerd --debug 
@@ -279,7 +283,9 @@ pravy set header X-Forwarded-Est way add forwarded
 
 ---------
 
-18 Jan half recording 
+18 Jan half recording in App
+
+================================================================================================================================================================
 
 ================================================================================================================================================================
 # 25th Dec Wed Docker -3
@@ -314,6 +320,8 @@ cd /var/www/html/ #Blank the index.html file first
 echo "This is apache container" >> index.html
 docker container ls 
 curl http://IP:3600  # Allow port in Main Server.
+
+================================================================================================================================================================
 
 ================================================================================================================================================================
 # 26th Dec Thu Docker - 4
@@ -460,14 +468,14 @@ git push origin main --force
 # 1st Dec Sun
 # 7th Dec Sat
 # 8th Dec Sun
-# 11th Dec Wed - Programming Note
-# 12th Dec Thu - Programming Notes
-# 13th Dec Fri - Programming Notes
+# 11th Dec Wed - Git Notes 1
+# 12th Dec Thu - Git Notes 2
+# 13th Dec Fri - Git Notes 3
 # 14th Dec SAT-
 
-# 18th Dec Wed - Programming Notes
-# 19th Dec Thu - Programming Notes
-# 20th Dec Fri - Git + Docker
+# 18th Dec Wed - Git Notes 4
+# 19th Dec Thu - Git Notes 5
+# 20th Dec Fri - Git Notes 6 + Basic Docker - 1
 # 21th Dec SAT-  Maven
 # 22th Dec SUN-  Maven + Tomcat
 # 24th Dec Tue - Docker Images - 2 
@@ -476,7 +484,7 @@ git push origin main --force
 # 28th Dec SAT-  Tomcat Deploy
 # 29th Dec SUN-  Git Branching & Basic HTML
 
-# 03 Jan Fri - Docker State - 5
+# 03th Jan Fri - Docker State - 5
 # 04 JAN SAT-
 # 05 JAN SUN- 
 # 05 Jan Sun Eve
