@@ -403,6 +403,7 @@ Now U can see the files index.html etc
 
 ================================================================================================================================================================
 # 03 Jan Fri Docker - 5
+Docker state
 
 docker container ls
 docker volume ls
@@ -421,13 +422,14 @@ docker container top <ContainerID>
 docker container stats  # To see Memory
 docker container kill $(docker ps -a)  # To kill all process
 
-docker container run -itd --name webserver -p 8080:80 nginx  # Mappinh insatll nginx
-docker container run -itd --name webserver2 -p 80:80 nginx:1.7.11   # To specfic nginx version, If you give older version it give error of depecrated. So give latetst version or Moderate 1.14.
+docker container run -itd --name webserver -p 8080:80 nginx  # Mapping insatll nginx
+docker container run -itd --name webserver2 -p 80:80 nginx:1.7.11   # To specfic nginx version, If you give older version it give error of depecrated. So give latest version or Moderate 1.14.
 
+# Path of Conatiners and Images store the data.
+cd /var/lib docker image
 
-
-
-Incomplete
+docker state less - means no date attach for simple process and like practise.
+docker state full - means Voulme data attached and data will be saved.
 ================================================================================================================================================================
 
 
@@ -474,7 +476,7 @@ git push origin main --force
 # 28th Dec SAT-  Tomcat Deploy
 # 29th Dec SUN-  Git Branching & Basic HTML
 
-# 03 Jan Fri docker
+# 03 Jan Fri - Docker State - 5
 # 04 JAN SAT-
 # 05 JAN SUN- 
 # 05 Jan Sun Eve
