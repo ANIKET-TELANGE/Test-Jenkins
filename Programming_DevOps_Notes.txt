@@ -509,6 +509,7 @@ Total - 25
 # 09 Feb Sun Eve
 # 10 Feb Mon
 # 12 Feb Wed
+# 14 Feb Wed - Recording Not Avaiable in PC 
 # 15 Feb SAT-
 
 ================================================================================================================================================================
@@ -543,7 +544,7 @@ Search with port which kub bydefault open for Nginx webpage & Open Port in worke
 
 
 ================================================================================================================================================================
-# 14 Feb Fri 25 - Only 1hr completed, other remaining
+# 14 Feb Fri 25 - Recording Not Avaiable in PC.
 Topic : K8s Cluster Reset and Token Management 
 kubeadm, etcd --> IQ 
 
@@ -560,9 +561,64 @@ kubeadm reset --skip-phases remove-etcd-member    #To remove only etcd.
  
 systemctl status containerd.service
 watch kubectl get node -A    # To see Ip Also In master 
-cd /var/lib/etcd/member/snap # To see datebase 
+cd /var/lib/etcd/member/snap # To see database 
 cd /etc/kubernetes/manifests # To see Configuration
+cd /etc/kubernetes/pki     # Same above
 
 
+kubectl reset   # It's delete all files in /etc/kubernetes and /var/lib, it doesn't not reset work node and other things, it's required manually, rm -rf /etc/cni/net.d file aslo in both master and worker.
+systemctl restart containerd.service
+
+## In Worker Node server
+kubeadm reset 
+
+
+In master 
+kubeadm init command........
+kubectl get pod -A
+systemctl restart containerd.service and check status 
+kubectl apply -f ......
+kubeadm join command.................................
+kubectl get pod -A    # To check status of workers nodes connected or not.
+# If its show not connected, then go to worker node server and restart the containerd.service and kublet then check again.
+
+# To delete node from cluster
+kubectl get pod -A
+kubectl delete node worker
+
+kubectl describe pod <kube-name> -n kube-system  # To see IP
+
+## Token Management  ##
+
+#In Master Server 
+kubectl get csr
+kubeadm token list   # To see list.
+kubeadm token create  # To create new Token.
+kubeadm token create --ttl=5m   # For only 5mins.
+kubeadm token create --ttl=0    # For infinity and it's not delete.
+opensllll..... Command 
+kubeadm token create --print-join-command   # To join
+
+# In Worker Node
+Steps: For Reset is Mandatory.
+1. kubectl reset -f
+2. rm -rf /etc/cni/net.d
+3. systemctl restart containerd.service
+4. systemctl restart kublet.service
+## rm -rf /etc/kubernetes/pki/ca.crt  --> for only remove CA certificate 
+kubeadm join IP -token --discovery......
+
+Step 2: With confirmation Token.
+First reset all 
+kubectl delete clusterrolebinding kubeadm:node-autoapprove................
+
+Now fire join command in worker node
+Its asking approval from Master.
+
+In master 
+kubectl get csr
+kubectl certificate approve <NAME>    # To approve 
+
+Completed but not have proper commands.
 ================================================================================================================================================================
 
