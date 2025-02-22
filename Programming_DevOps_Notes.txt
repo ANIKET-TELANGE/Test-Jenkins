@@ -485,30 +485,30 @@ git push origin main --force
 # 29th Dec SUN-  Git Branching & Basic HTML
 
 # 03th Jan Fri - Docker State - 5
-# 04 JAN SAT-
-# 05 JAN SUN- 
-# 05 Jan Sun Eve
-# 08 Jan Wed
-# 09 Jan Thu
-# 10 Jan Fri
-# 11 JAN SAT-
-# 12 JAN SUN-
-# 12 Jan Sun Eve 
-# 16 Jan Thu
-# 17 Jan Fri docker
-# 18 JAN SAT-
-# 19 JAN SUN-
-# 19 Jan Sun Eve
-# 21 Jan Tue
-# 22 Jan Wed
-# 23 Jan Thu
-# 24 Jan Fri
-# 25 JAN SAT- Jenkins
-# 26 JAN SUN- Jenkins
-# 26 Jan sun Eve Js
-# 27 Jan Mon Jenkins
-# 29 Jan Wed Jenkins
-# 31 Jan Fri Jenkins
+# 04th JAN SAT-
+# 05th JAN SUN- 
+# 05th Jan Sun Eve
+# 08th Jan Wed - Docker DockerHUB - 6
+# 09th Jan Thu
+# 10th Jan Fri
+# 11th JAN SAT-
+# 12th JAN SUN-
+# 12th Jan Sun Eve 
+# 16th Jan Thu
+# 17th Jan Fri docker
+# 18th JAN SAT-
+# 19th JAN SUN-
+# 19th Jan Sun Eve
+# 21th Jan Tue
+# 22th Jan Wed
+# 23th Jan Thu
+# 24th Jan Fri
+# 25th JAN SAT- Jenkins
+# 26th JAN SUN- Jenkins
+# 26th Jan sun Eve Js
+# 27th Jan Mon Jenkins
+# 29th Jan Wed Jenkins
+# 31th Jan Fri Jenkins
 Total - 25
 
 # 01 FEB SAT- JENKINS Problem Only Audio Avaiable

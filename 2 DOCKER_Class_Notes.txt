@@ -4,7 +4,7 @@
 # 25th Dec Wed - Docker PORT MAPPING - 3
 # 26th Dec Thu - Docker Containers, Data Migration - 4 
 # 03th Jan Fri - Docker State - 5
-
+# 08th Jan Wed - Docker DockerHUB - 6
 
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
@@ -233,4 +233,92 @@ cd /var/lib docker image
 
 docker state less - means no date attach for simple process and like practise.
 docker state full - means Voulme data attached and data will be saved.
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 08th Jan Wed Docker - DockerHUB 6
+Pull, Convert from Conatiner to Image
+
+# Login into DockerHUB Website and create New account and sigin.
+# Launch EC2 instance and Install Docker.
+
+docker info
+systemctl status docker
+systemctl enable docker
+
+docker conatiner run ubuntu  # Its search first locally then go the DockerHUB and download.
+cd /var/log/docker/   # All settings files are here.
+
+docker pull httpd  # Its avaiable in DockerHUB and command also for pull the Image.
+docker image ls
+
+# There are two types of Repos.
+1. Private 
+2. Public
+
+# To push Image 
+First Re-name the image, Or TAG With Your Name.
+
+docker tag <Image-Name> <New-Name>/<New-Name>
+docker tag httpd user-name28/apache-server
+docker image ls
+
+docker push apache-server
+docker login   # Fisrt Login into DockerHUB
+ - It's show two option login with username or ont-time code with link. Then copy link & paste in browser and paste code also then it add successfully.
+# docker login -u <username>  # Option 2
+
+docker push apache-server
+ - Check in DockerHUB Repository for that Image
+
+## To create Your oun Image its use Dockerfile
+
+Example:
+docker container run -it --name webserver ubuntu /bin/bash
+apt-get update
+apt-get install apache2
+service apache2 start
+service apache2 status
+cd /var/www/html/
+echo "This is my image from docker hub" > index.html
+cat index.html
+Then exit from conatiner
+docker conatiner inspect 7172
+curl http://IP
+
+## Now convert from container to Image
+docker conatiner ls
+docker image ls
+docker conatiner export <conatinerID> -o webserver.tar
+ls
+docker image import webserver.tar <user-name28>/webserver:v1.2  # Comand to create Image.
+docker image ls
+docker image push <user-name28>/webserver:v1.2   # For Push Name should be UNIQUE Mandatory to avoid errors & Isuues.
+
+docker conatiner rm -f 7172
+
+docker image ls
+docker images
+docker image rm <ImageID>
+docker images 
+
+# Now U can pull the same image from your DockerHUB Repo, command aslo there.
+docker pull <user-name28>/webserver:v1.2
+docker image ls
+docker container run -it --name websever -p 80:80 <user-name28>/webserver:v1.2 /bin/bash
+service apache2 status/start
+ Now ctrl P+Q exit from conatiner
+docker conatiner ls
+Now U can index page see from website also
+
+# docker login  # To see where credentails saves
+Login credentails save in /root/.docker/config.json
+If you delte config.json then U cant push image.
+================================================================================================================================================================
+
+================================================================================================================================================================
+
+
+
+
 ================================================================================================================================================================
