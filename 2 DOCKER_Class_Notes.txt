@@ -5,8 +5,8 @@
 # 26th Dec Thu - Docker Containers, Data Migration - 4 
 # 03th Jan Fri - Docker State - 5
 # 08th Jan Wed - Docker DockerHUB - 6
-# 09th Jan Thu - Docker Voulme - 7
-
+# 09th Jan Thu - Docker Voulme, Basic Dockerfile - 7
+# 10th Jan Fri - Docker - 8
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
 Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
@@ -318,8 +318,8 @@ If you delte config.json then U cant push image.
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 09th Jan Thu Docker - 7
-Volume
+# 09th Jan Thu Docker Volume- 7
+Volume, Basic Dockerfile
 
 dockerhub also called as registry.
 
@@ -391,12 +391,10 @@ RUN service apache2 start
   docker exec -it <ID> /bin/bash
   mysql
   show databases;   # Its shows India database.
-  
+================================================================================================================================================================
 
-
-  
-  
-  
+================================================================================================================================================================
+# 10th Jan Fri - Docker - 8
 
 
 
