@@ -1,0 +1,633 @@
+================================================================================================================================================================
+#11 Dec Wed - Git Notes 1
+
+Download VS code
+Then create one folder name: Git-Practical-Project.
+Then open that folder in VScode.
+Then create one in that folder name: Project-1.
+
+Then create index.html
+In that - "This is my First Website"
+Then click the right side of toogle, to open terminal 
+Then select git bash terminal in right side of plus sign (+)
+(And create new Repo : Project-1).
+(Install Git from chrome).
+
+ls
+cd Project-1/
+git init
+git add index.html
+git status
+git config --global user.name "Dev1"
+git config --gloab user.email "Dev1@gmail.com"
+git congfig --global --list
+git commit -m " This is 1st"
+git log
+git status 
+git remote add origin https....
+
+git push origin master
+Now its open new small box --> Open with code and copy the code and open same link in mentioned below. Then paste the code, Authentication and PW. Is called as OAUTH Authentication.
+In setting, 1. SSH setting. 2. Interval Application.
+
+#git push --set-upstream origin master # Only for one time.
+
+Ctrl + r = To reverse search command, type unique keyword
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 12 Dec Thu - Git Notes 2
+
+git log
+git log --oneline
+git status <Commit I'D>
+git log --name-only
+History restored
+Download extension in VScod : Git History - Don.
+
+Create new file: .gitignore  # To ignore the files and dont push 
+In that write file name like : note.txt
+Funny.css
+
+git fetch  # To see new commits from different Devlopers
+git watchchanged origin/master -n 1  # To see changes
+# Only see changes using git fetch H.Website and how to see, where is save?
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 13th Dec Fri - Git Notes 3
+Git 
+
+Change in line in direct GitHub file and commit.
+git log
+git log --oneline
+git show <ID>
+git log -name-only
+git fetch
+git show -r origin/master
+git log --oneline origin/master
+git diff -r origin/master   --> To see differnce and changes
+
+# Branches #
+#Hotfix branch for Direct solve the issue in Main Branch
+
+git branch  --> To see branch
+git branch <name>UAT  --> To create Branch
+git checkout UAT  --> To switch into other Branch
+git branch  --> * start marks shows current working Branch
+
+git checkout -b hotfix  --> TO Create and same time to switch that Branch
+git branch
+
+git checkout master
+git show -r origin/master
+git pull
+
+git checkout hotfix
+add lines in html
+git status
+git add index.html
+git status
+git commiit -m "This is line add in hotfix"
+
+git checkout master
+git merge hotfix 
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 18th Dec Wed - Git Notes 4
+Git - PR, MR & FORK
+
+To change commit name or rename 
+git commit --amend -m "This is correect spelling commit"
+git commit --amend  --> To pen and change to commit name
+
+git reset HEAD~0  --> To delete last commit ID, 0,1,2 shows commits list
+git reset HEAD --hard~1  --> To delete content and commit ID also.
+git reset --hard <commitID>  -->To DELETE content
+git reset --soft <commitID>  --> To remove only from commit
+# Revert
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 19th Dec Thu - Git Notes 5
+Git - Stash, Reflog & CheeryPick
+
+git comit -m "This is Temp"
+#Change some lines in codes in file1.txt
+git stash  --> To save Tempoary Location
+git checkout -b NewBranch  --> Its shows file1.txt, because You not commited yet thats why showing this file also.
+git stash pop  --> To remove from commit
+git stash list  --> To show stash file
+git stash pop stash@{1}
+
+# Reflog   --> Avaiable all Logs and Records & Recover delete files
+git reflog   --> To see all logs
+# H.W git rm, delete
+git reset --hard <commitID>  # To delete
+git log --oneline
+git reflog
+git reset --hard <commitID>  # To Recover
+
+# CheeryPick
+ #Means when you create new branch then check for commits its shows all old commits from which you switch to this new branch  automatically.
+ #crate new branches examples: one-barnch to two-branch to three-branch
+git log --graph   --> To see all when and which branch created new branch
+git log --graph --decorate
+git log --oneline --graph --decorate --all
+git log --oneline --all --graph --decorate --all
+
+
+git branch main
+git cheery-pick <commitID>  --> To get cheery-pickfile into main branch
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 20th Dec Fri  - Git Notes 6 + Basic Docker - 1
+Git - Rebase  & DOCKER
+
+git commit -am "Message"  --> Without add command, we can commit.
+
+#Rebase  --> To take pointer another branch content without merge
+git branch -b rebase-branch-name
+#add some line in text file
+git commit -am "Message"
+git branch main
+git rebase rebase-branch-name
+
+#   DOCKER   #
+
+Ubuntu - t2.micro  - Configure 8 / gp2 --Launch
+
+sudo -i
+
+Open Docker-Site Ubuntu
+
+# Add Docker's official GPG key:
+
+sudo apt-get update
+echo $?  --> To check previous RUN or not
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo docker run hello-world
+
+docker help
+
+docker run -d -p 80:80 --name webserver nginx:latest  --> To install Nginx & Allow Ports
+#Then check direct in browser, showing running
+
+docker run -d -p 8080:80 --name webserver-2 nginx:1.10  --> To install specfic version and run at a same time
+
+docker ps   --> To show running DOCKER
+docker ps -a
+docker inspect <docker-ID>  -->  To see all details 
+
+# code .
+
+### For Centos
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+#If prompted to accept the GPG key, verify that the fingerprint matches -  060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
+sudo systemctl enable --now docker
+sudo docker run hello-world
+================================================================================================================================================================
+
+
+================================================================================================================================================================
+# 24th Dec Tue  - Docker Images -2 
+Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+docker run hello-world
+docker ps   # To see running state of conatiner
+docker run -it nginx  # To install, run and to see contuinous logs, -it = Intractive Mode Terminal.
+docker inspect <containerID>  # To see IPs and configure about that conatiner
+docker ps -a   # To see closed containers
+docker run -itd nginx   # Its called docker daemon, To run in background, -d = Detached Mode Run.
+#nohup command is giving name to containerd
+#docker Image name pulls from DokerHub, who created by.
+docker images   # To see Images
+
+#To give our name
+docke run -itd --name tom nginx
+docker ps
+docker inspect <conatinerID> | grep -i "tom"
+
+#To start existing conatiner
+docker ps -a
+docker start <conatinerID>
+
+--------------xxxxxxxx------------
+Missing 23 Dec Not recorded 
+ 
+dockerd  #start service with log
+dockerd --debug 
+
+server {
+
+    listen                           80;
+
+    server name              18.116.40.70;
+
+    root                           /opt/tomcat/tomcat/webapps/;
+
+location / {
+
+             proxy_set_header X-Forwarded-Host $host;
+
+             proxy_set_header X-Forwarded-Server $host;
+
+             proxy set header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+             proxy pass http://18.116.40.70:8080/;
+}
+}
+---------
+
+
+your website/application-
+
+Rele
+
+Mrve same
+
+tomcat.tample.com
+
+rwol
+
+location
+
+prety at hender X-Forwarded-Hont Shost, praty at header X-Forwarded-Server Shest
+
+pravy set header X-Forwarded-Est way add forwarded
+
+
+---------
+
+18 Jan half recording in App
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 25th Dec Wed Docker -3
+PORT MAPPING
+docker container run centos # docker - container,images,network all we can run 
+docker container run centos sleep 60
+docker container run -d centos sleep 60 # -d runs in background, screen will not freeze 
+docker container run -d -it centos docker container stop <ContainerID> Or NAMES 
+docker container start <ContainerID> docker container ls -a 
+docker container restart <ContainerID> 
+docker container rm <ContainerID> # If container running state we can't delete 
+docker container rm <cec7> <ContainerID> <ContainerID> <ContainerID> 
+docker container rm -f <ContainerID> # To remove running container using '-f' flag 
+
+docker container run -it centos /bin/bash # To go direct container 
+
+docker container ls 
+docker container inspect <ContainerID> | grep -i "ipadd" # To see container IP 
+curl http://ip
+
+ctrl + p + q # To exit without shutdown container
+docker container <containerID> new-name # To change the container name 
+
+docker container stats centos # To see Usage of RAM, MEM etc
+docker container top centos 
+
+## PORT MAPPING ##
+docker container run -p 3600:80 -it --name webapache3 ubuntu /bin/bash   # Mapping with 3600 port, It means when U hit 3600 port it redirect to port 80 of container is called mapping.
+
+install apache2 
+cd /var/www/html/ #Blank the index.html file first 
+echo "This is apache container" >> index.html
+docker container ls 
+curl http://IP:3600  # Allow port in Main Server.
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 26th Dec Thu Docker - 4
+Docker Containers, Data Migration
+
+docker container ls
+docker container ls -a   # Simliar to command docker ps
+docker container rm <conatinerID> <conatinerID>
+docker container run -d -it ubuntu
+docker conatiner ls
+docker conatiner --help
+docker conatiner rename <conatinerID> champu   # To rename NAMES
+docker conatiner ls
+
+# To go inside conatiner
+docker conatiner attach champu
+create files or folders
+Ctrl p+q, dont write exit its stop the container or ctrl+d also.
+
+docker conatiner ls
+docker conatiner stats champu   # To see Ram, Memory
+
+# To Pause docker conatiner temporary bases
+docker conatiner pause champu  --> NAME or ID
+docker conatiner unpause champu  # To unpause or running
+docker conatiner ls
+
+# To Stop docker conatiner
+docker conatiner stop champu   # Its means Gracefully Kill
+docker conatiner stats  # To see Memory
+
+# To start docker conatiner
+docker conatiner start champu
+
+# Exaples: To see RAM utlization in other tab
+docker conatiner attach container
+## apt-get update
+#apt-get install apacahe
+service apacahe2 start
+
+watch date  # To watch executed commands memory, cpu etc. exit code to see. || Run this command in another tab
+docker conatiner top champu
+
+docker conatiner wait champu
+docker conatiner kill champu  # Its means forcefully Kill
+
+
+# Data Migration
+ Now send file or copy from Ubuntu server to inside of container (Same Machine)
+
+Now create container
+docker conatiner run -it --name data-bkp ubuntu /bin/bash   # bin-bash for direct go the conatiner
+
+Now go the Ubuntu /etc or select exact file
+tar -czvf web.tar /etc
+docker conatiner cp web.tar data-bkp:/tmp/   # To copy the file same as SCP command, Now U can see into container data-bkp /tmp/
+
+# If you index.html in Container nginx, Then U can curl the Ip of that container from Ubuntu Server
+curl http://IP 
+
+#Now Move Container to NEW Ubuntu Server
+Launch New Instance 
+And install Docker in new Machine
+vim /etc/ssh/sshd_config.d/ssh.config   --> for sharing files and access  OR Change in 60-clouding-settings.conf  file and change to yes
+ #Comment out the PasswordAuthencation yes  --> Remove the hash'#'
+systemctl restart ssh
+passwd Ubuntu  --> To set password
+
+#In Old Ubuntu Server | Export
+docker ps
+docker conatiner ls
+docker conatiner export data-bkp > old-container.tar   # To take backup, instead of ">" U can use this flag "-o"
+scp old-container.tar ubuntu@IpUbuntuServer:/home/ubuntu 
+
+# In New Ubuntu Server | Import
+cd /home/ubuntu/  --> U can see old-container.tar in that folder
+#docker image import old-container.tar
+docker image import old-container.tar new-conatiner   --> To give name 
+echo $?
+docker images
+docker conatiner ls
+docker conatiner run -it --name new-data-bkp new-conatiner /bin/bash
+Now U can see the files index.html etc 
+
+##>   Or use -o # To tar ##
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 03 Jan Fri Docker - 5
+Docker state
+
+docker container ls
+docker volume ls
+docker network ls   # To see network details 
+
+docker state less    ## Means it's doesn't not store data, Voulme is used for storing data, Interview Question.
+
+# Play with docker --> search and practise.
+
+docker container restart
+docker container kill <ContainerID>
+docker conatiner rename <ContainerID> New_Name   # To chnage running container
+docker container ls
+docker container top  # Its doesnot show all.
+docker container top <ContainerID>
+docker container stats  # To see Memory
+docker container kill $(docker ps -a)  # To kill all process
+
+docker container run -itd --name webserver -p 8080:80 nginx  # Mapping insatll nginx
+docker container run -itd --name webserver2 -p 80:80 nginx:1.7.11   # To specfic nginx version, If you give older version it give error of depecrated. So give latest version or Moderate 1.14.
+
+# Path of Conatiners and Images store the data.
+cd /var/lib docker image
+
+docker state less - means no date attach for simple process and like practise.
+docker state full - means Voulme data attached and data will be saved.
+================================================================================================================================================================
+
+
+================================================================================================================================================================
+
+
+================================================================================================================================================================
+================================================================================================================================================================
+git init
+#git remote add origin https://github.com/A-T/Test-Jenkins.git
+git status
+git add J1.txt P1.txt
+git commit -m "Added J1.txt and P1.txt files"
+git push origin main
+#git push origin <Branch Name>
+git push origin main --force
+
+1. 6-10-24
+2. 13-10-24
+3. 20-10-24
+4. 27-10-24
+5. 10-11-24  
+
+6. 24-11-24 DevOps-git -NA
+7. 1-12-24 -NA 9.
+
+# 30th Nov Sat NEW
+# 1st Dec Sun
+# 7th Dec Sat
+# 8th Dec Sun
+# 11th Dec Wed - Git Notes 1
+# 12th Dec Thu - Git Notes 2
+# 13th Dec Fri - Git Notes 3
+# 14th Dec SAT-
+
+# 18th Dec Wed - Git Notes 4
+# 19th Dec Thu - Git Notes 5
+# 20th Dec Fri - Git Notes 6 + Basic Docker - 1
+# 21th Dec SAT-  Maven
+# 22th Dec SUN-  Maven + Tomcat
+# 24th Dec Tue - Docker Images - 2 
+# 25th Dec Wed - Docker PORT MAPPING - 3
+# 26th Dec Thu - Docker Containers, Data Migration - 4 
+# 28th Dec SAT-  Tomcat Deploy
+# 29th Dec SUN-  Git Branching & Basic HTML
+
+# 03th Jan Fri - Docker State - 5
+# 04th JAN SAT-
+# 05th JAN SUN- 
+# 05th Jan Sun Eve
+# 08th Jan Wed - Docker DockerHUB - 6
+# 09th Jan Thu
+# 10th Jan Fri
+# 11th JAN SAT-
+# 12th JAN SUN-
+# 12th Jan Sun Eve 
+# 16th Jan Thu
+# 17th Jan Fri docker
+# 18th JAN SAT-
+# 19th JAN SUN-
+# 19th Jan Sun Eve
+# 21th Jan Tue
+# 22th Jan Wed
+# 23th Jan Thu
+# 24th Jan Fri
+# 25th JAN SAT- Jenkins
+# 26th JAN SUN- Jenkins
+# 26th Jan sun Eve Js
+# 27th Jan Mon Jenkins
+# 29th Jan Wed Jenkins
+# 31th Jan Fri Jenkins
+Total - 25
+
+# 01 FEB SAT- JENKINS Problem Only Audio Avaiable
+# 05 Feb Wed Repeat Required
+# 07 Feb Fri
+# 08 Feb SAT-
+# 09 Feb SUN-
+# 09 Feb Sun Eve
+# 10 Feb Mon
+# 12 Feb Wed
+# 14 Feb Wed - Recording Not Avaiable in PC 
+# 15 Feb SAT-
+
+================================================================================================================================================================
+# 
+================================================================================================================================================================
+
+
+================================================================================================================================================================
+# 05 Feb Wed 25
+
+Kubernetes 
+
+Required 2 Machines 
+1. Control Plane / Master 
+2. Worker 
+And Swap Memory should be OFF it's is mandatory.
+And required Network drive rule.And Kernel module.
+
+Then install perquisites and install Kubernetes.
+Vinala set-up.
+
+kubectl create deployment nginx --image=nginx
+kubectl get pod   --> To see running Pods
+
+kubectl expose deployment nginx --type=NodePort --port=80
+kubectl get svc nginx 
+
+Search with port which kub bydefault open for Nginx webpage & Open Port in worker node
+================================================================================================================================================================
+
+
+
+
+================================================================================================================================================================
+# 14 Feb Fri 25 - Recording Not Avaiable in PC.
+Topic : K8s Cluster Reset and Token Management 
+kubeadm, etcd --> IQ 
+
+Kubeadm reset: Phases - 
+1. preflight 
+2. update-cluster-status 
+3. remove-etcd-member
+4. cleanup-nodes 
+
+kubeadm reset --preflight
+kubeadm reset --skip-phases remove-etcd-member    #To remove only etcd. 
+
+# Launch two instnace for Master & Node then install Kubernetes
+ 
+systemctl status containerd.service
+watch kubectl get node -A    # To see Ip Also In master 
+cd /var/lib/etcd/member/snap # To see database 
+cd /etc/kubernetes/manifests # To see Configuration
+cd /etc/kubernetes/pki     # Same above
+
+
+kubectl reset   # It's delete all files in /etc/kubernetes and /var/lib, it doesn't not reset work node and other things, it's required manually, rm -rf /etc/cni/net.d file aslo in both master and worker.
+systemctl restart containerd.service
+
+## In Worker Node server
+kubeadm reset 
+
+
+In master 
+kubeadm init command........
+kubectl get pod -A
+systemctl restart containerd.service and check status 
+kubectl apply -f ......
+kubeadm join command.................................
+kubectl get pod -A    # To check status of workers nodes connected or not.
+# If its show not connected, then go to worker node server and restart the containerd.service and kublet then check again.
+
+# To delete node from cluster
+kubectl get pod -A
+kubectl delete node worker
+
+kubectl describe pod <kube-name> -n kube-system  # To see IP
+
+## Token Management  ##
+
+#In Master Server 
+kubectl get csr
+kubeadm token list   # To see list.
+kubeadm token create  # To create new Token.
+kubeadm token create --ttl=5m   # For only 5mins.
+kubeadm token create --ttl=0    # For infinity and it's not delete.
+opensllll..... Command 
+kubeadm token create --print-join-command   # To join
+
+# In Worker Node
+Steps: For Reset is Mandatory.
+1. kubectl reset -f
+2. rm -rf /etc/cni/net.d
+3. systemctl restart containerd.service
+4. systemctl restart kublet.service
+## rm -rf /etc/kubernetes/pki/ca.crt  --> for only remove CA certificate 
+kubeadm join IP -token --discovery......
+
+Step 2: With confirmation Token.
+First reset all 
+kubectl delete clusterrolebinding kubeadm:node-autoapprove................
+
+Now fire join command in worker node
+Its asking approval from Master.
+
+In master 
+kubectl get csr
+kubectl certificate approve <NAME>    # To approve 
+
+Completed but not have proper commands.
+================================================================================================================================================================

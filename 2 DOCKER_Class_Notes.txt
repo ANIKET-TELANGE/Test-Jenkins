@@ -5,6 +5,7 @@
 # 26th Dec Thu - Docker Containers, Data Migration - 4 
 # 03th Jan Fri - Docker State - 5
 # 08th Jan Wed - Docker DockerHUB - 6
+# 09th Jan Thu - Docker Voulme - 7
 
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
@@ -154,8 +155,8 @@ docker conatiner start champu
 # Exaples: To see RAM utlization in other tab
 docker conatiner attach container
 ## apt-get update
-#apt-get install apacahe
-service apacahe2 start
+#apt-get install apache
+service apache2 start
 
 watch date  # To watch executed commands memory, cpu etc. exit code to see. || Run this command in another tab
 docker conatiner top champu
@@ -317,6 +318,85 @@ If you delte config.json then U cant push image.
 ================================================================================================================================================================
 
 ================================================================================================================================================================
+# 09th Jan Thu Docker - 7
+Volume
+
+dockerhub also called as registry.
+
+Launch EC2 instance Ubuntu
+- Login through putty OR WSL
+  Install DOCKER
+  
+# Creating Docker Voulme
+
+- docker volume --help
+  docker volume create myvol
+  docker volume ls
+  docker volume inspect myvol
+  cd /var/lib/docker/volumes/myvol/_data/
+  touch champu {1..10}   # Main server
+  
+- Login with another tab
+  docker conatiner ls
+  docker container --help
+  docker container run --help
+  docker conatiner run -it -v myvol:/tmp --name ram ubuntu /bin/bash
+  cd /tmp/ ; ls  # Now if U create new files Main server, its shows here also because of mounting.
+  # If U delete files here, but its avaiable in Main server so Its safe to add Volume Always.
+  
+# Ex-2 Docker File
+
+- touch Dockerfile
+  vim Dockerfile
+FROM ubuntu:14.04
+RUN apt-get update -y 
+RUN apt-get install apache2 -y
+RUN service apache2 start
+#cmd
+  # Write the Above Lines in Dockerfile & Save.
+
+- Now build this Image
+  docker image build -t myimages:v1.0 .   # (.) dot means current Directory/Location, -t for taging Ur Unique name & version number.
+  docker image ls     # Create index.html file in Main Server .._data/ and some lines
+  docker container run -v myvol:/var/www/html -it --name webserver -p 80:80 myimages:v1.0 /bin/bash
+  service apache status/start  # Then serach page in web. In Main Server path changes in html file then check.
+  
+# Ex-3 search html page template content copy link from dowmload button and paste in main server and download using this command wget <Link> then unzip.
+  mv carvilla-v1.0/* .     # In web U can see cars website.
+  docker conatiner ls
+  
+  docker conatiner kill <conatinerID>  # Its stop that cars webpage
+  docker container run -v myvol:/var/www/html -it --name ajay -p 80:80 myimages:v1.0 /bin/bash  # Its show cars website because of volume & start service.
+  
+# add, copy, argo Advance Topics
+
+# Ex-4 Now with mysql
+- docker container run -it -d --name mydatabase -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql   # -e for database environment & PasswordLess
+  #docker container run -it -d --name mydatabase -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql /bin/bash
+  docker volume ls
+  docker volume lnspect <ID>
+  docker container ls
+  docker attach ID OR docker exec -it <ID> /bin/bash
+  mysql  # To login into mysql database
+  show databases;
+  create database india;
+  show databases;
+  Now exit using P+Q.
+  docker conatiner ls
+  docker conatiner rm -rf <ID>
+  docker volume ls   # Its not delete voulme, so Ur database is safe, U can use that linking with new conatiner.
+  docker container run -v <ID>:/var/lib/mysql -it -d --name db -e MYSQL_ALLOW_EMPTY_PASSWORD=true mysql
+  
+  docker conatiner ls  # Go to new conatiner
+  docker exec -it <ID> /bin/bash
+  mysql
+  show databases;   # Its shows India database.
+  
+
+
+  
+  
+  
 
 
 
