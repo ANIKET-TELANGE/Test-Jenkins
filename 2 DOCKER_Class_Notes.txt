@@ -396,7 +396,38 @@ RUN service apache2 start
 ================================================================================================================================================================
 # 10th Jan Fri - Docker - 8
 
+Types of Volumes:
+1. Bind
+2. Named and Anonymous volume 
+
+Difference between attach & exec command.
+
+We can set limit to Containers.
+We can see also when container created, crashing and other files also.
+There are also softlimit and hardlimit, but in hardlimit High chances of crashing container.
+We can assign kota also to storage.
+We can login with ssh also
 
 
+Docker image can be pushed to DockerHub, Nexus, AWS ecr, podman, containerd, rocket
 
+In dockerfile we can use RUN apt-get && apt-get install -y nginx  # using && both command can be use.
+
+# If you create Dockfile with custom name also and make build aslo using below command.
+cd /tmp/
+vim CustomDockerFile
+docker image build -t myimage:v1 -f /tmp/CustomDockerFile 
+docker image build -t myimage:v2 -f github:/CustomDockerFile   # Through using GitHub, we can build image.
+docker image ls
+docker container run -it --name webserver -p 80:80
+curl ident.me.   # To get exact IP and search in WebBrowser.
+
+# We can change the registry from global to Private/Local. # Find Urself on net for details.
+ Not confirmed path /etc/docker/daemon.json
+docker run -d -p 5000:5000 --name registry registry:2.7
+docker container ls
+docker tag Ubuntu localhost:5000/Ubuntu 
+docker push localhost:5000/Ubuntu 
+
+Completed.
 ================================================================================================================================================================
