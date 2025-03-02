@@ -68,12 +68,12 @@ git push origin main --force
 # 05th Jan Sun Eve
 # 08th Jan Wed - Docker DockerHUB - 6
 # 09th Jan Thu - Docker Volume - 7
-# 10th Jan Fri - Docker - 8
+# 10th Jan Fri - Docker DockerFile - 8
 # 11th JAN SAT-
 # 12th JAN SUN-
 # 12th Jan Sun Eve 
-# 16th Jan Thu
-# 17th Jan Fri docker
+# 16th Jan Thu - Docker - DockerFile - 9
+# 17th Jan Fri - Docker - DockerFile - 10
 # 18th JAN SAT-
 # 19th JAN SUN-
 # 19th Jan Sun Eve

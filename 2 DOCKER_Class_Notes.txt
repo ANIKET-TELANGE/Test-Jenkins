@@ -6,7 +6,10 @@
 # 03th Jan Fri - Docker State - 5
 # 08th Jan Wed - Docker DockerHUB - 6
 # 09th Jan Thu - Docker Voulme, Basic Dockerfile - 7
-# 10th Jan Fri - Docker - 8
+# 10th Jan Fri - Docker - DockerFile - 8
+# 16th Jan Thu - Docker - DockerFile - 9
+# 17th Jan Fri - Docker - DockerFile - 10
+
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
 Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
@@ -394,7 +397,7 @@ RUN service apache2 start
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 10th Jan Fri - Docker - 8
+# 10th Jan Fri - Docker - DockerFile - 8
 
 Types of Volumes:
 1. Bind
@@ -430,4 +433,110 @@ docker tag Ubuntu localhost:5000/Ubuntu
 docker push localhost:5000/Ubuntu 
 
 Completed.
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 16th Jan Thu - Docker - DockerFile - 9
+docker image build -t sadhix:v1 -f /opt/Dockerfile  # If U want to give path then use -f flag. 
+
+# When you run same Dockerfile without any changes in them, then Its give same IMAGE ID, But if you change in or add someP commands then run then it's give different IMAGE ID. 
+
+# To see docker history
+docker image history
+docker image history ID
+docker image history name:v1
+docker image history name:v2   # To see different between v1 & v2
+
+# In one line we can give commands.
+FROM ubuntu:14.0
+RUN apt-get update -y && apt-get install -y apache2 tree openssh-server python
+docker image  build -t sadhix:v5 .
+docker conatiner run -it --name sadhixapp3 sadhix:v5 /bin/bash    # Give container name as sadhixapp3 for creating container using sadhix:v5 IMAGE. 
+
+# When you add some command in between lines then it's not getting from cache, it's install new means creating new layers. If you add commands after last line then it's cache all then go to last command, that's why it's not take so much time to build Image. 
+
+# Docker Label #
+For giving Name & other's all information like git config. 
+FROM ununtu:14.04
+label name="Tom"
+label emailid="tom@gamil.com"
+label mobile="1234567890"
+RUN....... Etc
+## It's gets from all caching layers because you just adding label. 
+docker image inspect sadhix:v10  # In that shows label content and all information, if someone want to contact U. 
+
+# Docker Environment Variable Set  #
+FROM
+label
+env name="dev"
+env pass="dev123"
+RUN..... ETC 
+## If you give same version number when build a an IMAGE, its merge to old version and create new one also without name <none>  and use caching layers. 
+Create container using that Image and fire command - env
+
+
+Add in last line
+run usersdd $name & echo "$name:$pass" | chpasswd
+
+# Its by default login with root but U can change to Other user in container
+Add in last name
+user  $name
+
+# adduser create also user home directory and user. 
+# useradd create only user. 
+
+# To go direct path  #
+Last line
+workdir /var/www/html
+# pwd    ## hash use for comment, its not use this command. 
+
+#  create one file in main machine and copy to container #
+touch shivam  # In main machine
+In dockerfile add in last line
+copy shivam /var/www/html/
+Then build & run container
+
+add docker-tar.gz /var/www/html/   # Its copy to that container and same time do un-tar also. 
+
+# You can use link also
+run apt-get install -y unzip  # First don't use, check if it's work or not
+ADD carvilla.zip /var/www/html/
+ADD https://www.html-temlates-carvilla.zip /var/www/html/  # Its same give with unzip files. 
+RUN unzip carvilla.zip   #  Use all Captain letters for commands to avoid issue and U use all small letters and one use Capital letter command it's give warning also. 
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 17th Jan Fri - Docker - DockerFile - 10
+ADD # Only works for tar not for zip, so use additional commamd to unzip the file. 
+
+ADD https://www.html-temlates-carvilla.zip /var/www/html/
+RUN unzip /var/www/html/carvilla.zip 
+
+ADD docker-tar.gz /var/www/html/  # Its works doesn't not required additional commamd to untar like umzip, Its automatically copy and untar that file. 
+
+docker rmi -f $(docker images -q)   # To delete all IMAGES in one command. 
+docker container rmi -f $(docker ps -aq)   # To delete all CONTAINERS in one command. 
+
+docker system prune --all --force  # To delete all CACHE, IMAGES & CONTAINERS. 
+docker builder prune  # To delete only Cache
+
+echo 1 > /proc/sys/vm/drop_caches  # To flush cache. 
+
+docker build -t sadhixapp1 -< sadhixDockerfile  # To run custom DockerFile. 
+
+#
+RUN unzip clini.zip
+RUN rm -f klinik.zip index.html
+RUN cp -rvf clinic-website-template/* .   # To copy
+
+#  To run commands
+
+CMD ["tree"]   # Its called UserData means to run first this commands. 
+
+Ex:2
+CMD ["python3"]
+
+Content of Dockerfile
+vim Dockerfile
+
 ================================================================================================================================================================
