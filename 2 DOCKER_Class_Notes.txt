@@ -539,4 +539,21 @@ CMD ["python3"]
 Content of Dockerfile
 vim Dockerfile
 
+FROM ubuntu:14.04
+LABEL Name="Ram Devops"
+LABEL EmailID="ram.devops@gmail.com"
+EVN name="champu" 
+ENV pass="champu123"
+RUN apt-get update y && apt-get install -y apache2 unzip tree python3 openssh-server openssh-client
+RUN mkdir -p /var/run/sshd   # Its must required to start sshd service for use sshd.
+RUN adduser $name && echo "$name:$pass" | chpasswd
+WORKDIR /var/ww/html
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/klinik.zip .
+RUN rm -f index.html
+RUN unzip klinik.zip
+cp -rvf clinic-website-template/*
+RUN rm -f klinik.zip
+CMD ["/usr/sbin/sshd", "-D"]  # -D for Dameon
+EXPOSE 22   # For Opening Port 
+
 ================================================================================================================================================================
