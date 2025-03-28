@@ -557,3 +557,32 @@ CMD ["/usr/sbin/sshd", "-D"]  # -D for Dameon
 EXPOSE 22   # For Opening Port 
 
 ================================================================================================================================================================
+
+================================================================================================================================================================
+# 21th Jan Fri - Docker - Docker - 11   ----Pending.....
+
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 23th Jan Fri - Docker - DevOps Mini Project-1 - 12
+ # Last 30 mins not recoreded in my PC beacause Baterry Issue.
+ 
+# Requirements: Developer, GitHub, Jenkins server-1, Ansible-server-1, Web-server-1 Nginx.
+1. Create one local html file in localhost.
+2. Create Repo in GitHub as name is Mini-Project-1.
+3. Install Jenkins in Ubuntu/Amazon/Redhat/CentOS new server.
+4. Install Ansible in new server yum install ansible.
+5. Install Nginx in new server.
+
+watch date - To prevnt session timeout
+
+# Passwordless communication required using ssh-keygen and required rootlogin permit yes:yes.
+ - Between Jenkins To Ansible (copy public-key from Source server and paste to Denstination server).
+ - Between Ansible To Webserver (So wenserver key required in to the Ansible Server).
+
+Countine in next lecture...
+================================================================================================================================================================
+
+5-2-25 half 
+14-2-25 missing kuber
