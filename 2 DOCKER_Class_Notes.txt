@@ -628,7 +628,86 @@ ABOVE Commands getting errors:
 Save
 ================================================================================================================================================================
 
+================================================================================================================================================================
+# 27th Jan
+
+#To get code there are three main things (Webhook).
+1. Build Perodically
+2. Poll ACM
+3. Trigger
+
+
+# Required ICMP Enable in jenkins through AWS Port settings
+
+# In SSH Server in jenkins
+Dashboard > Manage Jenkins > System >
+Name = Jenkins-server
+Hostname = Jenkins IP
+username = root
+In Advance - check-box - Use password authentication = x
+Test Configuration > Apply > Save 
+
+## Send from Jenkins To Ansible
+# Add another server in SSH
+Name = Ansible-sever
+Hostname = Ansible IP
+username = root
+In Advance - check-box - Use password authentication = x
+Test Configuration > Apply > Save 
+
+# Project > Config > Build Steps
+Name : Jenkins-server
+ - Exec Command = rsync -avh /var/lib/jenkins/workspace/jenkins-mini-proj/*.html root@AnsibleIP:/opt/   # To send the Ansible Server
+#watch ls  # In Ansible-sever fire watch ls to see live.
+
+## Send from To Ansible To Web server
+Uisng Playbook.
+In Ansible-sever
+cd /mnt/
+mkdir sourcecode
+vim playbook.yml
+---
+- name: Copy index.html to Nginx root folder
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy index.html to the Nginx root folder
+	  copy:
+	   src: /opt/index.html
+	   dest: /usr/share/nginx/html/
+	   owner: nginx
+	   group: nginx
+	   mode: '0644'
+##end
+
+#To run playbook
+ansible-playbook -i /etc/ansible/inventory.ini playbook.yml
+cat /etc/ansible/inventory.ini  # In that should IP of Webserver Nginx.
+
+
+ 
+#Post Build Actions
+check-box : Send build artifacts over SSH
+Name : Ansible-server
+Advance : check-box - Verbose output in console  ## Should be enable for all others Builds also for getting detailed outputs to resolve errros.
+ - Exec Command = ansible-playbook -i /etc/ansible/inventory.ini /mnt/sourcecode/playbook.yml
+ 
+ 
+## Now you can push code to Git and then process will be works as automatically / Pipeline
+ Dev > Git > Jenkins > Ansible > Webserver
+ 
+# In sever, there are 
+cat /etc/ssh/ssh.config
+In that should be enable rootpermitlogin root yes. And in starting if you see Include /etc/ssh/config.d/*.config then you shoulde go the that files and enable yes.
+================================================================================================================================================================
+
 
 
 5-2-25 half 
 14-2-25 missing kuber
+
+
+
+
+
+
