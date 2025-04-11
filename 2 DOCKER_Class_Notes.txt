@@ -701,6 +701,35 @@ cat /etc/ssh/ssh.config
 In that should be enable rootpermitlogin root yes. And in starting if you see Include /etc/ssh/config.d/*.config then you shoulde go the that files and enable yes.
 ================================================================================================================================================================
 
+================================================================================================================================================================
+# 29th Jan
+
+# In vscode
+create Dockerfilex
+code....
+
+Install DOCKER in same Ansible server.
+And get Dockerfile into that server using jenkins
+
+
+-Exce Command
+cd /opt/
+docker image build -t $JOB_NAMEv1.$BUILD_ID .
+docker image tag $JOB_NAMEv1.$BUILD_ID mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
+docker push mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
+docker image rmi mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
+
+Time 1:44 completed and 1hour remaining.
+
+
+
+
+
+
+
+
+================================================================================================================================================================
+
 
 
 5-2-25 half 

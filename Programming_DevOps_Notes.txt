@@ -30,6 +30,7 @@ git status
 git add J1.txt P1.txt
 git commit -m "Added J1.txt and P1.txt files"
 git push origin main
+git commit -am "Added J1.txt and P1.txt files"   ## To commit & push in one command.
 #git push origin <Branch Name>
 git push origin main --force
 
