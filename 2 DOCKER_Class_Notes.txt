@@ -584,5 +584,51 @@ watch date - To prevnt session timeout
 Countine in next lecture...
 ================================================================================================================================================================
 
+================================================================================================================================================================
+# 24th Jan Fri
+
+# To forget Jnekins Password.
+cd /var/lib/jenkins ; ls
+vi config.xml
+<useSecurity>true</useSecurity> to change into "false" in 7th line   ## To reset then restart service.
+After that in Jenkins; Manage Jenkins >Security > Configure Global Security
+
+
+# If jenkins slow ruunning, maybe incorrect IP address
+Dashboard > Manage Jenkins > System : Jnekins Location - Jenkins URL = Paste current IP Addrss.
+
+# In jenkins
+# Path of jobs : /var/lib/jenkins/jobs
+# Path of wrokspace : /var/lib/jenkins/workspace/
+New Item > FreeStyle > OK
+
+# In GitHub
+Add WebHooks in that Project
+# Payload URL = http:IP:8080/github-webhook/   # Should be Jnekins URL
+# Content Type = application/json
+# Secret = Paste    # In jenkins Dashboard > Jenkins > Security = give name github-token and generate and paste & Save also in github-webhook                (#Manage Jenkins > Security > Allow Anonymous readaccess in check-box #User Profile Setting > Secret getting this.)
+# SSL verfication = Disable for now (beacause required crts)
+# Which Event = check-box : Send me everthing
+Active > add Webhook.
+
+# In Jnekins
+Project > Conf > SCM - Select GIT - RepoURL = Paste repo URL & Git should be install in Jenkins server also OR its give errors, U can try.
+Branch = */main
+Build Trigger = check-box : Github hook trigger fro.....
+#Download Publish Over SSH (POS) from Plugin. Then restart jenkins.
+Build Steps = Send... POS =  And required root and password also.
+ - *html
+ - Exec Command = rsync -avh /var/lib/jenkins/workspace/jenkins-mini-proj/*.html root@AnsibleIP:/opt/   # To send the Ansible Server
+##curl ident.me  # For public IP
+SSH Server
+ - Name = ansible
+ - Transfer Set - Source file = *html or **/*html
+ - Remote Directory = /opt/
+ABOVE Commands getting errors:
+Save
+================================================================================================================================================================
+
+
+
 5-2-25 half 
 14-2-25 missing kuber
