@@ -782,12 +782,30 @@ Docker State
 
 
 =====================================================================================================================================================================
-# 04th JAN SAT- 
+# 04th JAN SAT- Ansible Therory
 
+- Pipeline and Stages Therory and Visualation.
 
+cd tomcat/webapps
+ls ; javaapp.war
 
+# Configuration Management Tool - For easy shell Ansible scripting.
 
+## Ansible Insatllation and Therory
+Should be password less servers.
 
+vi /etc/ansible/hosts    # To add groups of IPs.
+ [webserves]
+ 1.2.3.4
+ 1.2.3.5
+ [mailservers]
+ 1.2.3.6
+ 1.2.3.7
+
+# Cmds
+ansible all -a uptime
+ansible webserver -a "uname -a"   ## For Webservers IPs.
+ansible all -m user -a "name=john password=redhat"
 
 =====================================================================================================================================================================
 
