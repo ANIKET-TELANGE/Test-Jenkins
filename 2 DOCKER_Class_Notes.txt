@@ -706,7 +706,18 @@ In that should be enable rootpermitlogin root yes. And in starting if you see In
 
 # In vscode
 create Dockerfilex
-code....
+FROM ubuntu
+LABEL name="tomdev"
+LABEL email="tomdev@gmail"
+RUN apt-get update -y && apt-get install apache2 -y unzip tree   # Here make sure use correct "-y" or its maybe give errors.
+WORKDIR /var/www/html
+RUN rm -rf index.html
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/healet.zip .
+RUN unzip healet.zip
+RUN cp -rvf healet-html/* .
+RUN rm -rf healet-html
+EXPOSE 80
+CMD apache2ctl -D FOREGROUND
 
 Install DOCKER in same Ansible server.
 And get Dockerfile into that server using jenkins
@@ -718,13 +729,11 @@ docker image build -t $JOB_NAMEv1.$BUILD_ID .
 docker image tag $JOB_NAMEv1.$BUILD_ID mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
 docker push mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
 docker image rmi mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
+================================================================================================================================================================
 
-Time 1:44 completed and 1hour remaining.
-
-
-
-
-
+================================================================================================================================================================
+# 31th Jan
+All end-to-end setup of Jenkins, Ansible, Docker, Webserver and Git in first one hour.
 
 
 
