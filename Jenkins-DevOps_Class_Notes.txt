@@ -807,6 +807,8 @@ ansible all -a uptime
 ansible webserver -a "uname -a"   ## For Webservers IPs.
 ansible all -m user -a "name=john password=redhat"
 
+See screenshot C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_1.png
+
 =====================================================================================================================================================================
 
 
