@@ -725,18 +725,63 @@ And get Dockerfile into that server using jenkins
 
 -Exce Command
 cd /opt/
-docker image build -t $JOB_NAMEv1.$BUILD_ID .
-docker image tag $JOB_NAMEv1.$BUILD_ID mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
-docker push mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
-docker image rmi mydevopsuser46/$JOB_NAMEv1.$BUILD_ID
+docker image build -t $JOB_NAME:v1.$BUILD_ID .
+docker image tag $JOB_NAME:v1.$BUILD_ID mydevopsuser46/$JOB_NAME:v1.$BUILD_ID
+docker image push mydevopsuser46/$JOB_NAME:v1.$BUILD_ID
+docker image rmi mydevopsuser46/$JOB_NAME:v1.$BUILD_ID
 ================================================================================================================================================================
 
 ================================================================================================================================================================
 # 31th Jan
 All end-to-end setup of Jenkins, Ansible, Docker, Webserver and Git in first one hour.
 
+-Exce Command    ### And login docker and activate before executing.
+cd /opt/
+docker image build -t $JOB_NAME:v1.$BUILD_ID .
+docker image tag $JOB_NAME:v1.$BUILD_ID mydevopsuser46/$JOB_NAME:v1.$BUILD_ID
+docker image push mydevopsuser46/$JOB_NAME:v1.$BUILD_ID
+docker image tag $JOB_NAME:v1.$BUILD_ID mydevopsuser46/$JOB_NAME:latest
+docker image push mydevopsuser46/$JOB_NAME:latest
+docker image rmi $JOB_NAME:v1.$BUILD_ID mydevopsuser46/$JOB_NAME:v1.$BUILD_ID mydevopsuser46/$JOB_NAME:latest
 
+## Then again choose Ansible-server and execute.
 
+cd /root/
+mkdir sourcecode; cd sourcecode
+-- vim playbook.yml
+---
+- name: This will create container in docker-webserver node
+  hosts: all
+  become: true
+  tasks:
+    - name: We have stop old conatiner
+	  shell: docker conatiner stop mydevopsuser46-jenkinsdockerproject
+	- name: We have delete old conatiner
+	  shell: docker conatiner rm mydevopsuser46-jenkinsdockerproject
+	- name: run docker container run docker run
+	  shell: docker container run -itd --name mydevopsuser46-jenkinsdockerproject -p 9000:80 mydevopsuser46/jenkinsdockerproject:latest
+
+## END
+
+-- vim inventory.ini
+[docker-webserver]
+IPwebserver
+
+# anisble-playbook -i inventory.ini playbook.yml  ## To run playbook command
+
+## Select new and name should be Ansible-server
+ -Exce Command
+anisble-playbook -i /root/sourcecode/inventory.ini /root/sourcecode/playbook.yml
+
+Apply > Save > Build
+check webservers IP and check port open or not, Page should be visible now.
+
+## Check for Automatic CI/CD
+Then in Vscode git pull and push with new template of page. 
+First check maually unzip that file give proper name of output, then add that names in Dockerfile.
+Then check for automatically load new page.
+
+# Sometime new template not working, check in playbook.yml for solutions.
 ================================================================================================================================================================
 
 
