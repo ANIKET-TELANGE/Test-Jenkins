@@ -813,7 +813,7 @@ See screenshot C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_1.png
 
 
 =====================================================================================================================================================================
-# 05th JAN SUN- 
+# 05th JAN SUN- ANSIBLE
 
 ansible all -m ping    # To check ping with others servers.
 ansible all -m user -a "name=ramu state=present"     # To check user is present or not, If not they created. If already exists then show
@@ -1010,6 +1010,159 @@ Volume, Basic Dockerfile
 =====================================================================================================================================================================
 # 10th Jan Fri - Docker - DockerFile - 8
 Dockerfile, CustomDockerFileName & Docker Therory
+=====================================================================================================================================================================
+
+=====================================================================================================================================================================
+# 11th Jan SUN- ANSIBLE
+
+- name: Intro to Ansible Playbooks
+  hosts: all
+  tasks:
+  - name: Copy file hosts with permissions
+    ansible.builtin.copy:
+     src: ./hosts
+     dest: /tmp/hosts_backup
+     mode: '0644'
+  - name: Add the user 'bob'
+    ansible.builtin.user:
+      name: bob
+      become: yes
+      become method: sudo
+.
+
+Ansible Playbook syntax -:
+1. become
+2. when
+3. notify
+4. handler
+5. var - -variable
+.
+
+myplaybook-1.yml
+#play
+	 - hosts: webserver
+	 - name: group and user created
+	   tasks:
+	   -group: name=market state=present
+	   - user: name=ramu state=present
+ 
+#play2
+      - hosts: devserver
+	  - name: package installation
+        tasks
+        - yum: name=httpd state=present
+        - service: name=httpd state=start
+#end
+
+# Flow of cmds
+Playbook-1
+    |
+  play
+    |
+  Tasks
+    |
+ module-cmds	
+.
+
+#play3
+- hosts: devserver
+  tasks:
+  - copy:
+     src: /opt/funny/index.html
+	 dest: /usr/local/
+.
+
+YAML ---
+objects
+key
+value pairs
+ist
+distionary
+sequence
+block
+mappings
+
+.
+
+ansible-playbook -vvv /opt/myplaybook-2.yml    # playbook run
+ansible-playbook /opt/myplaybook-2.yml    # playbook run
+
+.
+
+STEPS ANSIBLE:
+5. ansibledoc-l to see all modules bcoz works on module based -- EVERY command runs as a module
+
+6. ansibledoc <modulename> --- manual of that module/command - use that command
+
+7. Ansible playbook - are written YAML - yetanaother markup language -Data serial language
+.yml .yaml .json
+
+8. Ansible playbook --- its a file -- collection of commands/modules --- ie - Task Definition
+
+9. playbook check ---- ansible-playbook <file.yml> -- syntax-check
+run playbook ansible-playbook <file.yml>
+
+10. ANSIBLe - ROLES ---- ansible --- collection of playbooks
+ANSIBLE ROLES
+collections of files, tasks, templates, variables, and modules.
+The role is used for breaking a playbook into multiple files
+Roles are a way to group multiple tasks together into one container to do the automation
+
+11. ANSIBLE - VAULT --- ansible --- use this vault -- to keep password in encrypted format
+-- will share encryoted password to playbook and addhooc commands via ansible vault
+Allows you to keep sensitive data such as passwords or keys in encrypted files, rather than as plaintext in playbooks or roles.
+			#ansible-playbook /opt/myplaybook-3.yml -- ask-vault-pass /opt/xyz.xml
+
+12. Ansible Galaxy --- REPOSITORY
+Ansible Galaxy is website with repository, where users can share roles for installing, creating, and managing roles
+
+13. Ansible Tower ---- - web interface graphically -- manage everything
+(create playbooks + run add -h oc commands- create roles - vaults)
+Ansible is a product of redhat --- ansible tower - -redhat provides support
+.
+
+## FLOW CHART
+             Role-1
+		|                |
+   playbook1         playbook2
+  |      |               |
+plays plays             plays
+ |     |      |          |
+tasks tasks tasks       tasks
+.
+
+# To vault PW
+ansible-vault create /opt/abc.yml
+ansible-vault view /opt/abc.yml
+vi /opt/xyz.yml
+
+ansible-playbook /opt/myplaybook-3.yml -- ask-vault-pass /opt/xyz. xml
+.
+
+why play book
+- collection
+ - playbooks
+  - plays
+   - tasks
+    - module
+     - arguments
+	 
+ansible-playbook -i /opt/inventory /opt/playbook.com 
+.
+
+Terraform Kubernetes
+YAML -- Yet another Markup Language
+
+1. Blocks
+2. Sequence
+3. Map
+4. Object V
+5. Key value
+6. list
+7. dictionary
+8. Indentation
+.
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
