@@ -814,6 +814,180 @@ See screenshot C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_1.png
 
 =====================================================================================================================================================================
 # 05th JAN SUN- 
+
+ansible all -m ping    # To check ping with others servers.
+ansible all -m user -a "name=ramu state=present"     # To check user is present or not, If not they created. If already exists then show
+ansible all -m user -a " name=ramu state=absent"    # To delete the user.
+
+rpm -qa httpd   # To check.
+rpm -qi.   # Shows when installed Date & Time.
+
+ansible all -m yum -a "name=httpd state=present"    # To install httpd.
+ansible-doc -l     # To show all modules in ansibile. 
+ansible-doc git   # To show manual of git.
+---   # Triple dash use for multiple playbook task in one playbook file.
+...   # To end playbook if using multiple plays in one file.
+
+
+### ANSIBLE ARCHITECTURE
+
+1vm -- master node --- multiple clinets / hosts
+ansible Push based
+ansible agentless
+ansible uses python
+
+1. Prerequsite --- ssh passwordless between master and nodes
+2. master ansible install
+3. Root PAth --- /etc/ansible/ # ALL ansible files
+4. Ansible main PRG -- /usr/bin/ansible --- > prg - -main command
+5. /etc/ansible/ansible.cfg --- > ansible config file
+6. /etc/ansible/host --- > ansible inventory file (hosts ips mention)
+7. ansible has many modules -- every comand is used as a module
+8. Ansible check how many modules ---- ansible-doc -l
+
+Ansible Module 1600-1700 modules are more than avaiable till now.
+
+# Comparison Ansible vs Puppet vs Chef #
+
+## ANSIBLE  ##              
+Agentless               
+Push Model
+Playbook
+Tasks
+Ansible Control M
+Hosts
+Python, YAML
+easiest install
+SSH/NETCONF
+declerative
+system admins
+easiest
+2012
+
+## PUPPET ##
+Both
+Pull Model
+Manifest
+Resources
+Puppet Master
+Agent
+Puppet DSL, ERB
+easy install
+REST
+declerative
+system admins
+intermediate
+2005
+
+## CHEF ##
+Agent Based
+Pull Model
+Recipe
+Resources
+Chef Server
+Clients
+Ruby DSL
+medium install
+REST
+imperative
+developers
+advanced
+2009
+---------------
+
+ANSIBLE ---
+Ansible is configuration management tool used to perfrom multiple task on multiples nodes
+
+Use case
+1. nginx config change -- sites available symlink
+   systemctl nginx restart --- >25 nodes
+2. git clone webapp.war clone --- >copy to /tomcat/webapps
+   tomcat service staop and start
+3. php package yum install
+   php module add apache
+4. php config --- > server --- copy to php.conf -- > apache /etc/httpd (condition -- if copied)
+5. restart else do not restart
+
+
+---
+
+## XML ##
+<Servers>
+     <Server>
+	   <name>Webserver</name>
+       <os>Redhat</os>
+
+       </Server>
+</Servers>
+
+## JSON ##
+{
+ Servers: {
+  {
+    name: webServer
+    os: Redhat
+	}
+  }
+ }
+
+## YAML ##
+Severs:
+   - name: webserver
+     os: Redhat
+------------------------
+
+cat /opt/pharma.yaml
+- hosts: webserver
+  tasks:
+  - name: create a user
+    user: name=john state=present
+## End
+
+ansible all -m user "name=john state=present"       # To check user is added or not, if not then create the user.
+ansible-playbook /opt/pharma.yaml --syntax-check    # To check syntax in that file.
+
+
+WHAT Is playbook
+playbook is a collection of multiple add-hoc commands
+Ansible playbook is a file that contains a set of instructions that Ansible can use to automate tasks on remote hosts.
+A playbook typically consists of one or more plays, a collection of tasks run in sequence.
+
+Playbook
+| Play
+   | Task
+      | yum -- module(cmd)
+	  | user -- module(cmd)
+	  
+	  
+	  
+ansible all -m user -a "name=john" password=redhat'
+
+ansible all -a "yum install httpd"
+ansible all -a "yum remove httpd"
+
+ansible all -m yum -a "name=httpd state=absent"
+ansible all -m yum -a "name=dovecot state=present"
+
+ansible webservers -a 'uptime'
+ansible webservers -m shell -a "service sshd status"
+ansible webservers -m shell -a "service httpd status"
+###########################################
+ansible webservers -m command -a 'df -h'
+
+ansible webservers -m copy -a "src=/root/xyz.txt dest=/opt/funny
+
+ansible webservers -m copy -a "src=/home/* dest=/opt/funny
+
+What is Playbook ---- collection of add-hoc commands
+  written in YAML language --- YET Another Markup Language
+XML + YAML + JSON Data Serialization language ---
+used to pass data tp apps or web
+
+abc.yaml  abc.yml  abc.py  abc.sh   abc.js
+--- file begin
+AWS -- IAM POLICIES -- JSON LANGUAGE - S3 policy
+Docker Kubernetes ansible - yaml
+
 =====================================================================================================================================================================
 
 
@@ -944,3 +1118,9 @@ Stages
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.
 Topic : K8s Cluster Reset and Token Management
 ----------------------------------------------------------------------------------
+
+
+
+
+
+
