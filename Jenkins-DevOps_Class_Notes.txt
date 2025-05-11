@@ -1175,12 +1175,196 @@ JSON TO YAML
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
-# 12th Jan SUN- ANSIBLE
+# 12th Jan SUN- ANSIBLE Playbook
+
+---
+- name: centos configure
+  hosts: all
+  tasks:
+  - name: install nginx
+    yum:
+    name: nginx
+    state: present
+
+- name: start nginx
+  service:
+   name: nginx
+   state: started
+.
+
+- name: Example of defining variables on Ubuntu
+hosts: all
+become: yes
+vars:
+username: admin
+max_connections: 100
+tasks:
+- name: Print the username
+debug:
+msg: "The username is {{ username }}"
+.
+
+- name: Configure max connections in sysctl.conf
+lineinfile:
+path: /etc/sysctl.conf
+regexp: "net.core.somaxconn'
+line: "net.core.somaxconn = {{ max_connections ]]"
+notify:
+- Reload sysctl
+
+handlers:
+- name: Reload sysctl
+command: sysctl -p
+.
+
+ansible-addhoc -m yum name=http state=present
+##ansible-addhoc all -m yum name=http state=present --become=yes (as root user change)
+#become as a root user
+##ansible-addhoc all -m yum name=http state=present --become_user=shamu (as root user change)
+.
+
+lineinfile:
+path: /etc/sysctl.conf
+regexp:"net.core.somaxconn'
+line: "net.core.somaxconn = {{ max_connections }}"
+notify:
+- Reload sysctl
+
+handlers:
+- name: Reload sysctl
+command: sysctl -p
+
+become method allows you to elevate privileges for specific tasks or an entire playbook, enabling the use of sudo
+.
+
+variable
+variablename=value
+student=ramu shamu
+dhamu
+
+---
+- hosts
+  vars:
+  students:
+  - ramu
+  - shamu
+  - dhamu
+  
+tasks:
+- name: 1000 users create
+  user: "{{ students }}"
+  state: present
+
+tasks:
+ - name: Print the username
+   debug:
+      msg: "The username is {{ students }}"
+	  
+handlers:
+notify: Restart Nginx
+
+## when : he task will run only if the condition is true. If it is false, the task will be skipped
+
+## handlers : handlers are typically used to start, reload, restart, and stop services. you want a task to run only when a change is made on a machine
+handlers are special tasks that only get executed when triggered via the notify directive. Handlers are executed at the end of the play, once all tasks are finishe
+
+LINK : https://blogs.teliosautomation.com/using-variables-and-loops-in-yaml-with-ansible/
+
+usercreatre
+task:
+ user: state present
+ notify: usercreated
+handler:
+ name: usercreated
+ copy:
+  src: /etc/skel/.prof
+
+---
+- name: Verify apache installation
+hosts: webservers
+vars:
+http_port: 88
+max_clients: 200
+remote_user: root [>
+tasks:
+- name: Ensure apache is at the latest version
+ansible.builtin.yum:
+name: httpd
+state: latest
+
+- name: Write the apache config file
+ansible.builtin.template:
+src: /srv/httpd.j2
+dest: /etc/httpd.conf
+notify:
+- Restart apathe
+
+- name: Ensure apache is running
+ansible.builtin.service:
+name: httpd
+state: started
+
+handlers:
+- name: Restart apache
+ansible.builtin.service:
+name: httpd
+state: restarted
+.
+
+## Create a template and use various files.
+
+cd /opt/
+mkdir roles
+ls all.yml
+ls roles/
+cd roles/
 
 
+mkdir -p mailserver/tasks ; cd mailserver/tasks/ --- > touch
 
+mkdir webserver/tasks --- > touch main.yml
+mkdir dbserver /tasks --- > touch main.yml
 
+touch /opt/roles/mailserver/tasks/main.yml
+- name add ssh keys
+tags: alsways
+authorized_keys:
+user: simone
+Key: ssh
 
+touch /opt/roles/webserver/tasks/mainyml
+
+- name: install apache
+tags: apache
+apt:
+name:
+ - apache
+ - libapache-php
+state: latest
+
+# Creating playbok using template to segerated.
+ playbook =-- allyml -- cp allyml before-roles.yml
+ansible-playbook all.yml
+
+hosts: mailserver
+ become: true
+ roles:
+ - maileerver
+.
+
+# To use yaml extenions like we use in VScode. This is not exact correct serach.
+vim .vimrc 
+autocmd FileType yaml setlocal ai ts=2 sw=2 et cursorcolumn
+ 
+HISTORY
+mkdir /opt/roles
+cd roles/
+mkdir -p webserver/tasks
+mkdir -p mailserver/tasks
+mkdir -p dbserver/tasks
+touch webserver/tasks/main.yml
+touch mailserver/tasks/main.yml
+touch webserver/tasks/main.yml
 
 =====================================================================================================================================================================
 
