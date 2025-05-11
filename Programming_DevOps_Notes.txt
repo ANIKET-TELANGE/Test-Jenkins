@@ -65,41 +65,72 @@ git push origin main --force
 
 # 03th Jan Fri - Docker State - 5
 # 04th JAN SAT- Ansible Therory
-# 05th JAN SUN- 
+# 05th JAN SUN- Ansible Architecture
 # 05th Jan Sun Eve
 # 08th Jan Wed - Docker DockerHUB - 6
 # 09th Jan Thu - Docker Volume - 7
 # 10th Jan Fri - Docker DockerFile - 8
-# 11th JAN SAT-
-# 12th JAN SUN-
+# 11th JAN SAT- Ansible
+# 12th JAN SUN- Ansible
 # 12th Jan Sun Eve 
 # 16th Jan Thu - Docker - DockerFile - 9
 # 17th Jan Fri - Docker - DockerFile - 10
-# 18th JAN SAT-
-# 19th JAN SUN-
+# 18th JAN SAT- Ansible Playbook
+# 19th JAN SUN- JENKINS
 # 19th Jan Sun Eve
 # 21th Jan Tue - Docker - Pending - 11 -----------
 # 22th Jan Wed - Docker - Pending - 12 -----------
 # 23th Jan Thu - Mini-Project-1_Jenkins_1
 # 24th Jan Fri - Mini-Project-1_Jenkins_2
-# 25th JAN SAT- Jenkins
-# 26th JAN SUN- Jenkins
+# 25th JAN SAT- Jenkins p
+# 26th JAN SUN- Jenkins p
 # 26th Jan sun Eve Js
 # 27th Jan Mon - Mini-Project-1_Jenkins_3
 # 29th Jan Wed - Mini-Project-1_Jenkins_4
 # 31th Jan Fri - Mini-Project-1_Jenkins_5
 Total - 25
 
-# 01 FEB SAT- JENKINS Problem Only Audio Avaiable
-# 05 Feb Wed Repeat Required
+# 01 FEB SAT- JENKINS Problem Only Audio Avaiable &&
+# 02 FEB SUN- PROBLEMM
+# 05 Feb Wed Repeat Required &&
 # 07 Feb Fri
 # 08 Feb SAT-
 # 09 Feb SUN-
 # 09 Feb Sun Eve
 # 10 Feb Mon
 # 12 Feb Wed
-# 14 Feb Wed - Recording Not Avaiable in PC 
+# 14 Feb Wed - Recording Not Avaiable in PC  &&
 # 15 Feb SAT-
+
+# 16 Feb
+# 16 Feb 2
+# 17 Feb
+# 19 Feb
+# 21 Feb
+# 22 Feb
+# 23 Feb
+# 23 Feb 2 
+# 24 Feb
+# 25 Feb Consule
+# 26 Feb
+# 28 Feb
+
+# 01 Mar 
+# 03 Mar 
+# 05 Mar 
+# 07 Mar 
+# 09 Mar 
+# 11 Mar 
+# 13 Mar 
+# 16 Mar - Resume
+# 22 Mar - Promethus-Graffana and Pratical
+ 
+# 11 Apr - Project-1 Part_1
+# 12 Apr - Project-1 Part_2
+# 13 Apr - Project-1 Part_3
+ 
+
+
 
 ================================================================================================================================================================
 # 
