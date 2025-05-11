@@ -41,6 +41,7 @@ In setting, 1. SSH setting. 2. Interval Application.
 #git push --set-upstream origin master # Only for one time.
 
 Ctrl + r = To reverse search command, type unique keyword
+git fetch  # Means take small change and pull means take full code. 
 ================================================================================================================================================================
 
 ================================================================================================================================================================

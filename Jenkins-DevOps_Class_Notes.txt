@@ -1162,7 +1162,7 @@ YAML -- Yet another Markup Language
 7. dictionary
 8. Indentation
 .
-
+INCOMPLETE
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
@@ -1176,18 +1176,144 @@ Dockerfile, ADD, CMD
 =====================================================================================================================================================================
 
 ================================================================================================================================================================
-# 18th JAN SAT-
+# 18th JAN SAT- Ansible Playbook
 
+- name
+yum
+
+Playbook
+host: webserver
+- name service
+  service
+
+- name
+  handler
+
+host: mailserver
+- name
+  copy
+  src
+
+- name
+  when
+
+hosts: dbserver
+- name
+  git: git clone
+.
+  
+var/main.yml
+we can create a role structure hierarchy
+ansible-galaxy init db
+
+| rolename - db
+    defaults
+      | main.yml
+    files
+    handlers
+       main.yml
+    tasks
+       main.yml
+    meta
+       main.yml
+	vars
+       | main.yml
+.
+
+WHAT IS CI
+Continous Integration = Continous BuilD
+Build ---- list of prgs/tools run in sequence with the help of plugins
+
+Continuos Integration Server Brand -:
+Cl Server / Build Server / Integration Server / Plugins use
+1. Jenkins -- one the leader
+2. Gircle Ci
+3. teamcity
+4. bamboo
+5. gitlab CI
+6. github actions
+.
+
+# CI TOOLS-
+1. Jenkins
+2. Circle C
+3. teamcity
+4. bamboo
+5. gitlab C
+6. github actions
+
+CI SERVEr Plugin list
+1. git
+2. git hub plugin
+3. nginx plugin
+4. docker plugin
+5. ssh plugin
+6. maven plugin
+etc -- 1000s of plugin --
 ================================================================================================================================================================
 
 =====================================================================================================================================================================
-# 19th Jan SUN - Jenkins half pending
+# 19th Jan SUN - Jenkins
+
+git fetch  # Means take small change and pull means take full code. 
 
 In Ubuntu 
 dpkg -l | grep -i jenkins 
 dpkg -L jenkins  # Its show all jenkins files
 ps -ef | grep -i java 
 systemctl status jenkins 
+tree -f  # To see exactl path
+
+/var/lib/jenkins  # Main path. 
+/usr/bin/jenkins  # Main Binary path. 
+/var/lib/jenkins/config.xml   # Main Global Jenkins configuration file. 
+/var/lib/jenkins/workspace  # Default path of workspace. 
+/var/lib/jenkins/jobs  # Jobs path. 
+/var/lib/jenkins/plugins  # Plugins path and save as plugins_name.xml.jpi
+/var/lib/jenkins/secrets  # credentials and migration one server to another server. 
+
+
+Workspace - working directory for versioning control. 
+jobs > myjob1 > --config.xml   # For particular job config file. 
+jobs > build > build.xml and log
+
+
+## Job-1
+New item -job-1 echo - freestyle project - ok
+Build - Add build steps - select Execute shell
+ echo who r u
+  mkdir abc   # its create in /var/lib/jenkins/workspace/job-1/abc.
+Save. 
+
+= Build Now
+
+# To check in server
+tree -f -n 1 /var/lib/jenkins/ | grep -i job1
+
+/var/lib/jenkins/
+	|-- config.xml
+	|
+Workspace -- working directory for versioning control
+	| - pharmaproject # git code
+
+Jobs
+	|
+	 mynginx-job-1
+		  | -- config.xml
+		  | -builds
+ 		     =| Build_id -1
+					   | -- build.xml
+					   | - log # console log
+| mykubernetes-job
+		| - config.xml
+		| - builds
+			  | Build_id-1
+					| build.xml
+					| log
+				|Buil_id-2
+				|build.xml
+				 |log
+
 =====================================================================================================================================================================
 
 =====================================================================================================================================================================
