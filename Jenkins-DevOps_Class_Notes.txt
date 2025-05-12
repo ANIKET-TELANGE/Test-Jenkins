@@ -1549,12 +1549,129 @@ Jobs
 =====================================================================================================================================================================
 # 25th JAN SAT- Jenkins
 
+systemctl ststus jenkins -l # To see background process. 
+ps -ef | grep -i java # To see jetty process which is use by java. 
+ps - el | grep -i java # Doesn't not show ps process only show which running process we search. 
+strace systemctl start jenkins # To see all background process while starting service. 
+lsof -i :8080 # To see port. 
+
+Webhook also required port open for sometimes because of security reasons.
+
+-JENKINS
+default USER
+jenkins - backend process
+
+admin user - ramu
+jenkins portal all rights
+instruction to jenkins
+(build install plugin)
+
+ramu --
+normal user -- shamu
+(jenkins portal limited rights)
+(only build -- not install plugin)
+.
+
+#TASK --
+1. developer will plan and write code
+2. Push code to Git hub
+3. Github -- store the code - remote repos
+4. Github --- > will send the code to jenkins
+5. Jenkins will clone/pull/fetch the code from Github and store in Workspace
+
+# ARCHITECTURE Diagram of Jenkins
+Path ="C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_6__25-1-25.png"
+
+# TASK-1 [ CI ]
+New item = job1 --> Freestyle --> 
+SCM --> Git --> Repo URL = paste link 
+Save --> Build.
+
 =====================================================================================================================================================================
 
 
 =====================================================================================================================================================================
 # 26th JAN SUN- Jenkins
 
+# TASK-2 [ CD ]
+Build Triggrs
+Job --> Configuration --> Build Triggers
+
+In SCM
+1. Build Periodically - It fetch and run new build that particular time complusary (00 18 * * *).
+2. Poll SCM - It ask to git, if new commits are there or not, if new commit present then pull the code (/18) Or use like crontab lines.
+   - It works similar to webhook but opposite means in this case github is triggering the job and jenkins will check for commits.
+   - Now we will select pol scm option in jenkins job build trigger option and define time whenever it runs:
+
+## scp -rv * 192.168.0.10:/var/ww/html/  # To copy from jenkins to nginx server, for maually or In Build step --> Excute shell.
+chmod o+w /usr/share/nginx/html/  # Its required or give error while build
+
+# Download PublicOverSSH plugin
+--> Manage --> configure --> PublicOverSSH  # In Global configuration.
+ paste key. --> Give Name= Nginx Web-server, Hostname= IP, Username= root/ec2-user, Remote Directory= /var/ww/html/
+--> Job --> Configuration --> Build Triggers --> GitHub hook trigger for GITsm polling.
+    --> Build Enivronment --> Send files or execute commands over SSH after the build runs.
+        Name=select Nginx, Transfer Set= **/*, or give exact-path, Remote directory= Already give in main configuration Or now U can give.
+Save --> Build.
+
+# TASK-3
+--> Job --> Pipeline
+
+#Pipeline Script:
+pipeline {
+    agent any
+    environment {
+	    TOMCAT_PATH = "/opt/tomcat"
+        TOMCAT_USER = "root"
+        TOMCAT_PASSWORD = "admin"
+        TOMCAT_IP = "172.31.38.87"
+	}
+	stages {
+       stage('Checkout') {
+          steps {
+              git branch: 'main', url: 'https://github.com/Azure-Samples/tomcat10-jakartaee9.git'
+            }
+		}
+	}
+    stage('Build') {	
+	    steps {
+	        script {
+			    sh 'mvn clean install'
+            }
+		}
+	}
+    stage('Deploy to Tomcat') {
+        steps {
+            script {
+                def warFile = 'target/ *. war'
+                def remoteWarPath = "${TOMCAT_PATH}/webapps"
+                
+                // Debug the variables
+                echo "WAR file path: ${warFile}"
+                echo "Remote path: ${remoteWarPath}"
+                echo "Tomcat user: ${TOMCAT_USER}"
+                echo "Tomcat IP: ${TOMCAT_IP}"
+                
+                // Use sshpass with SCP to copy the WAR file to the remote Tomcat server
+                sh "sshpass -p '${TOMCAT_PASSWORD]' scp -v -o StrictHostKeyChecking=no ${warFile)${TOMCAT_USER)@${TOMCAT_IP]:${remoteWarPath]"
+
+	            // Restart Tomcat by SSHing into the server
+                sh "sshpass -p '${TOMCAT_PASSWORD}' ssh -v -o StrictHostKeyChecking=no ${TOMCAT_USER]@${TOMCAT_IP}'${TOMCAT_PATH}/bin/shutdown.sh &&
+				
+${TOMCAT_PATH}/bin/startup.sh'"		
+                }
+    		}
+    	}
+
+        post {
+            success {
+                echo 'Build and Deployment Successful'
+            }
+            failure {
+                echo 'Build or Deployment Failed'
+            }
+		}
+	}		
 =====================================================================================================================================================================
 
 
