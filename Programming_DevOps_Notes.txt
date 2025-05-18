@@ -91,11 +91,11 @@ git push origin main --force
 Total - 25
 
 # 01 FEB SAT- JENKINS Problem Only Audio Avaiable &&
-# 02 FEB SUN- PROBLEMM
+# 02 FEB SUN- JENKINS Full Video PROBLEMM
 # 05 Feb Wed Repeat Required &&
 # 07 Feb Fri
-# 08 Feb SAT-
-# 09 Feb SUN-
+# 08 Feb SAT- JENKINS
+# 09 Feb SUN- JENKINS
 # 09 Feb Sun Eve
 # 10 Feb Mon
 # 12 Feb Wed

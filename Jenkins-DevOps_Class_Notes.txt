@@ -1706,14 +1706,328 @@ First Half Hour 10:05AM to 10:25AM
 SDLC - Software Development Life Cycle
 
 ## Remaining  ##
+Part is below
+
+DEVOPS MEANS AUTOMATION OF SDLC ------
+THIS REQUIRED multiple tools --- VISUAL CODE + GIT + GITHUB + Maven + Junit test + Sonarcube + (Nexus + JFROC artifacts repos) + ANSIBLE + DOCKER + KUBERNETES + Promethus + Graffana)
+
+https://medium.com/django-unleashed/technical-guide-end-to-end-ci-cd-devops-with-jenkins-docker-kubernetes-argocd-github-actions-fee466fe949e
+https://medium.com/@vinoji2005/day-18-gitlab-ci-cd-for-serverless-deployments-dc23a51d9cd5
+https://ghumare64.medium.com/devops-roadmap-2025-352da3d08251
+https://medium.com/@sayalishewale12/complete-jenkins-ci-cd-project-a2144b0blcd2https://medium.com/@kulkarnidhananjay89/part-2-building-jobs-with-jenkins-declarative-pipeline-4feb11104d4c
+https://sourabhkalalmedium.com/day27-advanced-jenkins-pipelines-and-automation-875544956f65
+
+#Example of junit in jenkins shell
+- jobs - Build steps - Excute shell --> 
+junit /target src --- coe 
+echo "This is a test"
+
+# New Task #  (How to run multiple jobs one after another)
+Create three new jobs.
+# It means when A is build and stable then automatically B also is build.
+A-jobtest-1, B-jobtest-2 & C-jobtest-3
+
+# In A-jobtest-1.
+Excute shell -> Build other projects
+Name = B-jobtest-2
+Select first option = Trigger only if build is stable.
+Save.
+
+# In B-jobtest-2.
+Excute shell -> Build other projects
+Name = C-jobtest-3
+Select first option = Trigger only if build is stable.
+Save.
+
+# In Dashboard #
+To see Graphically building new jobs.
+Click on New View
+Plugins: Download Delivery Pipeline Plugin 1.4.2
+- Jobs -> Edid View --> Pipeline
+   Name & Job --> Update interval: select: 1 Enable start of new pipeline build, 3 Enable rebuild.
+
+# Pipeline has two types #
+1. Scripted - old   2. Declarative - New
+
+Jenkins pipelines are traditionally written as scripted pipelines. Ideally, the scripted
+pipeline is stored in Jenkins webUI as a Jenkins file. The end-to-end scripted pipeline
+script is written in Groovy.
+
+The Declarative Pipeline subsystem in Jenkins Pipeline is relatively new, and provides
+a simplified, opinionated syntax on top of the Pipeline subsystems.
+
+pipeline {        ## // It means Declarative
+    agent any
+    stages {
+        stage('Welcome Step') {
+            steps {
+                echo 'Welcome to LambdaTest'
+            }
+        }
+    }
+}
+
+Link: https//dba12c.wordpress.com/2022/06/10/jenkins-declarative-pipeline-tutorial
+
+
+node {            ## // It means Scripted
+	stage('Build') {
+	
+	}
+	stage('Test') {
+	
+	}
+	stage('Deploy') {
+	
+	}
+}
+
+#In Linux Shell
+hello() { echo let us be a frd ; }
+(baçkup) { rsync -avz /opt/* /mnt }
+
+
+# Write pipeline as declarative start
+pipeline {
+    stages {
+        stage1 ('git clone') {     // Give Unique Name to Understand
+            steps {
+			git clone ...
+			}
+		}
+	    stage1 ('deploymentnginx') {
+            steps {
+               sh scp -rv
+			   }
+        } 			   
+
 
 Second 12:53AM to 1:20AM 
 In Jenkins pipeline - Only stage allowed not stages1 ..2..3
 Run the script and check with Vscode.
-Block, Parentheses, Curly bracket - Expansion Bracket.
+Block, Parentheses() called also function, Curly bracket - Expansion Bracket{} called aslo set of instructions.
 Stages
-----------------------------------------------------------------------------------
+--------------------
+=====================================================================================================================================================================
 
+=====================================================================================================================================================================
+# 02 Feb SUN - Jenkins
+Full Video Problem.
+
+cook() {echo this is chef; }. # In Linux 
+environment is used to set variables 
+_----------------ss_____
+
+=====================================================================================================================================================================
+
+
+=====================================================================================================================================================================
+# 08 Feb SAT - Jenkins
+
+# Means jenkins script getting from Git and then build a new job.
+-JOBS - Pipeline Style
+Pipeline = Pipeline script from SCM
+#VITAL#
+Branch name = */main
+Script Path = jenkinsfile
+
+# In Git Repo
+pipeline {
+    agent any
+    stages ('build'){
+        stage {
+            steps {
+                echo 'This is Build'
+            }
+        }
+    }
+}
+
+
+# DECLARATIVE (GROOVY) and SCRIPTED (GROOVY) -- DIFFERENCE BETWEEN #
+
+# DECLARATIVE (GROOVY)
+pipeline
+Build
+restart /rebuild
+specific stage rebuild
+lengthy pipeline
+Declarative pipeline - Groovy-based DSL (Domain-Specific Language)
+
+# SCRIPTED (GROOVY)
+node
+Build
+restart all stage will be restarted
+solowness
+more functions operators are used in scripted
+complex pipeline -- less lines.
+Scripted -Scripted Pipeline is the original pipeline syntax for Jenkins
+
+
+PIPELINE - ELEMENTS
+1. BLOCK
+2. Directives
+3. functions
+4. Arrays
+5. if else condition
+6. Condition
+7. Paramterized
+8. Post
+
+
+1. BLOCK
+pipeline
+stages
+steps
+stage
+script
+
+2. Directives -- are also called section
+environment
+option
+triggers
+
+
+
+### PIPELINE SYNTAX ###
+https://www.jenkins.io/doc/book/pipeline/syntax/
+https://www.baeldung.com/ops/jenkins-conditional-constructs#:~: text=Effective%20Jenkins%20pipelines%20rely%20heavily,steps%2C%20or%20any%20other%20condition
+https://www.lambdatest.com/blog/jenkins-declarative-pipeline-examples/
+https://www.lambdatest.com/blog/what-is-jenkins/
+
+# Environemtn variable
+https://phoenixnap.com/kb/jenkins-environment-variables
+
+
+a=b  --> Varaiable Value
+a==b --> Comparison
+
+
+## HOW TO SET CREDENTIALS IN JENKINS Security
+CRDENTIALS method
+- username and password
+- secret file
+- secret text
+- ssh private key
+
+
+# Temlate
+In Dashboard --> Mange jenkins --> Credentails
+- Add credentails
+Scope = Global (Jenkins, nodes, items, all child items, etc)
+Username = ubuntu
+Password = x
+ID = nginx_login   # Give unique name to use in script, else jenkins give very long number names.
+Description = This is nginx description servers details.
+
+
+HOW TO SET CREDENTIALS IN JENKINS :
+pipeline {
+    agent any
+ environment {           # It means use for globally, can use any stages.
+   salman_cred=credentials('nginx_login')
+}
+stages {
+  stage('CALLCRED') {
+    environment {        # It means use for stage only for globally or other stages.
+	
+	}
+   steps {
+    echo "Username is $salman_cred"
+    echo "Password is $salman_cred"
+}
+}
+}
+}
+
+
+# New Credentails #
+Kind = Secret file
+Scope = Global (Jenkins, nodes, items, all child items, etc)
+choose file : create new file or use sceret Private key.
+
+## New 
+pipeline {
+agent any
+
+options {
+// Timeout counter starts AFTER agent is allocated
+timeout(time: 1, unit: 'Minute')
+
+environment {
+salman_cred=credentials('3ec0ecef-0f8f-4c84-bdce-17c128860bdd')
+}
+stages {
+stage('CALLCRED') {
+
+steps {
+echo "Username is $salman_cred"
+
+## New
+pipeline {
+agent any
+
+triggers {
+cron('H */4 ** 1-5')
+
+options {
+
+timeout(time: 1, unit: 'Minute')
+}
+environment {
+salman_cred=credentials('3ec0ecef-0f8f-4c84-bdce-17c128860bdd')
+}
+stages {
+stage('CALLCRED') {
+
+steps {
+echo "Username is $salman_cred"
+echo "Password is $salman_cred"
+}
+}
+}
+
+
+password
+A password parameter, for example: parameters { password(name: 'PASSWORD', defaultValue: 'SECRET", description: 'A secret
+passuord') }.
+
+Example 10. Parameters, Declarative Pipeline
+
+pipeline {
+agent any
+paraneters {
+	string(mame: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+	
+	text(mame: 'BICGRAPHY', defaultValue: '', descriptiont 'Enter somc information about the person')
+	
+	booleanParam(mame: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+	
+	choice(name: 'CHOICE', choices: ['One', 'Two', 'Three"], description: 'Pick something' )
+	
+	password(mane: 'PASSWORD', defaultValue: 'SECRET', descriptiont 'Enter a password")
+
+stages {
+   stage('Example') {
+      steps {
+		 echo "Hello ${params. PERSON}"
+		 
+		 echo "Biography: $(parans.BIOGRAPHY}"
+		 
+		 echo "Toggle: $[params. TOGGLE]"
+		 
+		 echo "Choice: ${params.CHOICE}"
+		 
+		 echo "Password: ${params.PASSWCRD}"
+
+=====================================================================================================================================================================
+
+
+
+
+=====================================================================================================================================================================
+# 09 Feb SUN - Jenkins
+=====================================================================================================================================================================
 
 ----------------------------------------------------------------------------------
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.
