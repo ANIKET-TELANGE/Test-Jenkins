@@ -2025,6 +2025,237 @@ stages {
 
 =====================================================================================================================================================================
 # 09 Feb SUN - Jenkins
+
+# MANAGE JENKINS -- crdentials set -- ID
+Pipeline
+environement
+       { server_cred=credential("myserver_br") }
+               scp -v ${server_cred}
+               withcredetials0 $username
+
+Link - https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+
+A typical example of a username password type credential (example from here) would look like:
+
+withCredentials([usernamePassword(credentialsld: 'amazon', usernameVariable: 'USERNAME', passwordVariable: "PASSWORD')]) {
+// available as an env variable, but will be masked if you try to print it out any which way
+// note: single quotes prevent Groovy interpolation; expansion is by Bourne Shell, which is what you want
+sh 'echo $PASSWORD'
+// also available as a Groovy variable
+echo USERNAME
+// or inside double quotes for string interpolation
+echo "username is $USERNAME"
+
+# PARAMETERS ---- Diretcive
+string paramaeter
+choice parameter
+boolean
+text
+password
+
+# parameters (string(name: 'serv_ip', defaultValue: 'localhost', description: 'Plaese enter server ip ?) }
+
+pipeline {
+agent any
+
+stages {
+
+ stage ('runplay') {
+ steps
+
+  sh '''
+  
+  ansible-playbook test.yml -i $server_ip
+     '''
+}
+}
+}
+}
+
+## PreDefinded vairables in Jenkins OR Use Link ##
+pipeline {
+  agent any
+
+stages
+
+   stage (runplay') {
+      steps {
+             env.BUILD_ID
+             env.JOB_NAME
+             env.JENKINS_HOME
+            }
+}
+}
+}
+
+
+The following variables are available to shell and batch build steps:
+
+BRANCH NAME
+For a multibranch project, this will be set to the name of the branch being built, for example in case you wish to deploy to production from master but not from feature branches; if corresponding
+to some kind of change request, the name is generally arbitrary (refer to CHANGE_ID and CHANGE_TARGET).
+BRANCH_IS_PRIMARY
+For a multibranch project, if the SCM source reports that the branch being built is a primary branch, this will be set to "true"; else unset. Some SCM sources may report more than one branch as a
+primary branch while others may not supply this information.
+CHANGE_ID
+For a multibranch project corresponding to some kind of change request, this will be set to the change ID, such as a pull request number, if supported: else unset.
+CHANGE_URL
+For a multibranch project corresponding to some kind of change request, this will be set to the change URL, if supported; else unset.
+CHANGE TITLE
+For a multibranch project corresponding to some kind of change request, this will be set to the title of the change, if supported; else unset.
+CHANGE AUTHOR
+For a multibranch project corresponding to some kind of change request, this will be set to the username of the author of the proposed change, if supported; else unset.
+CHANGE_AUTHOR_DISPLAY_NAME
+For a multibranch project corresponding to some kind of change request, this will be set to the human name of the author, if supported; else unset.
+CHANGE AUTHOR_EMAIL
+For a multibranch project corresponding to some kind of change request, this will be set to the email address of the author, if supported; else unset.
+CHANGE_TARGET
+For a multibranch project corresponding to some kind of change request, this will be set to the target or base branch to which the change could be merged, if supported; else unset.
+CHANGE_BRANCH
+For a multibranch project corresponding to some kind of change request, this will be set to the name of the actual head on the source control system which may or may not be different from
+BRANCHI_NAME. For example in GitHub or Bitbucket this would have the name of the origin branch whereas BRANCH_NAME would be something like PR-24.
+CHANGE_FORK
+For a multibranch project corresponding to some kind of change request, this will be set to the name of the forked repo if the change originates from one; else unset.
+TAG NAME
+...
+
+## When
+
+- Acts like if condition to decide whether to run the particular stage or not as an optional block.
+pipeline {
+agent any
+stages {
+stage('build') {
+when {
+branch 'dev'
+}
+steps {
+echo "Working on dev branch"
+}
+}
+}
+}
+
+
+# Example
+
+when expression
+{BRANCH_NAME == /(production|staging)/}
+
+
+pipeline {
+agent any
+stages {
+stage('Example Build') {
+steps {
+echo 'Hello World'
+
+}
+
+}
+stage('Example Deploy') {
+when {
+expression { BRANCH_NAME ==~ /(production| staging)/ }
+anyof {
+environment name: 'DEPLOY_TO', value: 'production'
+environment name: 'DEPLOY_TO', value: 'staging'
+
+}
+steps {
+echo 'Deploying'
+}x4
+
+
+# Example
+
+stage ('runplay') {
+when {
+branch 'dev'
+}
+steps {
+}
+post {
+success {
+sh '''      ## To give for using scripting.
+cp war $tomcat && echo file copied
+   '''
+}
+success {
+echo "I am running because the job ran successfully"
+}x2
+
+
+# Freestyle Vs Pipeline
+- Freestyle
+pipeline it is not a code
+GIT
+BUILD STEP
+POST
+
+- Pipeline
+pipeline as a code
+write jenkins
+
+pipeline {
+agent any
+stages {
+stage('build') {
+steps {
+script {
+def skipBuild=env.SKIP_BUILD
+if (skipBuild == null || skipBuild.isEmpty()) {
+echo 'starting build ...'
+} else {
+echo 'skipping build ... '
+}x6
+
+
+# Example
+pipeline {
+agent any
+
+stages {
+stage('Check and Create Directory) {
+steps {
+script {
+// Define the directory path
+def dirPath = "test5'
+
+// Check if the directory exists
+
+if (!fileExists(dirPath)) {
+
+sh "mkdir -p ${dirPath}"
+echo "Directory created: ${dirPath}"
+}else {
+echo "Directory already exists: $(dirPath)"
+}
+}
+}
+}
+}
+}
+
+## JENKISN INTERVIEW QS ##
+
+1. jenkis freestyle vs pipeline
+2. whats is pipeline as a code - explain
+3. whats is paramaters and give 34 types
+4. what is shared libarary
+5. Diff between poll scm vs webhook
+6. Scripted vs declarative pipeline
+7. jenkisn load distribution - HOW TO
+8. How to manage artifact in jenkins
+9. Blue green deployment in jenkins
+10. Build ocen and how to monitor jenkins
+
+# To create user
+-- Mange jenkins - users - Give name etc
+
+-- Manage jenkins - Security - Security Give = LDAP etc.
+   Authorization = Matrix-based security. And give assign to users.
+
+
 =====================================================================================================================================================================
 
 
