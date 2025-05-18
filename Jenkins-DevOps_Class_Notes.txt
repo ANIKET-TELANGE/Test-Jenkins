@@ -2023,11 +2023,13 @@ stages {
 =====================================================================================================================================================================
 
 
-
-
 =====================================================================================================================================================================
 # 09 Feb SUN - Jenkins
 =====================================================================================================================================================================
+
+
+
+
 
 ----------------------------------------------------------------------------------
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.
@@ -2036,6 +2038,167 @@ Topic : K8s Cluster Reset and Token Management
 
 
 
+=====================================================================================================================================================================
+# 15 Feb SAT - Jenkins
+
+# How to assign admin acces to a normal user. 
+
+# If mistakley remove all Adminsiter rights, so we can add by command line and config.xml, user in file. 
+ # If we change from command line then required Jenkins restart, but not required in case of GUI because it's call through using APIs. 
+- cd /var/lib/jenkins/users/
+- ls # For all users have folder in that inside there's config.xml we can see separately. 
+- Add Administer or disability in /var/lib/jenkins/congog.xml file in security paragraph. 
+
+Jenkins - Mange Jenkins - security - use Authorization matrix based. 
+read-only is mandatory for all users, to login in Jenkins. 
+
+
+## Description in simple words.
+create a Item role
+ rolename ----
+ give rights (build create view )
+ Attach job pattern -- (which job this role can access)
+Assign Roles
+ Attach / add user to created role.
+ 
+ 
+# How to give project base access. 
+Role Based Access Control ( RBAC) 
+ - To give the access of Jenkins for developer. 
+     Mange Jenkins - security --> 
+  Authorization = Role Based Strategy ( If not showing, simply download plugins respectively RoleBased Authorization Strategy. --> Save. 
+
+ Then : Mange Jenkins --> Manage and Assign Roles --> 
+For create Roles. 
+1. Global Rules
+  Role-to-admin
+
+2. Item Roles
+  Role to add - name = role-qa-1
+  Pattern = pharam* # for all pharam and single * means for al projects.
+  role-dev-2, finance project. 
+  And give respectively permission. 
+  Save 
+3. Agent Roles
+   Its like slave, but not exact same it's use only for run the jobs. 
+
+
+In Left side : Assign Roles
+For assign roles. 
+
+1. Global Roles
+  Add user and assign permission for global. 
+2. Item Roles
+   Add user = Harry and select role-dev-2 option
+   Add user = Shamu and select role-qa-1
+Save
+
+
+IQ : If job take too much time. 
+- Then using parallel stage so it's runs parallely. And for Ram, CPU problm use vertical scaling to increase them. 
+- For load issue create horizontal scaling agent to distrubed the load like master and slave. 
+
+
+## Jenkins Agent:
+ - No need to Install jenkins in agent server. 
+ - Just run install openjdk and jars. 
+ - Run instructions given by Jenkins Master Server. 
+ - Using jar files agent will connect at Jenkins server. 
+ - Agent could windows, docker, Linux systems
+  Examples:
+pipeline
+agent any # For random and decided by master, depends on load. 
+agent none
+label agent-1 # for specific agent and for specific stages in script
+
+
+-- Mange Jenkins --> Nodes --> New Node --> 
+Name = Slave-Agent-Node-1 --> Select = permanent. 
+( Copy means using form another existing system). 
+Create. 
+  - No. Of nodes = 1 or 2.
+  - Remote root dict = /opt/
+  - Labels = slave-lb-1p
+    Or more three options. 
+Save. 
+   It is created like a template, Now double click on this newly created template and see how to set-up. 
+Run that command and required prerequisite Java in that servers
+- Install Java
+- curl -so http://54.81.75.19:8080/jnlpJars/agent.jar
+- java -jar agent.jar -url http://54.81.75.19:8080/ -secret 29a3fe801e70a10e61BBae8caf57deda6bd884822454cfebd8660954637200be -name "slave-node-agent-1" -webSocket -workDir "/opt/"
+
+
+## Sample Script for Agent servers uses.
+
+Link - stackoverflow.com/questions/43321026/can-i-define-multiple agent-labels-in-a-declarative jenkine pipdline
+pipeline {
+     agent none
+     stages {
+       stage('Build') {
+          agent any
+          steps {
+             checkout scm
+             sh 'make'
+             stash includes: ' ** /target/ *. jar', name: 'app'
+     }
+     stage('Test on Linux') {
+        agent {
+          Label 'linux'
+     }
+     steps {
+        unstash 'app"
+        sh 'make check'
+     }
+     post {
+        always {
+            junit ' ** /target/ *. xml'
+     }
+     }
+     }
+     stage('Test on Windows') {
+        agent {
+          label 'windows'
+
+
+## For GitOps Script
+
+stages:
+  - validate
+  - security scans
+  - unit test
+  - functional test
+  - build frontend
+  - check or create ecr
+  - build backend
+  - scan container images
+  - change schema
+  - deploy or destroy app
+  - code_quality_check
+
+workflow:
+auto_cancel:
+on new commit: interruptible
+workflow:
+  auto_cancel:
+    on new commit: interruptible
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    when: always
+    - if: ( $CI_COMMIT_BRANCH == "develop" | | $CI_COMMIT_BRANCH == "uat" | | $CI_COMMIT_BRANCH == "staging" | | $CI_COMMIT_BRANCH == "master" | | $CI_COMMIT_BRANCH =~ "/^feature\/*/" )
+    - changes:
+        - api/json/model.yaml
+
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+  - template: Security/SAST-IaC.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Container-Scanning.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+
+default:
+  interruptible: true
+	
+=====================================================================================================================================================================
 
 
 
