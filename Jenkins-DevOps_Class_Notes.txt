@@ -2445,9 +2445,207 @@ Path:
 # 22 Feb SAT- Promethus-Graffana Explanation
 
 
+I am DevOps Engineer, I run pipeline in jenkins, I use declerivate amd scripted pipeline .
+In my company, there is process we use PR process , developers create features and multiple branches. They are add new code in feature branches.And push the code in remote repository 
+In one project github and other one is bigbucket and gitlab which runs in AWS DevOps. They push the code after they raised  PR request from the remote repository. And PR request is approved by 2-3 approvals form my senior teams. As soon as code approve 
+We have configured webhook trigger from remote repository from git. Then comes and clone the remote repository first initional clone the code and then second time it goes the fetch the code, when new PR is approved. And run the pipelines, we have mentioned multiple stages, first stage is git clone , and second stage it's just copy the code in Tomcat server or nginx server.
+Or once project is no java so directly push to nginx server. And nginx server code is copied and reflect to the production server for the end user code is reflected. 
 
 
+Git explanation 
+Prometheus grafana explanation and installation.
 
+What is Prometheus?
+Prometheus is a popular open-source monitoring and alerting system written in Golang, capable of collecting and
+processing metrics from various targets. You can also query, view, analyse the metrics and get alerted based on the
+thresholds.
+
+Promethus ...
+
+You are here: Home / Prometheus / Prometheus Monitoring: Features, Components, Architecture, and Metrics
+Prometheus Monitoring: Features, Components, Architecture, and Metrics
+
+The most effective organizations use metrics to track and comprehend the performance of their infrastructure and
+applications. One of the most well-known time series databases (TSDB) today is the Prometheus monitoring platform.
+
+In this blog we are going to learn about Prometheus Monitoring:
+What is Prometheus?
+Features of Prometheus
+Prometheus Components
+Prometheus Architecture
+What are metrics?
+- Metrics calucalte measures.
+
+Conclusion
+What is Prometheus?
+Prometheus is a monitoring tool for capturing and processing any time-series that contains only numbers. Along with metrics, individual identifiers, and timestamps, it
+collects, arranges, and stores them.
+Key Components of Prometheus Architecture
+
+Prometheus Server: The core component responsible for data collection, storage, querying, and alerting.
+Time Series Database (TSDB): Stores time-series data efficiently, enabling fast querying and analysis of metrics.
+Data Model: Defines how metrics are organized using metric names, labels, and values.
+Exporters: These are tools that expose metrics from third-party systems as Prometheus metrics. Since Prometheus can only scrape metrics in its
+Service Discovery: services are identified which are need to scraped.
+Alert Manager: Handles alerts sent by the Prometheus server. It is responsible for deduplicating, grouping, and routing them to the correct receiver such as email,
+PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts.
+Pushgateway: A middleware component that accepts metrics from jobs that cannot be scraped. This is typical for short-lived jobs or batch jobs that don't expose an HTTP
+endpoint long enough for Prometheus to scrape. Metrics are pushed to the Pushgateway, and then Prometheus scrapes the Pushgateway to collect these metrics.
+Targets: Any system or service that exposes metrics via an HTTP endpoint. This could be applications, infrastructure components, or external services.
+Client Libraries: Libraries for instrumenting applications and services to expose their own metrics in a Prometheus-compatible format.
+PromQL: The query language used to query and analyze metrics stored in Prometheus.
+Visualization Tools: Various tools and dashboards can be used to visualize the metrics collected by Prometheus, such as Grafana.
+
+# What is promethus
+Prometheus is a popular open-source monitoring and alerting system written in Golang,
+capable of collecting and processing metrics from various targets. You can also query, view, analyse the metrics and get alerted based on the thresholds.
+promethus - for metrics to track uses well-known time series databases (TSDB).
+
+Key Components of Prometheus Architecture:
+
+1. Prometheus Server. The core component responsible for data collection, storage, querying, and alerting.
+2. Time Series Database (TSDB): Stores time-series data efficiently, enabling fast querying and analysis of metrics.
+3. Data Model: Defines how metrics are organized using metric names, labels, and values
+4. Exporters: These are tools that expose metrics from third-party systems as Prometheus metrics. Since Prometheus can only scrape metrics in its
+5. Service Discovery: services are identified which are need to scraped.
+6. Alert Manager: Handles alerts sent by the Prometheus server. It is responsible for deduplicating, grouping, and routing them to the correct receiver such as email, PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts.
+7. Pushgateway: A middleware component that accepts metrics from jobs that cannot be scraped. This is typical for short-lived jobs or batch jobs that don't expose an HTTP endpoint long enough for
+Prometheus to scrape. Metrics are pushed to the Pushgateway, and then Prometheus scrapes the Pushgateway to collect these metrics.
+8. Targets: Any system or service that exposes metrics via an HTTP endpoint. This could be applications, infrastructure components, or external services.
+Client Libraries: Libraries for instrumenting applications and services to expose their own metrics in a Prometheus-compatible format.
+9. PromQL: The query language used to query and analyze metrics stored in Prometheus.
+10. Visualization Tools: Various tools and dashboards can be used to visualize the metrics collected by Prometheus, such as Grafana.
+
+You are here: Home / Prometheus / Prometheus Monitoring: Features, Components, Architecture, and Metrics
+Prometheus Monitoring: Features, Components, Architecture, and Metrics
+The most effective organizations use metrics to track and comprehend the performance of their infrastructure and applications. One of the most well-known time series databases (TSDB) today is the Prometheus monitoring platform.
+
+scraped --- > to pull the metrics
+pulling the metrics
+
+## DataDog --- is good for momtoring devops
+
+
+## banner ka merge ----- > main (merge)
+baner ------- > main
+source ----- > target
+                here
+banner <----- git merge banner				
+       ----->
+	   pull
+	   pull from the source branch
+git checkout main (in target branch)
+git merge banner
+
+# Monitoring - -Centralized monitoring
+1. Server -- Zabbix nagios
+2. Dashboard -- report visualize
+3. Thresold value --- RAM CPU HARDDISK -- 80% ----
+4. Alert - Alrams ---- notify emaill sms --- etc
+
+where to monitor
+Clients - host
+1. webserver                           2. Dbserver
+1. agent install
+2. Metrics configure
+3. Metric s measure caluclate of each devices each software
+4. Cpu metrics --- cpuload-1 cpucore metrics 2 cputhread -3
+5. hdd metrics -- hdd metrics type -1 hdd - load io -- metrics -2
+1000of metrics
+Monitoring Server -- Pull from the agent in intervals -- 5min
+                              every 5mins Server ----- > agent notify -
+									                     agent --- run metrics run (what we have configured)
+														 cpu + ram -- -run and load inform
+                                                         server will pull the information and display in dashboard
+
+## Promethus Server pull fast
+very poor dashboard report -- as a text
+inside alert threshold
+Alerts -- configure
+promethus.yml
+--- add host
+cofigure in yaml language
+promql querry for pull the metrics
+.
+zabbix.cfg
+name=vale
+tag
+file ---
+agent 1928
+.
+promethus
+-- node exporter install metrics
+client are called target --- as -- > node exporter /metrics
+
+Promethus is god for devops tools -- which is exceled
+promethus ---- microservices -- containers --
+promethus --- good nw throughput --- very less nw load
+promethus -- no complex configurations
+promethus ---- Promql use to fetch the metrics (promethus querry language) -- speed performance minute querries.
+promql - - docker imaage -- corrupted or fine
+promql ----- pod motnitor -- containers -- image --
+
+
+#### Promethus Installation on ubuntu  ####
+
+$$$$$$install Prometheus on Ubuntu$$$$$$4
+
+# sudo apt update && sudo apt upgrade -y
+
+# mkdir /etc/prometheus
+# mkdir /var/lib/prometheus
+
+cd /tmp
+curl -s https://api.github.com/repos/prometheus/prometheus/releases/latest | grep browser_download_url | grep linux-amd64 | cut -d "" -f 4 |wget -qi -
+tar xvf prometheus -*. tar.gz
+cd prometheus -* /
+# mv prometheus /usr/local/bin/
+# mv promtool /usr/local/bin/
+# mv prometheus.yml /etc/prometheus/
+# mv consoles/ console_libraries//etc/prometheus/
+# chown -R prometheus:prometheus /etc/prometheus /var/lib/prometheus
+# chown prometheus:prometheus /usr/local/bin/prometheus /usr/local/bin/promtool
+
+sudo tee /etc/systemd/system/prometheus.service > /dev/null «EOF
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \\
+  -- config.file=/etc/prometheus/prometheus.yml \\
+  -- storage.tsdb.path=/var/lib/prometheus \\
+  -- web.console.templates=/etc/prometheus/consoles \\
+  -- web.console.libraries=/etc/prometheus/console libraries
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# systemctl daemon-reload
+# systemctl enable -- now prometheus
+# systemctl status prometheus
+
+# http://server-ip:9090
+
+## To start manually without systemctl.
+tar xvf prometheus -*. tar.gz
+cd promethus/ promethus prg promehtus.yml
+./promthus ---- # start ----- > RUN PORT -- 9090
+
+#### Graffan Install ####
+# apt-get install -y apt-transport-https software-properties-common wget
+# mkdir -p /etc/apt/keyrings/
+# wget -q-0 - https://apt.grafana.com/gpg.key | gpg -- dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+# echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+# echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg) https://apt.grafana.com beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+# apt-get install grafana
+
+http://IP:3000/
 
 =====================================================================================================================================================================
 
