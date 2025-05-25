@@ -90,8 +90,8 @@ git push origin main --force
 # 31th Jan Fri - Mini-Project-1_Jenkins_5
 Total - 25
 
-# 01 FEB SAT- JENKINS-4 Problem Only Audio Avaiable
-# 02 FEB SUN- JENKINS-5 Full Video PROBLEMM
+# 01 FEB SAT- JENKINS-4 Problem Only Audio Avaiable but completed.
+# 02 FEB SUN- JENKINS-5 Full Video PROBLEM but completed.
 # 05 Feb Wed Repeat Required && Kube - pending
 # 07 Feb Fri - Kube - pending
 # 08 Feb SAT- JENKINS-6
@@ -106,7 +106,7 @@ Total - 25
 # 17 Feb Mon - Kube - pending 1:57
 # 19 Feb Wed - Kube - pending 2:10
 # 21 Feb Fri - Kube - pending 2:10
-# 22 Feb SAT- Promethus-Graffana Explanation                                 - Written Pending from SS
+# 22 Feb SAT- Promethus-Graffana Explanation
 # 23 Feb SUN- Promethus-Graffana Installation & Nodejs code pipeline         - Written Pending from SS
 # 23 Feb Eve - Nodejs - pending
 # 24 Feb Mon - Kube - pending 2:10

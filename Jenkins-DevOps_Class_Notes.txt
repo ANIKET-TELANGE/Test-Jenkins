@@ -2652,7 +2652,233 @@ http://IP:3000/
 =====================================================================================================================================================================
 # 23 Feb SUN- Promethus-Graffana Installation & Nodejs code pipeline
 
+Prometheus Port:9090
 
+# vi promehtus.yml
+In that we can target and IPs
+static_configs:
+  - targets: ["localhost:9090"]
+  - targets: ["192.168.29.33:9090"]
+  - targets: ["192.168.29.45:9090"]
+OR
+  - job_name: "agent-1
+    static_configs:
+      - targets: [192.168.29.245
+
+Prometheus Metrics Type
+Prometheus monitors four primary metric types:
+
+https://k21academy.com/prometheus/prometheus-monitoring-an-introduction/
+https://www.fosstechnix.com/prometheus-tutorial-for-beginners/
+https://www.kozhuhds.com/blog/an-easy-look-at-prometheus-architecture/
+https://devopscube.com/prometheus-architecture/
+https://medium.com/@tech_18484/understand-prometheus-architecture-1ab83afd53b8
+
+# systemctl daemon-reload
+# systemctl enable -- now node exporter
+# systemctl status node_exporter
+# http://localhost:9100/
+
+
+########################
+# curl -LO
+https://github.com/prometheus/alertmanager/releases/latest/download/alertmanager -*. linux-amd64. tar gz
+
+# tar -xvf alertmanager -. linux-amd64.tar.gz #cd alertmanager -. linux-amd64
+# mv alertmanager amtool /usr/local/bin/
+# mv alertmanager.yml /etc/alertmanager/
+
+cat << EOF | sudo tee /etc/systemd/system/alertmanager.service
+[Unit]
+Description=Alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+ExecStart=/usr/local/bin/alertmanager \
+  -- config.file=/etc/prometheus/alertmanager.yml \
+  -- storage.path=/var/lib/alertmanager
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# systemctl daemon-reload
+# systemctl enable -- now alertmanager
+
+# vi /etc/prometheus/prometheus.yml
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - "localhost:9093"
+
+rule_files:
+  - "alert_rules.yml"
+---------------------------------------------
+touch /etc/prometheus/alert-rules.yml
+
+vi /etc/prometheus/alert-rules.yml
+groups:
+  - name: example_alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+          description: "Instance {{ $labels.instance }} has been down for more than 5 minutes."
+
+ - name: node-alerts
+    rules:
+      - alert: NodeDown
+        expr: up == 1
+        for: 15s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Node is down"
+          description: "The target {{ $labels.instance }} is unreachable for more than 5 minutes."
+
+
+
+
+# systemctl restart prometheus
+#  systemctl restart alertmanager
+
+# http://ip:9093/
+
+# vi /etc/alertmanager/alertmanager.yml
+global:
+  resolve_timeout: 10s
+
+route:
+  receiver: "email-alert"
+  repeat_interval: 2m  # ⬅️ Sends alert emails every 2 minutes
+  group_wait: 10s      # ⬅️ Waits 10 seconds before sending first alert
+  group_interval: 2m   # ⬅️ Groups alerts and resends every 2 minutes
+
+receivers:
+  - name: "email-alert"
+    email_configs:
+      - to: "tnew70723@gmail.com"
+        from: "tnew70723@gmail.com"
+        smarthost: "smtp.gmail.com:587"
+        auth_username: "tnew70723@gmail.com"
+        auth_password: "yswm iaxx qgdx nfal"  # Google App Password
+        require_tls: true
+        send_resolved: true
+
+~
+
+
+
+#  systemctl restart alertmanager
+#  systemctl status alertmanager
+																										 # 
+nslookup smtp.gmail.com
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+
+
+
+$$$$$$$$$$$$$$$
+promtool check config /etc/prometheus/prometheus.yml
+$$$$4444444$$$$$
+
+$$$$$$$$$$4prometheus yml file$$$$$$$$$
+vim prometheus.yml
+# My global config
+global:
+scrape_interval: 15s # Set the scrape interval to every 15 seconds.
+Default is 1 minute.
+evaluation_interval: 15s # Evaluate rules every 15 seconds.
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - "alertmanager:9093"
+            - "127.0.0.1:9093"
+
+# Load rules once and periodically evaluate them according to the global
+'evaluation_interval'.
+rule_files:
+  - "alert_rules.yml" # Mention the rule file
+
+# A scrape configuration containing exactly one endpoint to scrape:
+scrape_configs:
+    job_name: "prometheus"
+	static configs:
+	  - targets: ["localhost:9090", "192.168.0.104:9100"]
+
+#######################
+
+********Install Grafana************
+
+# apt-get install -y apt-transport-https software-properties-common wget
+
+# mkdir -p /etc/apt/keyrings/
+# wget -q -0 - https://apt.grafana.com/gpg.key | gpg -- dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+# echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg]
+https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+# echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg]
+https://apt.grafana.com beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+# apt-get install grafana
+# http://ip:3000/
+
+
+Grafana is a freeware, multi-platform analytics, and visualization solution. Irrespective of the data storage location, we
+can explore, query, and visualize the data. It offers you the tools to transform your time-series database into excellent
+visualization and graphs.
+
+Organizations utilize Grafana to monitor their log and infrastructure analytics, largely to enhance their functional
+effectiveness. Dashboards track events and users because they automate the management, viewing, and collection of
+data.
+
+Security Analysts, Developers, and Product Leaders use this data to make their decisions. If you want to learn more
+about Grafana, Join our Grafana training. This tutorial discusses dashboard creation, environment configuration, and
+more of Grafana.
+
+
+#what is grafana
+- we can explore, query, and visualize the data. 
+Transform your time-series database into excellent visualization and graphs
+Grafana is a database monitoring and analysis tool.
+It enables us to build dashboards visualizations of the essential measures
+
+Grafana components
+Data source --
+creating dashboards
+panel plugin --- install and visualize data i nvarious ways
+grafana queries 26 querries per panel support
+grafana queery language -- prompql + Sql + InfluxQL + postgress
+
+Grafana Dashboards to visualize the data while the backend is controlled by the Prometheus
+Variables in Grafana enable dynamic dashboards, allowing you to select different instances of metrics
+
+in p anel
+Adding a row
+
+A row is a logical divider within a dashboard that groups panels together.
+Time intervals and automatic refresh
+Alerting
+dashboard import and export
+
+
+## IQ Webserver Nginx and Apache differnce between
+      If nodejs can run independently.
+	  
+https://youtu.be/Fil8uO7Mw1A?si=tFm5-QIRGYYUwzZb
+https://github.com/RAJANI9/boxtuse-sample-java-war-hello/blob/master/Jenkinsprojectfile
 
 
 =====================================================================================================================================================================
