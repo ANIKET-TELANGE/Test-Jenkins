@@ -218,6 +218,32 @@ sudo systemctl enable --now docker
 sudo docker run hello-world
 ================================================================================================================================================================
 
+================================================================================================================================================================
+# 20th Dec Fri  - Git Notes 6 + Basic Docker - 1
+Git - Rebase  & DOCKER
+
+git commit -am "Message"  --> Without add command, we can commit.
+
+#Rebase  --> To take pointer another branch content without merge
+git branch -b rebase-branch-name
+#add some line in text file
+git commit -am "Message"
+git branch main
+git rebase rebase-branch-name
+
+#   DOCKER   #
+
+Ubuntu - t2.micro  - Configure 8 / gp2 --Launch
+
+sudo -i
+
+Open Docker-Site Ubuntu
+
+# Add Docker's official GPG key:
+
+sudo apt-get update
+================================================================================================================================================================
+
 git fetch main
 git show HEAD
 git fetch origin
