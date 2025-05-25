@@ -1,0 +1,105 @@
+### GIT TOPIC  ###
+# 07 Mar Fri - Terraform-1
+# 09 Mar Sun - Terraform-2
+# 11 Mar Tue - Terraform-3
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 07 Mar Fri - Terraform-1
+
+
+create---box --chart, install, helm ls, rollback
+ls list, revision, bug, 
+--dry-run--
+helm add repo bitnami repourl
+helm install box/apache-3.2.12
+
+Terraform brain is API:
+Post 
+Get
+Put
+Search on google
+
+Terraform main files:
+1. terraform.state
+2. terraform.tfvars
+3. terraform-provider.tf
+4. terraform-instance.tf
+
+Download Extension:
+1. HashiCorp Terraform
+2. Terraform Advancd Syntax Highlighting - Patrick Miravalle
+
+Terraform code is written in HashiCorp Configuration Language (HCL), a declarative programming language. HCL is used to define infrastructure for DevOps tools and servers.
+
+#What Terraform is:
+
+Terraform is an open-source tool that helps users manage infrastructure as code.
+It allows users to create, change, and destroy Infrastructure in a safe and predictable way.
+Terraform can be used to manage infrastructure across various cloud platforms. including AWS, Microsoft Azure, and Google Cloud.
+It can also be used to automate infrastructure tasks, such as managing Kubernetes clusters and virtual machine images.
+
+#What the logo represents:
+The Terraform logo represents the open-source tool that helps users create, manage, and destroy infrastructure across cloud platforms.
+
+Link: https://developer.hashicorp.com/terraform/tutorials/aws-get-started
+
+Get Started - AWS
+Build, change, and destroy AWS infrastructure using Terraform. Step-by-step, command-line tutorials will walk you through the Terraform basics for the first time.
+
+What is Infrastructure as Code with Terraform?
+Learn how infrastructure as code lets you safely build, change, and manage infrastructure. Try Terraform.
+
+Install Terraform
+Install Terraform on Mac, Linux, or Windows by downloading the binary or using a package manager (Homebrew or Chocolatey). Then create a Docker container locally by...
+
+Build infrastructure
+Authenticate to AWS and create an EC2 instance under the AWS free tier. Write and validate Terraform configuration, initialize a configuration directory, and plan and apply a configuration to..
+
+
+Commands:
+terraform
+tfenv list    # To check no.of version and which version is using current. 
+
+aws configure   # For key go the AWS.
+aws s3 ls
+ls -a ~/.aws/
+
+AWS CLI BUILDER   # To get commands
+
+
+# S3 creation code.
+resource "aws_s3_bucket" "example" {
+   bucket = "my-tf-test-bucket"
+   tags = {
+       name             = "My bucket"
+       Environment = "Dev"
+    }
+}
+
+
+Cmds:
+la -a
+terraform init
+terraform plan
+ - give region name or get default:
+ - ap-south-1
+ - yes
+terraform apply
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 09 Mar Sun - Terraform-2
+
+
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 11 Mar Tue - Terraform-3
+
+
+
+================================================================================================================================================================

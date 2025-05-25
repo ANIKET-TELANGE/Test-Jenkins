@@ -118,9 +118,9 @@ Total - 25
 # 01 Mar SAT-
 # 03 Mar SUN-
 # 05 Mar 
-# 07 Mar 
-# 09 Mar 
-# 11 Mar 
+# 07 Mar Fri - Terraform-1
+# 09 Mar Sun - Terraform-2
+# 11 Mar Tue - Terraform-3
 # 13 Mar 
 # 16 Mar - Resume
 # 22 Mar - Promethus-Graffana and Pratical
