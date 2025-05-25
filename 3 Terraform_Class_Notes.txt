@@ -93,13 +93,61 @@ terraform apply
 ================================================================================================================================================================
 # 09 Mar Sun - Terraform-2
 
-
+You can define variable in different file and with same folder, and use with others file. 
+There is one way also to define variable in different filders and use - find on google.
 
 ================================================================================================================================================================
 
 ================================================================================================================================================================
 # 11 Mar Tue - Terraform-3
 
+#terrform fmt
+#terrform validate
+#terrafrom refresh
 
+# Types
+variable "username" {
+type = string
+#type = number
+}
+
+# Types Upper ,Lower Title
+variable "ueser" {
+}
+output "test" {
+  value = "Hello ${upper(var.ueser)}"
+  #value = "Hello ${lower(var.ueser)}"
+  #value = "Hello ${title(var.ueser)}"
+  #value = "${title(var.ueser)}"
+}
+
+# Join
+variable "ueser" {
+type = list
+default = ["tom","tej,","ramu","champu","salman"]
+}
+output "test" {
+   value = "${join(var.ueser)}"
+}
+
+## This is for create aws ec2 instance
+
+resource "aws_key_pair" "terrafrom" {
+  key_name = "terrafrom"
+  public_key = "ssh-rsa...................
+}
+
+output "print_key" {
+  value = "${aws_key_pair.tom.key_pair_id}"
+}
+
+resource "aws_instance" "webserver"
+      ami="ami-00bb6a80f01f03502"
+	  instance_type = "t2.micro"
+	  key_name =
+tags = {
+		 Name = "webserver"
+  }
+}
 
 ================================================================================================================================================================
