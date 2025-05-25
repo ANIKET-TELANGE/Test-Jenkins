@@ -1,140 +1,17 @@
-================================================================================================================================================================
-# 20th Dec Fri  - Git Notes 6 + Basic Docker - 1
-Git - Rebase  & DOCKER
-
-git commit -am "Message"  --> Without add command, we can commit.
-
-#Rebase  --> To take pointer another branch content without merge
-git branch -b rebase-branch-name
-#add some line in text file
-git commit -am "Message"
-git branch main
-git rebase rebase-branch-name
-
-#   DOCKER   #
-
-Ubuntu - t2.micro  - Configure 8 / gp2 --Launch
-
-sudo -i
-
-Open Docker-Site Ubuntu
-
-# Add Docker's official GPG key:
-
-sudo apt-get update
-================================================================================================================================================================
-================================================================================================================================================================
-git init
-#git remote add origin https://github.com/A-T/Test-Jenkins.git
-git status
-git add J1.txt P1.txt
-git commit -m "Added J1.txt and P1.txt files"
-git push origin main
-git commit -am "Added J1.txt and P1.txt files"   ## To commit & push in one command.
-#git push origin <Branch Name>
-git push origin main --force
-
-1. 6-10-24
-2. 13-10-24
-3. 20-10-24
-4. 27-10-24
-5. 10-11-24  
-
-6. 24-11-24 DevOps-git -NA
-7. 1-12-24 -NA 9.
-
-# 30th Nov Sat NEW
-# 1st Dec Sun
-# 7th Dec Sat
-# 8th Dec Sun
-# 11th Dec Wed - Git Notes 1
-# 12th Dec Thu - Git Notes 2
-# 13th Dec Fri - Git Notes 3
-# 14th Dec SAT-
-
-# 18th Dec Wed - Git Notes 4
-# 19th Dec Thu - Git Notes 5
-# 20th Dec Fri - Git Notes 6 + Basic Docker - 1
-# 21th Dec SAT-  Maven
-# 22th Dec SUN-  Maven + Tomcat
-# 24th Dec Tue - Docker Images - 2 
-# 25th Dec Wed - Docker PORT MAPPING - 3
-# 26th Dec Thu - Docker Containers, Data Migration - 4 
-# 28th Dec SAT-  Tomcat Deploy
-# 29th Dec SUN-  Git Branching & Basic HTML
-
-# 03th Jan Fri - Docker State - 5
-# 04th JAN SAT- Ansible Therory
-# 05th JAN SUN- Ansible Architecture
-# 05th Jan Sun Eve
-# 08th Jan Wed - Docker DockerHUB - 6
-# 09th Jan Thu - Docker Volume - 7
-# 10th Jan Fri - Docker DockerFile - 8
-# 11th JAN SAT- Ansible
-# 12th JAN SUN- Ansible
-# 12th Jan Sun Eve 
-# 16th Jan Thu - Docker - DockerFile - 9
-# 17th Jan Fri - Docker - DockerFile - 10
-# 18th JAN SAT- Ansible Playbook
-# 19th JAN SUN- JENKINS
-# 19th Jan Sun Eve
-# 21th Jan Tue - Docker - Pending - 11 -----------
-# 22th Jan Wed - Docker - Pending - 12 -----------
-# 23th Jan Thu - Mini-Project-1_Jenkins_1
-# 24th Jan Fri - Mini-Project-1_Jenkins_2
-# 25th JAN SAT- Jenkins p
-# 26th JAN SUN- Jenkins p
-# 26th Jan sun Eve Js - pending
-# 27th Jan Mon - Mini-Project-1_Jenkins_3
-# 29th Jan Wed - Mini-Project-1_Jenkins_4
-# 31th Jan Fri - Mini-Project-1_Jenkins_5
-Total - 25
-
-# 01 FEB SAT- JENKINS Problem Only Audio Avaiable
-# 02 FEB SUN- JENKINS Full Video PROBLEMM
 # 05 Feb Wed Repeat Required && Kube - pending
 # 07 Feb Fri - Kube - pending
-# 08 Feb SAT- JENKINS
-# 09 Feb SUN- JENKINS
-# 09 Feb Sun Eve - JS
 # 10 Feb Mon - Kube - pending 2:20
 # 12 Feb Wed - Kube - pending 1:56
 # 14 Feb Wed - Recording Not Avaiable in PC  && Kube - pending
-# 15 Feb SAT- Jenkins
-# 16 Feb SUN- Git Explanation, Last Hour pending
-# 16 Feb Eve - Javascript
 # 17 Feb Mon - Kube - pending 1:57
 # 19 Feb Wed - Kube - pending 2:10
 # 21 Feb Fri - Kube - pending 2:10
-# 22 Feb SAT- Promethus-Graffana Explanation
-# 23 Feb SUN- Promethus-Graffana Installation & Nodejs code pipeline
-# 23 Feb Eve - Nodejs - pending
 # 24 Feb Mon - Kube - pending 2:10
-# 25 Feb Consule
 # 26 Feb Wed - Kube - pending 2:12
 # 28 Feb Fri - Kube - pending 1:26
-
-# 01 Mar SAT- Devops Project - pending 1:42
-# 03 Mar Sun - Service Pract - pending 1:50
 # 05 Mar Wed - Kube Helm - pending 2:14
-# 07 Mar Fri - Terraform-1
-# 09 Mar Sun - Terraform-2
-# 11 Mar Tue - Terraform-3
-# 13 Mar Thu - Terraform-4 - pending
-# 16 Mar - Resume
-# 22 Mar - Promethus-Graffana and Pratical - pending
- 
-# 11 Apr - Project-1 Part_1 - pending 
-# 12 Apr - Project-1 Part_2 - pending
-# 13 Apr - Project-1 Part_3 - pending  
- 
-
-
 
 ================================================================================================================================================================
-# 
-================================================================================================================================================================
-
 
 ================================================================================================================================================================
 # 05 Feb Wed 25
@@ -158,9 +35,6 @@ kubectl get svc nginx
 
 Search with port which kub bydefault open for Nginx webpage & Open Port in worker node
 ================================================================================================================================================================
-
-
-
 
 ================================================================================================================================================================
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.
@@ -240,4 +114,3 @@ kubectl certificate approve <NAME>    # To approve
 
 Completed but not have proper commands.
 ================================================================================================================================================================
-
