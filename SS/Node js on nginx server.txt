@@ -1,0 +1,73 @@
+Deploying node js on nginx server 
+node js installation 
+apt install nodejs -y
+
+To verify if Node.js is successfully installed and check its version, use the following commands:
+node -v
+
+Initialize your Node.js application using:
+cd ~
+mkdir mynodeapp && cd mynodeapp
+npm init -y
+
+Install Express, a popular Node.js web application framework, using the following command:
+npm install express
+
+ Here are the steps to create and edit the app.js file using the vi editor:
+vi app.js
+
+Copy and paste the following code into the vi editor:
+
+const express = require("express"); 
+const app = express(); // Initializing Express App
+// Sending Hello World when anyone browse your webpage
+app.get("/*", (req, res)=>{
+        res.send('Hello World'); 
+});
+app.listen(3000, ()=> console.log("App Listening on port 3000"));
+wq!
+
+
+
+In the terminal, run the following command to start your Node.js application:
+node app.js
+
+To install pm2, run the following command:
+npm install -g pm2
+
+Start the above application using pm2:
+pm2 start app.js
+
+Verify whether your application is running using the following command:
+pm2 status
+
+To halt your application, use:
+pm2 stop <application_name/ID>
+
+to resatrt your app 
+pm2 restart <application_name/ID>
+
+Ensure your application runs successfully locally by testing with CURL:
+curl localhost:3000
+
+To swiftly install Nginx from the default repositories on Ubuntu, use:
+yum install nginx -y
+
+To configure Nginx as a reverse proxy and set up the necessary settings, 
+open the default Nginx configuration file using the following command:
+vi /etc/nginx/sites-available/default
+
+Certainly! In the default Nginx configuration file, replace the existing content of the location / block with the provided code:
+location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+}
+
+To start Nginx and apply the changes you made to the configuration, use the following command:
+systemctl restart nginx
+
+open port 3000(inobund rule) from security grp in instance 

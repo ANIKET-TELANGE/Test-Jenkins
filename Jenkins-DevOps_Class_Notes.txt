@@ -2885,4 +2885,94 @@ https://github.com/RAJANI9/boxtuse-sample-java-war-hello/blob/master/Jenkinsproj
 
 =====================================================================================================================================================================
 # 01 Mar SAT- Devops Project Agile and Jira Explanation
+
+Use below pipeline script:
+Path:
+"C:\Users\Dell\Desktop\IPM_CMDS\SS\pipeline-tomcat.txt"
+"C:\Users\Dell\Desktop\IPM_CMDS\SS\Node js on nginx server.txt"
+
+
+## Defination ##
+Deploy:
+After a build passes the testing phase, it becomes a candidate for deployment.
+There are two main ways to deploy the build, including:
+- Continuous delivery-the build is sent to human staff for approval and then deployed. For example, new versions are automatically deployed to a test environment, but promotion to production is gated by a manual approval or merge request.
+- Continuous deployment-the pipeline automatically deploys the build to testing, staging, and production environments, assuming it passes all relevant tests, with no manual approvals.
+
+A typical deployment phase creates a deployment environment and moves the build to a deployment target, like a server. You can automate these steps with scripts or workflows in automation tools. Most deployments also integrate with error reporting and ticketing tools to detect unexpected errors post-deployment and alert developers.
+
+
+## Types of Deployment ##
+1. Bridge --- WATER FALL MODEL
+ ~ --> Requirements --> Design --> Implemenation --> Verfication --> Maintance. # Architecture (2006)
+2. AGILE --- PROCESS - PROJECT MANAGER
+
+BIG LARGE - small code --- create - -deploy -- paralley features.
+Code build wiht small piece of code and deployed andparallely features code is updated frequently.
+
+JIRA --- Project
+management --- provisions good agile methodolgy
+
+YOU
+PROJECt IS ASSGINED TO YOU Jira ticket RAISE
+AGILE SPRINT -1a -- 2weeks
+
+
+##  AGILE COMPONENTS  ##
+1. SPRINT
+2. Sprint Planning meeting
+3. PI -- Program increment planning
+4. Daily Standup Meeting -
+5. Sprint Retrosepctive meeting
+6. Story Point
+7. Epic
+8. Scrum master
+9. Spike
+10. Zero sprint
+11. velocity
+
+AGILE ---- COMPONENTS USE WITH - JIRA PROJECT MANAGEMENT and jir a ticketing tool.
+
+AGILE Methodology
+Set of Practices - following properly and requirement can be change in any time
+How ticket is assigned and give regular updates and take updates.
+
+Sprint : is just a cylce in time interval - task to be completed -- how much work to be completed
+2 week is one sprint - somethimes 3 weeks what need to be
+
+Sprint Planning meeting
+You define all the things like what all things will be done and delivered in this sprint
+
+PI -- Program increment planning - Big larger Sprint - deliver in a quarter --- as in one year -4 Pl in one year comes 6 sprints
+Pi planinng acrros the teams and sprint planning accross the teammates.
+
+Daily Standup Meeting -
+What wroked yesterday and what work today lead with scrum master - to take updates held most Daily morning meeting or evening discuss any issue.
+
+Sprint Retrosepctive meeting -- held after sprint Completed what good and bad to improve discussed in this meeting.
+
+Story Point --- task - depends on story point - 1 story point - 1day - and 1stroy point may be 2days.
+
+Epic =--- Larege segment of stories in one sprint cannot be completed , so devided in particular stories.
+
+Scrum master - any particular srpint or sprint planning the one who is leading is known as scrum master responsibel to monitor stories os each individual and take proper updates from them.
+
+Zero Sprint - use before 1st srpint that interval is called zero sprint.
+ 
+Spike - No Clarity - so not able to give a proper deadline and create stories (need time to research not decided and when this will complete.
+
+Velocity -- particular team - chekc how muc amount of work done by this team.
+
+# Git log #
+Link: https://www.techtarget.com/scarchitoperations/answer/How-to-roll-back-Git-code-to-a-previous-commit  ## Not working
+
+CODE -- - -ABC --- commit --- - v1 HEADid --- 5fr47
+git log
+CODE --- - ABCD - -commit -- 67843
+git log
+CODE -- ABCDFRG --- commit -3 HEAD-678954
+Glt PUSH REMOTE GITHUB
+GIT revert HEAD6783
+ABCD -- EFG --- git push
+
 =====================================================================================================================================================================

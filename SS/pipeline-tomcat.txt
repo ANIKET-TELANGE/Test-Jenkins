@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    environment {
+        TOMCAT_PATH = "/opt/tomcat"
+        TOMCAT_USER = "root"
+        TOMCAT_PASSWORD = "admin"
+        TOMCAT_IP = "172.31.38.87"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Azure-Samples/tomcat10-jakartaee9.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                script {
+                    def warFile = 'target/*.war'
+                    def remoteWarPath = "${TOMCAT_PATH}/webapps"
+                    
+                    // Debug the variables
+                    echo "WAR file path: ${warFile}"
+                    echo "Remote path: ${remoteWarPath}"
+                    echo "Tomcat user: ${TOMCAT_USER}"
+                    echo "Tomcat IP: ${TOMCAT_IP}"
+// Use sshpass with SCP to copy the WAR file to the remote Tomcat server
+                    sh "sshpass -p '${TOMCAT_PASSWORD}' scp -v -o StrictHostKeyChecking=no ${warFile} ${TOMCAT_USER}@${TOMCAT_IP}:${remoteWarPath}"
+                    
+                    // Restart Tomcat by SSHing into the server
+                    sh "sshpass -p '${TOMCAT_PASSWORD}' ssh -v -o StrictHostKeyChecking=no ${TOMCAT_USER}@${TOMCAT_IP} '${TOMCAT_PATH}/bin/shutdown.sh && ${TOMCAT_PATH}/bin/startup.sh'"
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Build and Deployment Successful'
+        }
+        failure {
+            echo 'Build or Deployment Failed'
+        }
+    }
