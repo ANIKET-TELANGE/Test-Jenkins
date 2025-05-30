@@ -2,7 +2,7 @@
 # 07 Mar Fri - Terraform-1
 # 09 Mar Sun - Terraform-2
 # 11 Mar Tue - Terraform-3
-# 13 Mar Thu - Terraform-4 -pending
+# 13 Mar Thu - Terraform-4
 
 ================================================================================================================================================================
 
@@ -288,7 +288,64 @@ tags = {
 ================================================================================================================================================================
 # 13 Mar Thu - Terraform-4
 
+cat id_rsa.pub
 
+# main.tf
+resource "aws_key_pair" "salman" {
+  key_name = "salman-key25"
+  public_key = "ssh-rsa  copy from your server.......biglines
+}
 
+resource "aws_security_group" "example" {
+name = salman-sg
+
+ egress {
+ 
+   from_port    = 22
+   to_port      = 22
+   protocol     = "ssh"
+   cidr_blocks  = ["0.0.0.0/0"]
+ }
+}
+
+ ingress {
+  from_port     = 80
+  to_port       = 80 
+  protocol      = "tcp"
+  cidr_blocks   = ["0.0.0.0/0"]
+ } 
+  
+ ingress {
+  from_port     = 3306
+  to_port       = 3306
+  protocol      = "tcp"
+  cidr_blocks   = ["0.0.0.0/0"]
+ } 
+ 
+  egress {
+ 
+   from_port    = 0
+   to_port      = 0
+   protocol     = "-1"
+   cidr_blocks  = ["0.0.0.0/0"]
+ }
+ 
+resource "aws_instance" "webserver"{
+  ami           = "ami-04b4f1a9cf54c11d0"
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.salman.key_name
+  
+  vpc_security_group_ids = = ["${aws_security_group.salman-sg.id}"]
+  user_data =
+  #!/bin/bash
+  sudo api-get update -y
+  sudo apt-get install nginx -y 
+  echo "Hello From terraform" > /var/www/html/
+EOF
+  
+  tags = {
+    Name = "salmaninstance"
+  }
+}
 
 ================================================================================================================================================================

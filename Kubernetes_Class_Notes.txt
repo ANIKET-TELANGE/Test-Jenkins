@@ -1,19 +1,43 @@
 # 05 Feb Wed - Kubernetes -1 Explanation & Vinala Repeat Required
 # 07 Feb Fri - Kubernetes -2 Architecture
-# 10 Feb Mon - Kube - pending 2:20
-# 12 Feb Wed - Kube - pending 1:56
-# 14 Feb Wed - Recording Not Avaiable in PC  && Kube - pending
-# 17 Feb Mon - Kube - pending 1:57
-# 19 Feb Wed - Kube - pending 2:10
-# 21 Feb Fri - Kube - pending 2:10
-# 24 Feb Mon - Kube - pending 2:10
-# 26 Feb Wed - Kube - pending 2:12
-# 28 Feb Fri - Kube - pending 1:26
-# 03 Mar Mon - Kube - Helm & Practical pending 1:57
-# 05 Mar Wed - Kube Helm - pending 2:14
+# 10 Feb Mon - Kubernetes -3 pending 2:20
+# 12 Feb Wed - Kubernetes -4 pending 1:56
+# 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
+# 17 Feb Mon - Kubernetes -6 - pending 1:57
+# 19 Feb Wed - Kubernetes -7 - pending 2:10
+# 21 Feb Fri - Kubernetes -8 - pending 2:10
+# 24 Feb Mon - Kubernetes -9 - pending 2:10
+# 26 Feb Wed - Kubernetes -10 - pending 2:12
+# 28 Feb Fri - Kubernetes -11 - pending 1:26
+# 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
+# 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
 
 ================================================================================================================================================================
+## Kubernetes Interview Questions
 
+1) What is the difference between a stateless and stateful pod or container in Kubernetes?
+2) What are deployments in Kubernetes? Explain the different types of deployments.
+3) What is a ReplicaSet, and how does it differ from a ReplicationController?
+4) Explain the architecture and workflow of Kubernetes.
+5) What is the difference between vertical scaling and horizontal scaling in a Kubernetes pod?
+G) How does autoscaling work in Kubernetes? Explain the Horizontal Ped Autoscaler (HPA) and Vertical Pod Autoscaler (VPA).
+7) How does resource allocation work in Kubernetes? Explain CPJ and memory limits for a pod.
+8) What is an Ingress Controller in Kubernetes, and how does it manage external traffic?
+9) What is a Service in Kubernetes? Explain different types of services such as ClusterIP, NodePort, and LoadBalancer.
+10) How does Kubernetes handle service discovery and load balancing?
+11) How do you take a backup of the etd database in Kubernetes?
+12) What is a Persistent Volune (PV) and a Persistent Volume Claim (PVC)?
+13) Explain the difference between emptyDir, hostPath, and Persistent Volumes.
+14) How do you retrieve logs from a Kubernetes application pod?
+15) What are self-healing capabilities in Kubernetes, and how dces Kubernetes ensure high availability?
+16) What are the common troubleshooting steps for failed pods?
+17) How do you monitor Kubernetes clusters using Prometheus and Grafana?
+18) What is the difference betwsen kubectl create and kubectl apply?
+19) What are ConfigMaps and Secrets, and how do they help manage configurations in Kubernetes?
+20) What is a Heln chart, and how does it simplify Kubernetes deployments?
+21) How does Kubernetes handle RBAC (Role-Based Access Control)?
+22) What are Network Policies, and how do they secure pod conmunication?
+23) How can you secure container inages in Kubernetes deploynents?
 ================================================================================================================================================================
 # 05 Feb Wed - Kubernetes -1
 
