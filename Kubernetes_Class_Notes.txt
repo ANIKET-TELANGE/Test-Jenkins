@@ -1,5 +1,5 @@
-# 05 Feb Wed Repeat Required && Kube - pending
-# 07 Feb Fri - Kube - pending
+# 05 Feb Wed - Kubernetes -1 Explanation & Vinala Repeat Required
+# 07 Feb Fri - Kubernetes -2 Architecture
 # 10 Feb Mon - Kube - pending 2:20
 # 12 Feb Wed - Kube - pending 1:56
 # 14 Feb Wed - Recording Not Avaiable in PC  && Kube - pending
@@ -9,12 +9,13 @@
 # 24 Feb Mon - Kube - pending 2:10
 # 26 Feb Wed - Kube - pending 2:12
 # 28 Feb Fri - Kube - pending 1:26
+# 03 Mar Mon - Kube - Helm & Practical pending 1:57
 # 05 Mar Wed - Kube Helm - pending 2:14
 
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 05 Feb Wed 25
+# 05 Feb Wed - Kubernetes -1
 
 Kubernetes 
 
@@ -35,6 +36,96 @@ kubectl get svc nginx
 
 Search with port which kub bydefault open for Nginx webpage & Open Port in worker node
 ================================================================================================================================================================
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+# 07 Feb Fri - Kubernetes -2 Architecture
+
+# Borg is old name of K8s when google is using.
+Kubernetes is workstation / Orchestration.
+
+### Architecture ###
+Admin to Kube-API-Server then Controller Manger then asking take details form etcd-databse then Controller Manger give to Kube scheduler then go to again API then go to the node server then create containerd.
+
+Path:
+"C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_9__07-02-25_Kube_Arch.png"
+"C:\Users\Dell\Desktop\IPM_CMDS\SS\SS_10__07-02-25_Kube_Arch.png"
+
+container management docker 
+docker -- swarm -- conatiner --
+docker product -- open source 
+
+package -- install -- cust --
+cust
+cust --- open swarm -- highload , security , scaling , load balancer
+
+container -- swarm --
+
+
+kublet 
+kube - Manger
+kube - Schduler
+kube - Proxy
+etcd - databse 
+api - server
+Container engine:
+ = Container CRI
+ - containerd
+ - Rocket
+ - Podman
+
+## Install ##
+Update the systen and install dependencies:
+
+sude apt update && sudo apt upgrade -y
+sudo apt install apt-transport-https curl -y
+
+Install containerd:
+
+sudo apt install containerd -y
+
+Configure containerd:
+
+sudo nkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
+sudo sed -i 's/SystendCgroup - false/SystemdCgroup - true/' /etc/containerd/config.toml
+sudo systenctl restart containerd
+
+Disable swap:
+
+sudo swapoff -a
+sudo sed -i '/ swap / s/^\( .* \)S/#\1/g' /etc/fstab
+
+Load necessary kernel modules:
+
+sudo nodprobe overlay
+sudo nodprobe br_netfilter
+
+Set required sysctl parameters:
+
+cat << EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables - 1
+net.ipv4.ip_forward
+EOF
+sude sysctl -- system
+.
+
+# Commands
+kubctl get node
+systemctl status conatinerd.service
+systemctl status kubelet.service
+kubectl --help
+kubectl get pod -A  # To see all running pods.
+
+KUBECONFIG=$HOME/.kube/c
+echo $HOME/.kube/config/root/.kube/config
+
+kubectl delete pod  
+kubectl delete pod nginx-bf5d5cf98-db4kd  # To delete pod
+kubectl run pod nginx
+kubectl get pod
 
 ================================================================================================================================================================
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.

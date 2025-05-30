@@ -92,8 +92,8 @@ Total - 25
 
 # 01 FEB SAT- JENKINS-4 Problem Only Audio Avaiable but completed.
 # 02 FEB SUN- JENKINS-5 Full Video PROBLEM but completed.
-# 05 Feb Wed Repeat Required && Kube - pending
-# 07 Feb Fri - Kube - pending
+# 05 Feb Wed - Kubernetes -1 Explanation & Vinala Repeat Required
+# 07 Feb Fri - Kubernetes -2 Architecture
 # 08 Feb SAT- JENKINS-6
 # 09 Feb SUN- JENKINS-7
 # 09 Feb Sun Eve - JS
@@ -114,8 +114,8 @@ Total - 25
 # 26 Feb Wed - Kube - pending 2:12
 # 28 Feb Fri - Kube - pending 1:26
 
-# 01 Mar SAT- Devops Project - pending 1:42
-# 03 Mar Sun - Service Pract - pending 1:50
+# 01 Mar SAT- Devops Project Agile and Jira Explanation
+# 03 Mar Mon - Kube - Helm & Practical pending 1:57
 # 05 Mar Wed - Kube Helm - pending 2:14
 # 07 Mar Fri - Terraform-1
 # 09 Mar Sun - Terraform-2
