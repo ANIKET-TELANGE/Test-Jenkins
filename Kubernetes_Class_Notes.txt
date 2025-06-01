@@ -211,17 +211,18 @@ Service:
 
 
 ## Main Working  ##
-Service IP --- Deployment --- Pod --- Pause --- Container
+Service IP ---> Deployment ---> Pod ---> Pause ---> Container.
+
+- Whenever Pod creates its create one Pause conatiner also, means that no.of craeted container plus one pause container also (eg: Nginx + Pause). If container delete then Pause its use to recreate that containers.
+- Whenever Pod gets delete deleted then Deployment its use for recreate that Pod.
 
 
 Pod means:
  - Logical boundaries and collection of containers.
  - In Pod automatically creates one Pause container for storing all details of pod and conatiner and pause doesn't have personal IP. 
 
-
-
-
-
+Pause means:
+ - Its storing all details of pod and conatiner and pause doesn't have personal IP. And its use for recreate that container.
 
 kubeadm token create --print-join-command    # To Print command of join in master, so in worker we paste that cmd to joining node. 
 kubectl get node   #  To see no.of nodes. 
