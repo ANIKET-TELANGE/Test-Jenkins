@@ -1,7 +1,7 @@
 # 05 Feb Wed - Kubernetes -1 Explanation & Vinala Repeat Required
 # 07 Feb Fri - Kubernetes -2 Architecture
-# 10 Feb Mon - Kubernetes -3 pending 2:20
-# 12 Feb Wed - Kubernetes -4 pending 1:56
+# 10 Feb Mon - Kubernetes -3 Master Node Explanation
+# 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
 # 17 Feb Mon - Kubernetes -6 - pending 1:57
 # 19 Feb Wed - Kubernetes -7 - pending 2:10
@@ -39,6 +39,7 @@ G) How does autoscaling work in Kubernetes? Explain the Horizontal Ped Autoscale
 22) What are Network Policies, and how do they secure pod conmunication?
 23) How can you secure container inages in Kubernetes deploynents?
 ================================================================================================================================================================
+
 # 05 Feb Wed - Kubernetes -1
 
 Kubernetes 
@@ -152,6 +153,92 @@ kubectl run pod nginx
 kubectl get pod
 
 ================================================================================================================================================================
+
+================================================================================================================================================================
+
+# 10 Feb Mon - Kubernetes -3 Master Node Explanation
+
+Architecture:
+ Admin to Kube-API-Server then Controller Manger then asking take details form etcd-databse then Controller Manger give to Kube scheduler then go to again API then go to the node server then create containerd.
+-------------------------------------------------
+
+etcd like zookeeper database also present.
+
+Maximum we can use two master nodes.
+
+kubectl get node
+kubectl get pod -A.  # We can see all master nodes content 
+ Like:
+   - coredns
+   - etcd
+   - kube-api-server
+   - kube-controller-manager-ip
+   - kube-porxy-x8bhm
+   - kube-scheduler
+
+# For accessing master node via other Linux & Windows.
+  Download kubectl and configure in environment variables.
+  And create folder and paste admin content in config file. For this search on google.
+
+
+## To get access in normal Linux doesn't not required k8 nodes. 
+mkdir  .kube
+cd    .kube
+ls
+vi config    #  Paste from Master  etc/kubernetes/admin.conf To get access. 
+cat /etc/kubernetes/admin.conf   #  In master Node.
+
+================================================================================================================================================================
+
+================================================================================================================================================================
+
+# 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
+
+# Compenets name:
+Eg : Docker swarm (Docker), Kubernetes (Google), mesos (Apache). 
+
+kubectl:
+ - kubectl run hello-minikube
+ - kubectl cluster-info
+ - kubectl get nodes
+# Don't tell we use minikube, because it's present like your are learning kubernetes. 
+
+## There are three types of service:
+Service:
+    - clusterip
+    - Nodeport
+    - Loadbalancer
+
+
+## Main Working  ##
+Service IP --- Deployment --- Pod --- Pause --- Container
+
+
+Pod means:
+ - Logical boundaries and collection of containers.
+ - In Pod automatically creates one Pause container for storing all details of pod and conatiner and pause doesn't have personal IP. 
+
+
+
+
+
+
+kubeadm token create --print-join-command    # To Print command of join in master, so in worker we paste that cmd to joining node. 
+kubectl get node   #  To see no.of nodes. 
+kubectl get pod  #  To see no.of pods.
+
+kubectl run db-server --image=mysql   # To create Pod.
+kubctl run webserver --image=nginx.
+kubectl get pod  #  To see no.of pods. 
+
+kubectl exec -it webserver /bin/bash   #  To login in container same like command in docker. 
+
+## For Copy and paste in kubernetes play in browser:
+Copy ctrl+insert+c
+Paste ctrl+insert+v
+
+================================================================================================================================================================
+
 # 14 Feb Fri 25 - Recording Not Avaiable in PC.
 Topic : K8s Cluster Reset and Token Management 
 kubeadm, etcd --> IQ 
@@ -228,4 +315,13 @@ kubectl get csr
 kubectl certificate approve <NAME>    # To approve 
 
 Completed but not have proper commands.
+================================================================================================================================================================
+
+================================================================================================================================================================
+
+# 17 Feb Mon - Kubernetes -6
+
+
+
+
 ================================================================================================================================================================

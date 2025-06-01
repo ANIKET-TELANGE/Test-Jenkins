@@ -97,8 +97,8 @@ Total - 25
 # 08 Feb SAT- JENKINS-6
 # 09 Feb SUN- JENKINS-7
 # 09 Feb Sun Eve - JS
-# 10 Feb Mon - Kube - pending 2:20
-# 12 Feb Wed - Kube - pending 1:56
+# 10 Feb Mon - Kubernetes -3 Master Node Explanation
+# 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
 # 14 Feb Wed - Recording Not Avaiable in PC  && Kube - pending
 # 15 Feb SAT- Jenkins-8
 # 16 Feb SUN- Git Explanation, Last Hour pending
