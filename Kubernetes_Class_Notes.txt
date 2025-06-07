@@ -329,8 +329,6 @@ Means it's just like a flag, If you disabled on master node, then we can create 
 ================================================================================================================================================================
 
 
-
-
 ================================================================================================================================================================
 # 19 Feb Wed - Kubernetes -7 - Label
 
@@ -407,11 +405,41 @@ Path: https://www.mirantis.com/blog/kubernetes-replication-controller-replica-se
 ================================================================================================================================================================
 
 
-
-
-
 ================================================================================================================================================================
 # 21 Feb Fri - Kubernetes -8 - Namespace pending 2:10
+
+# Namespace:
+It created isloate boundaries, so can access specfic user or groups, which one who give access of namesapce.
+
+kubectl get namespace
+kubectl creat namespace <your-namespace>
+kubectl run web --image=pod -n <your-namespace>
+
+kubectl get po
+kubctl get po -A
+
+kubectl create namespace test-namespace  # To create namesapce
+kubectl run web --image=nginx -n test-namespace
+kubectl get po
+
+kubectl get po -n namespace
+kubectl get po -n kube-system
+kubectl logs coredns-55cb58b774-n9jvc -n kube-system   # To see logs.
+
+
+# Search on Internet and find how tp use this command and install.
+kubectl top
+kubectl top po 
+crict ps  ## ??
+ctr -n k8s.io c ls
+
+kubectl run frontend -image=nginx
+kubectl describe po frontend  # To see explaination of that specfic pod.
+
+
+
+
+
 
 ================================================================================================================================================================
 
