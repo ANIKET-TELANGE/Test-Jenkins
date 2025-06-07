@@ -4,10 +4,10 @@
 # 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
 # 17 Feb Mon - Kubernetes -6 - pending 1:57 
-# 19 Feb Wed - Kubernetes -7 - pending 2:10
+# 19 Feb Wed - Kubernetes -7 - Label
 # 21 Feb Fri - Kubernetes -8 - pending 2:10
-# 24 Feb Mon - Kubernetes -9 - pending 2:10
-# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment
+# 24 Feb Mon - Kubernetes -9 - ReplicaSet
+# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment pending
 # 28 Feb Fri - Kubernetes -11 - pending 1:26 Service
 # 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
 # 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
@@ -384,7 +384,7 @@ kubectl label pod web env=prod
 
 # Difference Between:
 Replication Contoller - RC
-Replication           - RS
+Replication Set       - RS
 
 RC -
 1) At a time single label mon
@@ -420,7 +420,7 @@ Path: https://www.mirantis.com/blog/kubernetes-replication-controller-replica-se
 
 
 ================================================================================================================================================================
-# 24 Feb Mon - Kubernetes -9 - pending 2:10
+# 24 Feb Mon - Kubernetes -9 - ReplicaSet
 
 Key differences:
 
@@ -497,8 +497,115 @@ kubctl get po,rs
 
 ================================================================================================================================================================
 
-# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment
+# 26 Feb Wed - Kubernetes -10 - Deployment
 
+# There are three steps of Rolling & Rollback in Deployment.
+1. By editing version in yaml file.
+2. And using rollout history
+3. kubectl edit deployment <name>.
+
+# Cordon:
+In Kubernetes, cordoning a node marks it as unschedulable which prevents new pods from being scheduled on it. The cordon command is used to prepare a node for maintenance or removal from a cluster.
+
+kubectl describe node | grep -i taint
+kubectl taint node master node-role.kubernetes. io/control-plane: NoSchedule-
+kubectl describe node | grep -i taint
+
+kubectl get po
+kubectl get rc
+kubectl get rs
+kubectl get service
+kubectl get all
+kubect1 api-versions  # To see all apis.
+for kind in 'kubectl api-resougces | tail +2 | awk '{ print $1 }''; do kubectl explain $kind; done | grep -e "KIND:" -e "VERSION:"
+
+vim deployment.yaml|
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sadhixt-deployment
+  labels:
+	app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+kubectl apply -f deployment.yaml  # To craete 
+watch kubectl get po, deployment
+kubectl get all
+kubectl delete -f deployment.yaml # To delete
+
+# Hierarchy of give pods name & IPs.
+kubctl get deployment
+kubctl get rs
+kubctl get po
+
+kubectl describe deployment sadhixt-deployment | less  # To see details of deployment.
+
+# Deployment:
+1) Multiple label
+2) Rolling update
+3) Undo -- rollback
+
+# kubect1 rollout history #
+kubctl get all
+kubectl rollout history deployment.apps/sadhixt-deployment
+
+vim Deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sadhixt-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      age: nginx
+  template:
+    metadata:
+	  labels:
+	    app: nginx
+  spec:
+    containers:
+	- name: nginx
+	  image: nginx:1.7.1      # Here you can mentioned specfic no.of version and change manually.
+	  ports:
+      - containerPort: 80
+
+kubectl apply -f deployment.yaml
+kubectl get deployment,rs,po
+
+kubectl create deployment webserver -- image=nginx -- replicas=2 -- dry-run=client -o yaml > webserver. yaml
+
+kubectl set image deployment.apps/sadhixt-deployment nginx=nginx: 1.10.1 -- record=true   # To maintain Record/History.
+kubectl rollout undo deployment.apps/sadhixt-deployment  # To rollback one step back means previous one.
+kubectl rollout undo deployment.apps/sadhixt-deployment -- to-revsion=2  # To go exact version for rollback.
+
+kubectl edit deployment sadhixt-deployment   # To Update or Rollback.
+kubectl rollout pause deployment.apps/sadhixt-deployment   # To pause means no one can Update or Rollback.
+kubectl rollout resume deployment.apps/sadhixt-deployment  # To resume pause.
+
+
+# Ingress
+
+Ingress is in below of LoadBalancer to balancing like nginx proxy & reverse proxy.
+- You can give mentioned in Ingress to like goes to Lb/app, Lb/db.
 
 ================================================================================================================================================================
 
