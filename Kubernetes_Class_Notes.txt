@@ -5,10 +5,10 @@
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
 # 17 Feb Mon - Kubernetes -6 - pending 1:57 
 # 19 Feb Wed - Kubernetes -7 - Label
-# 21 Feb Fri - Kubernetes -8 - pending 2:10
+# 21 Feb Fri - Kubernetes -8 - Namespace pending 2:10
 # 24 Feb Mon - Kubernetes -9 - ReplicaSet
-# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment pending
-# 28 Feb Fri - Kubernetes -11 - pending 1:26 Service
+# 26 Feb Wed - Kubernetes -10 - Deployment
+# 28 Feb Fri - Kubernetes -11 - Service
 # 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
 # 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
 
@@ -411,7 +411,7 @@ Path: https://www.mirantis.com/blog/kubernetes-replication-controller-replica-se
 
 
 ================================================================================================================================================================
-# 21 Feb Fri - Kubernetes -8 - pending 2:10
+# 21 Feb Fri - Kubernetes -8 - Namespace pending 2:10
 
 ================================================================================================================================================================
 
@@ -503,6 +503,14 @@ kubctl get po,rs
 1. By editing version in yaml file.
 2. And using rollout history
 3. kubectl edit deployment <name>.
+
+
+# In RS
+- When Rolling time, its creates new pods and deleting old pods, and does not create service and deleted old pods and not recoveryable. This is the disavdancedment. So no down time required.
+
+# In Deployment
+- When updating the new pods, then it create first service and then create one-by-one pods and not deleted its store it in different so it can recoveryable. So no down time needed.
+
 
 # Cordon:
 In Kubernetes, cordoning a node marks it as unschedulable which prevents new pods from being scheduled on it. The cordon command is used to prepare a node for maintenance or removal from a cluster.
