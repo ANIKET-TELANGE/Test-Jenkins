@@ -3,12 +3,12 @@
 # 10 Feb Mon - Kubernetes -3 Master Node Explanation
 # 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
-# 17 Feb Mon - Kubernetes -6 - pending 1:57
+# 17 Feb Mon - Kubernetes -6 - pending 1:57 
 # 19 Feb Wed - Kubernetes -7 - pending 2:10
 # 21 Feb Fri - Kubernetes -8 - pending 2:10
 # 24 Feb Mon - Kubernetes -9 - pending 2:10
-# 26 Feb Wed - Kubernetes -10 - pending 2:12
-# 28 Feb Fri - Kubernetes -11 - pending 1:26
+# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment
+# 28 Feb Fri - Kubernetes -11 - pending 1:26 Service
 # 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
 # 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
 
@@ -322,7 +322,255 @@ Completed but not have proper commands.
 
 # 17 Feb Mon - Kubernetes -6
 
+# Taint
+Means it's just like a flag, If you disabled on master node, then we can create on Pod on master node also. And automatically creating on Pod and other node. Same for all others nodes aslo.
+
+
+================================================================================================================================================================
+
 
 
 
 ================================================================================================================================================================
+# 19 Feb Wed - Kubernetes -7 - Label
+
+kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/
+
+# Label in k8s
+
+kubectl get pod --show-label
+
+team=dev
+key=value
+
+
+## In both worker and master
+
+1) kubeadm reset
+2) rm -rf /etc/cni/net.d
+3) systemctl restart containerd.service
+4) systemctl restart kubelet.service
+5) rm -rf /etc/kubernetes/pki/ca.crt
+6) kubeadm init -- pod-network-cidr=10.244.0.0/16
+sudo modprobe br_netfilter
+
+Set required sysctl parameters:
+cat << EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF 
+sudo sysctl -- system
+
+
+7) apply flannel network again  --> In master
+
+# worker ---
+ - kubectl get node <node-name>
+ - kubectl delete node <node-name>
+
+kubectl get pod -A
+kubectl delete pod coredns-55cb58b774-fgzmh -n kube-system  # To delete specfic pod.
+
+kubectl delete pod | -n kube-system
+kubectl delete pod coredns -* -n kube-system
+
+kubectl logs kube-flannel-ds-rqwdb -n kube-flannel
+kubect1 get po -- show-labels
+
+kubectl label pod web run-
+kubectl label pod web team=dev
+kubectl label pod web env=prod
+
+# Difference Between:
+Replication Contoller - RC
+Replication           - RS
+
+RC -
+1) At a time single label mon
+2) Rolling update support
+3) rollout not support
+
+RS -
+1) At a time more then one label
+2) Rolling update not supported
+3) N/A
+
+Deployment -
+1) Multiple label
+2) Rolling update
+3) Rollout support
+
+# For Difference Between
+Path: https://www.mirantis.com/blog/kubernetes-replication-controller-replica-set-and-deployments-understandingreplication-options/
+
+================================================================================================================================================================
+
+
+
+
+
+================================================================================================================================================================
+# 21 Feb Fri - Kubernetes -8 - pending 2:10
+
+================================================================================================================================================================
+
+
+
+
+
+================================================================================================================================================================
+# 24 Feb Mon - Kubernetes -9 - pending 2:10
+
+Key differences:
+
+Rolling update functionality:
+Deployments have a built-in rolling update mechanism, allowing you to smoothly update your application by replacing pods one at a time with minimal downtime. whereas RCs lack this feature and require manual intervention for rolling updates.
+
+Declarative nature:
+Deployments are declarative, meaning you specify the desired state of your application, and Kubernetes automatically manages the transition to that state, while RCs are more imperative, requiring you to explicitly manage updates.
+
+Rollback support:
+Deployments can easily roll back to a previous version by leveraging previous ReplicaSets created during updates, whereas RCs do not have this capability.
+
+Management complexity:
+Deployments are considered a higher-level abstraction, simplifying the process of managing application updates, while RCs require more manual configuration for rolling updates.
+
+In summary, if you need to perform rolling updates in Kubernetes, use Deployments as they provide a robust and automated way to manage application deployments with features like rollback and fine-grained control over the update process.
+
+
+kubectl explain rc --recurisive
+kubectl run web -- image=web --dry-run=client
+
+kubectl run web -- image=web --dry-run=client -o yaml
+
+kubctl get po
+kubectl run -it os --image=ubuntu /bin/bash  # Required all ports are opens in security group in AWS.
+kubectl run -it os /bin/bash
+
+kubectl exec os1 -- ls  # To see output without login in conatiner.
+kubectl exec os1 -- echo "hello"
+kubectl delete -f rc.yaml
+kubectl rollout dev=team -- image=nginx:1.9.1   ## ??
+
+vim rs.yaml
+-
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webapp
+  labels:
+    team: sadhix
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      team: dev
+     # team: dev2
+      group: qa
+	  tier: frontend
+  template:
+    metadata:
+      labels:
+      team: dev
+     # team: dev2     ## If you give same key name then it takes only latest key and last mentioned.
+      group: qa
+	  tier: frontend  ## If you give all differnt key name then it takes all.
+    spec:
+      containers:
+      - name: web
+        image: nginx
+		
+.
+:vsplit file1 file 2  # To split two files.
+
+kubctl get po,rs
+
+
+
+
+================================================================================================================================================================
+
+
+
+
+================================================================================================================================================================
+
+# 26 Feb Wed - Kubernetes -10 - pending 2:12 Deployment
+
+
+================================================================================================================================================================
+
+
+
+================================================================================================================================================================
+# 28 Feb Fri - Kubernetes -11 Service
+
+# Taint
+kubectl describe node | grep -i taint
+kubectl taint node master node-role.kubernetes. io/control-plane: NoSchedule-  # To disable in master node
+
+kubectl create deployment webserver -- image=nginx -- image=ubuntu -- image=mysql -- replicas=3 -dry-run=client -o yaml  # Dry run of Deployment.
+
+kubectl create deployment webserver -- image=nginx -- image=ubuntu -- image=mysql -- replicas=3 -dry-run=client -o yaml --show-managed-fields=false   # If true, keep the managedFields when printing objects in JSON or YAML format. And google it.
+
+kubectl create deployment webserver -- image=nginx -r=3 --dry-run=client -o yaml  # Dry run.
+kubectl create deployment webserver -- image=nginx -r=3 --dry-run=client -o yaml > web.yaml  # To save in web.yaml file.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  Labels:
+    app: web-sadhix
+  name: webserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+.
+
+kubectl create service clusterip webserver -- tcp=80:80 -- dry-run=client service/webserver created (dry run)
+kubectl create service clusterip webserver --tcp=8080:80 -- dry-run=client -o yaml
+kubectl get svc
+kubectl get service
+kubectl delete svc
+
+kubectl expose deployment webserver -- type="ClusterIP" -- port 8080 service/webserver exposed  # To Expose/access from outside.
+
+## You can use whatsapp AI differents  ##
+
+================================================================================================================================================================
+
+
+
+================================================================================================================================================================
+# 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
+
+================================================================================================================================================================
+
+
+
+
+================================================================================================================================================================
+# 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
+
+================================================================================================================================================================
+
+
+
+
+
+
+
+
+
