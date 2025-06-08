@@ -5,7 +5,7 @@
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
 # 17 Feb Mon - Kubernetes -6 - pending 1:57 
 # 19 Feb Wed - Kubernetes -7 - Label
-# 21 Feb Fri - Kubernetes -8 - Namespace pending 2:10
+# 21 Feb Fri - Kubernetes -8 - Namespace
 # 24 Feb Mon - Kubernetes -9 - ReplicaSet
 # 26 Feb Wed - Kubernetes -10 - Deployment
 # 28 Feb Fri - Kubernetes -11 - Service
@@ -406,7 +406,7 @@ Path: https://www.mirantis.com/blog/kubernetes-replication-controller-replica-se
 
 
 ================================================================================================================================================================
-# 21 Feb Fri - Kubernetes -8 - Namespace pending 2:10
+# 21 Feb Fri - Kubernetes -8 - Namespace
 
 # Namespace:
 It created isloate boundaries, so can access specfic user or groups, which one who give access of namesapce.
@@ -417,6 +417,35 @@ kubectl run web --image=pod -n <your-namespace>
 
 kubectl get po
 kubctl get po -A
+O/P:
+
+root@master :~ # kubectl get po -A
+NAMESPACE        NAME
+default          web
+kube-flannel
+kube-flannel
+kube-system
+kube-system
+kube-system
+kube-system
+kube-system
+kube-system
+kube-system
+kube-system
+
+NAME
+web
+kube-flannel-ds-j5hk8
+kube-flannel-ds-r7nx4
+coredns-55cb58b774-n9jvc
+coredns-55cb58b774-rrjph
+etcd-master
+kube-apiserver-master
+kube-controller-manager-master
+kube-proxy-j5xkz
+kube-proxy-nqlph
+kube-scheduler-master
+----------
 
 kubectl create namespace test-namespace  # To create namesapce
 kubectl run web --image=nginx -n test-namespace
@@ -436,7 +465,48 @@ ctr -n k8s.io c ls
 kubectl run frontend -image=nginx
 kubectl describe po frontend  # To see explaination of that specfic pod.
 
+# label nodeselctor
+usecase 1 : worker ---- pod
+usecase 2 : namespace -- pod
+usecase 3 : dev --- pod --
+usecase 4 : patch --- woker --- label
+usecase 5 : access
+usecase 6 : pod-controller --- rc , rs , deployment ---- label
 
+
+kubectl get pod --show-labels
+kubectl label po webserver run-
+kubectl get pod -- show-labels
+kubectl label pod webserver team=dev
+kubectl get pod -- show-labels
+
+kubectl explain rc
+kubectl explain rc -recursive  # Indetails explaination
+kubectl run dev -- image=nginx -replica=3
+
+vim rc.yaml
+kubectl apply -f rc.yaml
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: sadhix
+spec:
+ replicas: 3
+ selector:
+   team: dev
+ template:
+   metadata:
+     name: sadhix
+     labels:
+       team: dev
+     spec:
+       containers:
+         - name: sadhix
+           image: nginx:1.9.1
+
+## Google : seting a line indent in vim ?
+- To indent the current line, or a visual block: ctrl-t, ctrl-d - indent current line forward, backwards (insert mode) visual > or < - indent block by sw (repeat with. ) then try hitting the F5 key while in insert mode (or just :set paste ).
 
 
 
