@@ -104,23 +104,23 @@ Total - 25
 # 16 Feb SUN- Git Explanation, Last Hour pending
 # 16 Feb Eve - Javascript
 # 17 Feb Mon - Kube - pending 1:57
-# 19 Feb Wed - Kube - pending 2:10
-# 21 Feb Fri - Kube - pending 2:10
+# 19 Feb Wed - Kubernetes -7 Label 
+# 21 Feb Fri - Kubernetes -8 Namespace
 # 22 Feb SAT- Promethus-Graffana Explanation
 # 23 Feb SUN- Promethus-Graffana Installation & Nodejs code pipeline         - Written Pending from SS
 # 23 Feb Eve - Nodejs - pending
-# 24 Feb Mon - Kube - pending 2:10
+# 24 Feb Mon - Kubernetes -9 ReplicaSet
 # 25 Feb Consule
-# 26 Feb Wed - Kube - pending 2:12
-# 28 Feb Fri - Kube - pending 1:26
+# 26 Feb Wed - Kube - Kubernetes -10 Deployment
+# 28 Feb Fri - Kube - Kubernetes -11 Service
 
 # 01 Mar SAT- Devops Project Agile and Jira Explanation
-# 03 Mar Mon - Kube - Helm & Practical pending 1:57
-# 05 Mar Wed - Kube Helm - pending 2:14
+# 03 Mar Mon - Kubernetes -12 Service Pratical & Helm Explain
+# 05 Mar Wed - Kubernetes -13 Helm
 # 07 Mar Fri - Terraform-1
 # 09 Mar Sun - Terraform-2
 # 11 Mar Tue - Terraform-3
-# 13 Mar Thu - Terraform-4 - pending
+# 13 Mar Thu - Terraform-4
 # 16 Mar - Resume
 # 22 Mar - Promethus-Graffana and Pratical - pending
  

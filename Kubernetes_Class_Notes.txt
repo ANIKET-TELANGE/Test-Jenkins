@@ -9,7 +9,7 @@
 # 24 Feb Mon - Kubernetes -9 ReplicaSet
 # 26 Feb Wed - Kubernetes -10 Deployment
 # 28 Feb Fri - Kubernetes -11 Service
-# 03 Mar Mon - Kubernetes -12 Helm & Practical
+# 03 Mar Mon - Kubernetes -12 Service Pratical & Helm Explain
 # 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
 
 ================================================================================================================================================================
@@ -767,7 +767,7 @@ kubectl expose deployment webserver -- type="ClusterIP" -- port 8080 service/web
 
 
 ================================================================================================================================================================
-# 03 Mar Mon - Kubernetes -12 - Helm & Practical
+# 03 Mar Mon - Kubernetes -12 Service Pratical & Helm Explain
 
 ##Difference clusterip & nodeport & how to use Pending search onn google.
 ## RBAC - pending, google.
