@@ -103,7 +103,7 @@ Total - 25
 # 15 Feb SAT- Jenkins-8
 # 16 Feb SUN- Git Explanation, Last Hour pending
 # 16 Feb Eve - Javascript
-# 17 Feb Mon - Kube - pending 1:57
+# 17 Feb Mon - Kubernetes -6 Flannel & crictl & Installation
 # 19 Feb Wed - Kubernetes -7 Label 
 # 21 Feb Fri - Kubernetes -8 Namespace
 # 22 Feb SAT- Promethus-Graffana Explanation
