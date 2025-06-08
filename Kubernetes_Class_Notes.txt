@@ -10,7 +10,7 @@
 # 26 Feb Wed - Kubernetes -10 Deployment
 # 28 Feb Fri - Kubernetes -11 Service
 # 03 Mar Mon - Kubernetes -12 Service Pratical & Helm Explain
-# 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
+# 05 Mar Wed - Kubernetes -13 Helm Pratical
 
 ================================================================================================================================================================
 ## Kubernetes Interview Questions
@@ -324,6 +324,9 @@ Completed but not have proper commands.
 
 # Taint
 Means it's just like a flag, If you disabled on master node, then we can create on Pod on master node also. And automatically creating on Pod and other node. Same for all others nodes aslo.
+
+
+
 
 
 ================================================================================================================================================================
@@ -848,7 +851,55 @@ helm --- charts
 
 
 ================================================================================================================================================================
-# 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
+# 05 Mar Wed - Kubernetes -13 Helm Pratical
+
+helmhub is a repo and hub, like github & dockerhub & YUM.
+
+
+winget install Helm.Helm  # To install in windows and open again cmd prompt to use helm.
+
+# To install in Linux.
+curl fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# To login in EKS
+helm --help
+aws eks list-clusters --region ap-south-1 --output json
+aws eks update-kubeconfig --name devops-testing --region ap-south-1 --output json
+
+# To create Repo
+helm create mypackage
+ls
+cd mypackage
+- In that files are IMP, values.yaml
+- In values.yaml, you can change that settings accordingly to create pods.
+
+helm insatll mychart1 mypackage/  # Doesn't work inside that folder, so go one-step back.
+helm ls
+helm uninstall chart1
+
+helm install tom mypackage/
+- Then vim mypackage/values.yaml change in no.of replication.
+helm upgrade tom mypackage/ # It increase the replication and add revision number to 2.
+
+helm rollback tom 1   # To rollback to previous version it changes, but that values.yaml doest not change automatically, beacuse we are rolling back using version. So that file is unchanged.
+
+helm install tom mypackage/ --debug --dry-run  # To see degubing mode.
+
+# For maunally creating repos & Install
+mkdir prod-app
+touch prod-app/values-dev.yaml
+helm install chart3 --values=prod-app/values-dev.yaml prod-app/
+
+# Helm REPO #
+helm repo ls
+helm repo add bitnami https://charts.bitnami.com/bitnami   # To get repo.
+helm search repo bitnami  # To see all repo list.
+helm install tomtcat bitnami/tomcat  # To install.
+helm ls
+helm list
+helm uninstall tomtcat bitnami/tomcat  # To uninstall.
 
 ================================================================================================================================================================
 

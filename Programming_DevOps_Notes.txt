@@ -116,7 +116,7 @@ Total - 25
 
 # 01 Mar SAT- Devops Project Agile and Jira Explanation
 # 03 Mar Mon - Kubernetes -12 Service Pratical & Helm Explain
-# 05 Mar Wed - Kubernetes -13 Helm
+# 05 Mar Wed - Kubernetes -13 Helm Pratical
 # 07 Mar Fri - Terraform-1
 # 09 Mar Sun - Terraform-2
 # 11 Mar Tue - Terraform-3
