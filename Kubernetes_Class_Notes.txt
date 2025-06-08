@@ -3,13 +3,13 @@
 # 10 Feb Mon - Kubernetes -3 Master Node Explanation
 # 12 Feb Wed - Kubernetes -4 Pod Working & Architecture
 # 14 Feb Wed - Kubernetes -5 Recording Not Avaiable in PC  && pending
-# 17 Feb Mon - Kubernetes -6 - pending 1:57 
-# 19 Feb Wed - Kubernetes -7 - Label
-# 21 Feb Fri - Kubernetes -8 - Namespace
-# 24 Feb Mon - Kubernetes -9 - ReplicaSet
-# 26 Feb Wed - Kubernetes -10 - Deployment
-# 28 Feb Fri - Kubernetes -11 - Service
-# 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
+# 17 Feb Mon - Kubernetes -6     pending 1:57 
+# 19 Feb Wed - Kubernetes -7 Label
+# 21 Feb Fri - Kubernetes -8 Namespace
+# 24 Feb Mon - Kubernetes -9 ReplicaSet
+# 26 Feb Wed - Kubernetes -10 Deployment
+# 28 Feb Fri - Kubernetes -11 Service
+# 03 Mar Mon - Kubernetes -12 Helm & Practical
 # 05 Mar Wed - Kubernetes -13 Helm - pending 2:14
 
 ================================================================================================================================================================
@@ -767,7 +767,80 @@ kubectl expose deployment webserver -- type="ClusterIP" -- port 8080 service/web
 
 
 ================================================================================================================================================================
-# 03 Mar Mon - Kubernetes -12 - Helm & Practical pending 1:57
+# 03 Mar Mon - Kubernetes -12 - Helm & Practical
+
+##Difference clusterip & nodeport & how to use Pending search onn google.
+## RBAC - pending, google.
+
+# Service Practical in EKS aws service
+- In EKS, doesnot required handle the Master.
+
+# To Create EKS & Its takes upto 15 mintues.
+- Go to EKS then security and add ALL traffic, IP.
+
+AWS > EKS > Create EKS Cluster
+- Configuration options - new
+Select first - Quick configuration (with EKS Auto Mode) - new,  Second is for custom.
+- Cluster configuration
+    Name - devops-testing
+	Cluster IAM role = create recommended role
+	Node IAM role = create recommended role
+- Create  # Its takes upto 15 mintues to create.
+
+## For access this EKS using AWScli & kubectl ##
+
+# For kubectl in Linux.   Path:kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+mkdir -p ~/.local/bin
+mv ./kubectl ~/.local/bin/kubectl
+# and then append (or prepend) ~/.local/bin to $PATH
+
+# AWS Configure
+aws help
+aws configure
+- give Acces key ID, Access Key, Region Name, Default output format [None]: table # For keys & ID go to IAM then users.
+
+### AWS CLI BUILDER ##
+- For getting all commands.
+
+
+aws eks list-clusters --region ap-south-1 --output json
+aws eks describe-cluster --name devops-testing --region ap-south-1 --output json\
+aws eks update-kubeconfig --name devops-testing --region ap-south-1 --output json
+
+
+kubectl create deployment web --image=nginx --dry-run=client -o yaml > web.yaml
+kubectl create deployment db --image=nginx --dry-run=client -o yaml > db.yaml
+
+kubctl apply -f web.yaml
+kubctl apply -f db.yaml
+
+
+kubectl expose deployment db --name=db-service --type=ClusterIP -- port=8080 -- target-port=80   # To expose, so acces by using ClusterIP from outside.
+kubectl exec -it web-54466ccbf7-jp92s -- /bin/bash
+curl http//IP:8080  # Access from web to db.
+
+
+kubectl expose deployment db --name=db-service --type=NodePort -- port=8080 --target-port=80   # Using NodePort
+kubectl get svc
+
+
+## Main Topics ##
+1) POD
+2) token
+3) Deployment -- RS/RC
+4) Service
+5) jobs ---- create like cronjobs
+8) Labels
+9) Namespace
+8) Labels
+9) Namespace
+11) certificate -- ssl
+12) Helm
+
+helm install package-name
+helm --- charts
 
 ================================================================================================================================================================
 
