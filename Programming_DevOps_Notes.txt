@@ -1,3 +1,22 @@
+# 14th Dec SAT-
+
+# 05th Jan Sun Eve
+
+# 12th Jan Sun Eve 
+
+# 19th Jan Sun Eve
+
+# 26th Jan sun Eve Js - pending
+
+# 09 Feb Sun Eve - JS
+
+# 16 Feb Eve - Javascript
+
+# 23 Feb Eve - Nodejs - pending
+ 
+ 
+
+
 ================================================================================================================================================================
 # 20th Dec Fri  - Git Notes 6 + Basic Docker - 1
 Git - Rebase  & DOCKER
@@ -78,8 +97,8 @@ git push origin main --force
 # 18th JAN SAT- Ansible Playbook - 5
 # 19th JAN SUN- JENKINS-1
 # 19th Jan Sun Eve
-# 21th Jan Tue - Docker - Pending - 11 -----------
-# 22th Jan Wed - Docker - Pending - 12 -----------
+# 21th Jan Tue - Docker - Docker Compose -11
+# 22th Jan Wed - Docker - Docker Compose -12
 # 23th Jan Thu - Mini-Project-1_Jenkins_1
 # 24th Jan Fri - Mini-Project-1_Jenkins_2
 # 25th JAN SAT- Jenkins-2
@@ -124,9 +143,9 @@ Total - 25
 # 16 Mar - Resume
 # 22 Mar - Promethus-Graffana and Pratical - pending
  
-# 11 Apr - Project-1 Part_1 - pending 
-# 12 Apr - Project-1 Part_2 - pending
-# 13 Apr - Project-1 Part_3 - pending  
+# 11 Apr - Project-1 Part_1 - Written Pending from SS 
+# 12 Apr - Project-1 Part_2 - Written Pending from SS
+# 13 Apr - Project-1 Part_3 - Written Pending from SS  
  
 
 

@@ -9,8 +9,43 @@
 # 10th Jan Fri - Docker - DockerFile - 8
 # 16th Jan Thu - Docker - DockerFile - 9
 # 17th Jan Fri - Docker - DockerFile - 10
-# 21th Jan Tue - Docker - Pending - 11 -----------
-# 22th Jan Wed - Docker - Pending - 12 -----------
+# 21th Jan Tue - Docker - Docker Compose -11
+# 22th Jan Wed - Docker - Docker Compose -12
+
+================================================================================================================================================================
+# INTERVIEW QUESTIONS
+1) What is docker volume and explain types of docker volume?
+2) Explain the docker network and types of docker network?
+4) What distinguishes COPY from ADD in Docker?
+5) How is CMD different from RUN in a Dockerfile?
+6) Define the ENTRYPOINT instruction in Docker and its use case.
+7) Will data on the container be lost when the Docker container exits ?
+8) What is a multi-stage build, and why is it important?
+9) What is the difference between docker stop and docker kill?
+10) How do you share Docker images with others?
+11) How do you check logs for a running Docker container?
+12) How will you take backup of Docker container volumes in AWS 53?
+13) What type of applications- Stateless or Stateful are more suitable for Docker Container?
+15) What is Build cache in Docker?
+16) What is a multi-stage build in Docker, and why is it used?
+18) Imagine a containerized application failing to start due to missing dependencies. How would you debug this issue?
+19) You need to migrate a Dockerized application to a new environment (e.g., from on-premises to the cloud). How would you approach this migration?20) Your production environment uses multiple containers to handle high traffic. Suddenly, some containers become unresponsive. How do you troubleshoot this?
+22) A containerized service is consuming excessive resources, impacting other services. How do you limit its resource usage using Docker?
+23) Describe your approach to monitoring and logging in a Dockerized environment. Follow-up: Did you integrate any tools like ELK Stack or Prometheus for monitoring containers?
+24) Have you faced any networking issues between containers in your project? How did you troubleshoot and resolve them?
+25) an you explain the difference between a Docker Volume and a bind mount? Follow-up: In your project, which one did you prefer, and why?
+26) How do you handle dependencies in a Docker container? Follow-up: Have you encountered dependency conflicts while building Docker images? How did you resolve them?
+27) How would you optimize the build time of a Docker image in a CI/CD pipeline?
+
+# Pending and IQ also.
+Learn EntryPoint in Docker.
+Difference between CMD & EnrtyPoint.
+Docker type, bridge, host, null
+docker ip craete, subnet, private.
+
+================================================================================================================================================================
+
+
 ================================================================================================================================================================
 # 24th Dec Tue  - Docker Images -2 
 Missing lecture of 23 Dec Not recorded for Docker Architecture in App Also
@@ -560,17 +595,202 @@ EXPOSE 22   # For Opening Port
 ================================================================================================================================================================
 
 ================================================================================================================================================================
-# 21th Jan Tue - Docker - Docker - 11   ----Pending.....
-# 22th Jan Wed - Docker - Pending - 12 -----------
+# 21th Jan Tue - Docker - Docker Compose -11
+
+Docker Compose -1 
+
+In CMD command add commands using (,) coma don't use another CMD command in next line because it's overwrite the previous line CMD.
+
+vim Dockerfile
+
+FROM ubuntu
+LABEL EMAIL=champu@gmail.com
+RUN apt-get update -y && apt-get install -y apache2 unzip
+RUN apt clean
+WORKDIR /var/www/html/
+RUN rm -rf index.html
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page295/handtime.zip.
+RUN unzip handtime.zip
+RUN cp -rvf handtime-html/* .
+RUN rm -rf handtime.zip
+RUN rm -rf handtime-html
+#CMD ["/usr/sbin/apache2","-D","FOREGROUND"]
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+EXPOSE 80
+
+docker build -t sadhixapp:v1 .
+docker ps
+docker logs 56e14ec1859a  # To see logs docker logs <conatinerID>
+docker logs 56e14ec1859a -f  # To see contuinous logs and live logs.
+
+docker container run -itd --name mydb -e MYSQL_ROOT_PASSWORD=admin123 mysql:5.7
+docker container rm -f f0d3e82c106a
+docker container run --name mywordpress1 -e WORDPRESS_DB_HOST=172.17.0.4:3306 -e WORDPRESS_DB_USER=root -e WORDPRESS_DB_PASSWORD=admin123 -d -p 8000:80 wordpress
+
+
+vim docker-compose
+
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb: 10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql : 8.0.27
+    command: ' -- default-authentication-plugin=mysql_native_password'
+    volumes :
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose :
+      - 3306
+      - 33060
+    wordpress:
+    image: wordpress:latest
+    volumes :
+      - wp_data:/var/www/html
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose :
+      - 3306
+      - 33060
+  wordpress:
+    image: wordpress:latest
+    volumes :
+      - wp_data:/var/www/html
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+volumes:
+  db_data:
+  wp_data:
+.
+
+# To install docker-compose-plugin
+apt-get update
+apt-get install docker-compose-plugin
+docker compose version
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose -- version
+
+
+# To run docker-compose file.
+docker-compose up -d 
+docker rm -f $(docker ps -aq)     # To delete all
+> docker-compose.yaml  # To blank that file.
+
+
+# Pending and IQ also.
+Learn EntryPoint in Docker.
+Difference between CMD & EnrtyPoint.
+Docker type, bridge, host, null
+docker ip craete, subnet, private.
+
+================================================================================================================================================================
+# 22th Jan Wed - Docker - Docker Compose -12
+Docker Compose -2
+
+vim docker-compose.yaml
+
+version: '3
+services:
+      webapp1:
+         image: nginx
+         ports:
+           - "8000:80"
+      webapp2:
+         image: nginx
+.
+docker-compose up -d
+
+# To scale UP the container
+docker-compose scale webapp1=3 webapp2=4 
+docker-compose scale webapp1=1 webapp2=1   ## To scale down.
+
+docker-compose ps
+docker-compose ps -a
+docker-compose stop
+docker-compose rm
+docker-compose restart
+docker-compose down   # To delete.
+docker rm -f $(docker ps -aq)     # To delete all
+> docker-compose.yaml  # To blank that file.
+docker-compose up -d --no-start   # Only ready the image not conatiner, after run command its create very fast containers.
+
+# For unique file create and run docker-compose
+vim project1.yaml
+docker-compose -f project1.yaml up -d  # For unique name.
+
+vim docker-compose.yaml
+docker-compose up -d  # For normal/bydeafult name.
+
+
+#
+version: '3.3'
+services:
+   tomcat:
+     image: tomcat:10.1.15-jdk17
+     container_name: tomcat
+     ports:
+       - '8084:8080'
+     volumes:
+       - ./tomcat/conf:/usr/local/tomcat/conf
+       - ./tomcat/webapps:/usr/local/tomcat/webapps
+.
+
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    #image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    image: mysql:8.0.27
+     volumes:
+      - app_dbdata: /var/lib/mysql
+	  
+  wordpress:
+    image: wordpress: latest
+    ports:
+      - 80:80
+    restart: always    # For automatically restart after conatiner restart.
+
+# Install the Docker Compose standalone #
+Path - https://docs.docker.com/compose/install/standalone/
+
+# To use, check web-page in terminal and troubleshooting.
+elinks   # Fire this for page access.
+apt install elinks
+
+# for testing
+services:
+   webapp1:
+     image: nginx
+	 ports:
+	   - "80:80"
+
+# creating compose from using Dockerfile
+services:
+   webapp:
+     build: ./Dockerfile  # Give exact path of file.
+	 #image: champu:v1
+	 ports:
+	   - "80:80"
 
 ================================================================================================================================================================
 
-
-
-
-
 ================================================================================================================================================================
-# 23th Jan Fri - Docker - DevOps Mini Project-1 - 12
+# 23th Jan Fri - Docker - DevOps Mini Project-1 -
  # Last 30 mins not recoreded in my PC beacause Baterry Issue.
  
 # Requirements: Developer, GitHub, Jenkins server-1, Ansible-server-1, Web-server-1 Nginx.
