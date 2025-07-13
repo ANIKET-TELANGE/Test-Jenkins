@@ -537,4 +537,205 @@ oc delete secret db-secret
 #oc delete secret db-secret
 
 
-#
+# Phase 6: Kubernetes Networking & Ingress
+
+oc get pods -n kube-system | grep dns
+coredns-xxxxx Running
+no
+pwd
+vi webapp1.yaml
+vi webapp2.yaml
+oc apply -f webapp1.yaml
+oc apply -f webapp2.yaml
+sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/baremetal/deploy.yaml
+oc get pods -n ingress-nginx
+vi ingress-rule.yaml
+oc get pods -n ingress-nginx
+oc apply -f ingress-rule.yaml
+oc get svc -n ingress-nginx
+oc get pods -n ingress-nginx
+sudo kubectl get svc -n ingress-nginx
+
+# In browser
+http://192.168.1.12:32514/app1
+http://192.168.1.12:31251/app2
+
+# In Command Line
+curl -H "Host: hello.local" http://192.168.1.12:32514/
+curl -H "Host: hello.local" http://192.168.1.12:31251/
+
+oc delete -f webapp1.yaml
+oc delete -f webapp2.yaml
+oc delete -f ingress-rule.yaml
+
+#oc delete -f webapp1.yaml
+#oc delete -f webapp2.yaml
+#oc delete -f ingress-rule.yaml
+#rm webapp1.yaml webapp2.yaml ingress-rule.yaml
+ 
+
+# Phase 7: RBAC & Namespaces in Kubernetes
+
+oc create namespace team-a
+oc get ns
+
+vi pod-reader-role.yaml
+oc apply -f pod-reader-role.yaml
+
+oc create serviceaccount reader-user -n team-a
+oc get serviceaccounts -n team-a
+
+vi pod-reader-binding.yaml
+oc apply -f pod-reader-binding.yaml
+
+## PENDING ###############
+Step 5: Use This Account via Token (optional advanced test)
+
+oc run test-reader \
+  --image=busybox \
+  --restart=Never \
+  --serviceaccount=reader-user \
+  --namespace=team-a \
+  --command -- sleep 3600
+
+oc exec -n team-a -it test-reader -- sh
+
+# Should work
+kubectl get pods -n team-a
+
+# Should fail
+kubectl delete pod test-reader
+
+###################
+oc delete -f pod-reader-binding.yaml
+oc delete -f pod-reader-role.yaml
+oc delete serviceaccount reader-user -n team-a
+oc delete pod test-reader -n team-a
+oc delete namespace team-a
+
+# Plus all soft cleanup
+#rm pod-reader-role.yaml pod-reader-binding.yaml
+
+
+# Phase 8: Probes & Auto-scaling
+
+vi probe-demo.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: probe-demo
+  labels:
+    app: probe-demo
+spec:
+  containers:
+  - name: demo
+    image: nginx
+    ports:
+    - containerPort: 80
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 3
+      periodSeconds: 5
+
+oc apply -f probe-demo.yaml
+oc describe pod probe-demo
+
+📦 Auto-scaling (HPA)
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+oc create deployment cpu-app --image=nginx
+oc expose deployment cpu-app --port=80
+
+oc autoscale deployment cpu-app --cpu-percent=50 --min=1 --max=5
+
+oc get hpa
+
+Phase 8 Cleanup
+#oc delete -f probe-demo.yaml
+oc delete deployment cpu-app
+oc delete svc cpu-app
+oc delete hpa cpu-app
+
+
+# Phase 9: Jobs & CronJobs
+
+vi job-example.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["echo", "Hello from Kubernetes Job"]
+      restartPolicy: Never
+
+
+oc apply -f job-example.yaml
+
+oc get jobs
+oc logs job/hello-job
+
+🕒 CronJob Example
+vi cronjob-example.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello-cron
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron
+            image: busybox
+            command: ["echo", "Hello every minute"]
+          restartPolicy: OnFailure
+
+oc apply -f cronjob-example.yaml
+
+oc get cronjobs
+oc get jobs
+
+# Wait 1–2 mins, then check logs:
+oc logs job/<generated-job-name>
+
+🧹 Phase 9 Cleanup
+oc delete -f job-example.yaml
+oc delete -f cronjob-example.yaml
+
+
+# 📦 Phase 10: Helm — Kubernetes Package Manager
+
+sudo curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+helm version
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+
+helm install my-nginx bitnami/nginx
+
+oc get all
+
+helm get values my-nginx
+
+helm upgrade my-nginx bitnami/nginx --set service.type=NodePort
+
+helm uninstall my-nginx
+
+
+
+
