@@ -229,7 +229,7 @@ kubectl get node   #  To see no.of nodes.
 kubectl get pod  #  To see no.of pods.
 
 kubectl run db-server --image=mysql   # To create Pod.
-kubctl run webserver --image=nginx.
+kubectl run webserver --image=nginx
 kubectl get pod  #  To see no.of pods. 
 
 kubectl exec -it webserver /bin/bash   #  To login in container same like command in docker. 
@@ -435,6 +435,7 @@ kubectl edit node ip-172-31-37-207
 
 # Taint #
 kubectl describe node ip-10.0.0.0 | grep -i taint
+#kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 kubectl taint nodes ip-10.0.0.0 node-role.kubernetes.io/control-plane:NoSchedule-   # To untaint.
 kubectl taint nodes ip-10.0.0.0 node-role.kubernetes.io/control-plane:NoSchedule    # To again taint.
 
@@ -442,22 +443,22 @@ kubctl explain pod
 
 metadata # means data of data =info
 
-kubectl run web-server -- image=nginx -o yaml -- dry-run| > web.yaml
-kubectl run web-server -- image=nginx -o yaml > web.yaml
+kubectl run web-server --image=nginx -o yaml -- dry-run > web.yaml
+kubectl run web-server --image=nginx -o yaml > web.yaml
 kubectl apply -f web.yaml
-kubectl exec -it web-server -- /bin/bash
+kubectl exec -it web-server /bin/bash
 
 ================================================================================================================================================================
 
 
 ================================================================================================================================================================
-# 19 Feb Wed - Kubernetes -7 - Label
+# 19 Feb Wed - Kubernetes -7 - Labels
 
 kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-join/
 
 # Label in k8s
 
-kubectl get pod --show-label
+kubectl get pod --show-labels
 
 team=dev
 key=value
@@ -603,7 +604,7 @@ kubectl get pod -- show-labels
 
 kubectl explain rc
 kubectl explain rc -recursive  # Indetails explaination
-kubectl run dev -- image=nginx -replica=3
+kubectl run dev --image=nginx replica=3
 
 vim rc.yaml
 kubectl apply -f rc.yaml
@@ -845,7 +846,7 @@ Ingress is in below of LoadBalancer to balancing like nginx proxy & reverse prox
 kubectl describe node | grep -i taint
 kubectl taint node master node-role.kubernetes. io/control-plane: NoSchedule-  # To disable in master node
 
-kubectl create deployment webserver -- image=nginx -- image=ubuntu -- image=mysql -- replicas=3 -dry-run=client -o yaml  # Dry run of Deployment.
+kubectl create deployment webserver --image=nginx --image=ubuntu --image=mysql --replicas=3 --dry-run=client -o yaml  # Dry run of Deployment.
 
 kubectl create deployment webserver -- image=nginx -- image=ubuntu -- image=mysql -- replicas=3 -dry-run=client -o yaml --show-managed-fields=false   # If true, keep the managedFields when printing objects in JSON or YAML format. And google it.
 
@@ -873,13 +874,13 @@ spec:
           name: nginx
 .
 
-kubectl create service clusterip webserver -- tcp=80:80 -- dry-run=client service/webserver created (dry run)
-kubectl create service clusterip webserver --tcp=8080:80 -- dry-run=client -o yaml
+kubectl create service clusterip webserver -- tcp=80:80 --dry-run=client service/webserver #created (dry run)
+kubectl create service clusterip webserver --tcp=8080:80 --dry-run=client -o yaml
 kubectl get svc
 kubectl get service
 kubectl delete svc
 
-kubectl expose deployment webserver -- type="ClusterIP" -- port 8080 service/webserver exposed  # To Expose/access from outside.
+kubectl expose deployment webserver --type="ClusterIP" --port 8080 service/webserver exposed  # To Expose/access from outside.
 
 ## You can use whatsapp AI differents  ##
 

@@ -347,3 +347,194 @@ which kubelet
 which kubectl
 ls /etc/kubernetes
 ==================================================================================	
+
+
+
+kubeadm join 192.168.1.12:6443 --token j31tfq.a6utjepvr19egl8r \--discovery-token-ca-cert-hash sha256:ee31627c9572d22feff77cd01a188961fba82972124a85d9a197e15fab039dec
+
+
+kubectl delete all --all
+kubectl delete ingress --all
+kubectl delete configmap --all
+kubectl delete pvc --all
+
+kubectl delete ns haproxy-controller
+
+------------------------
+# Problem #
+sed -i '/swap.img/d' /etc/fstab  # Optional: prevent swap from re-enabling on reboot
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
+
+# Solution #
+kubectl --kubeconfig=/etc/kubernetes/admin.conf get nodes
+export KUBECONFIG=/etc/kubernetes/admin.conf
+grep certificate-authority /etc/kubernetes/admin.conf
+ls -l /etc/kubernetes/pki/ca.crt
+openssl x509 -in /etc/kubernetes/pki/ca.crt -text -noout
+kubectl get node
+## kubeadm init --pod-network-cidr=10.244.0.0/16  ## Only when above commands not working or not getting solutions from above commands.
+
+# Permenent Solution #
+mkdir -p ~/.kube
+cp /etc/kubernetes/admin.conf ~/.kube/config
+
+# Add below line in vi ~/.bashrc OR ~/.profile then source ~/.bashrc
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+ls -l /etc/kubernetes/pki/ca.crt
+openssl x509 -in /etc/kubernetes/pki/ca.crt -text -noout | grep Issuer
+openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout | grep Issuer
+
+## If above commands not working then use below cmds otherwise ignore.
+kubeadm reset
+kubeadm init --pod-network-cidr=10.244.0.0/16
+
+---------------------------
+
+
+OK thnx. Now I telling whole story.
+Its basically loan santioned is 40 Lakh.
+For 10 years and Interest is 8.60% till now.
+
+But In june 2023 loan starts and amount for 25 lakh only, this is first installment.
+Reamining 15 lakh I dont know right now.
+
+So basically we completed 2years with 8.60% Interest rate with monthly EMI is 31,000.
+Now its showing 22 lakh pending for 8 years.
+
+If I pay 5lakh now, then pending amount is 17 lakh. Current Interest Rate is 8.1%
+1. Then my EMI amount is same, but I think amount goes to more principal side.
+2. If I additionally pay extra 10,000 rs
+
+can you provide me, interactive excel, so I can add extra amount and see. example suppose I pay extra amount in any months. So i can understand this things. You got it ??
+
+
+
+=========================================
+
+# Phase 1
+
+ oc get nodes
+ oc get pvc
+ oc get pv
+ oc get nodes
+ oc cluster-info
+ oc get namespaces
+ oc get pods -n kube-system
+ oc get node
+ oc describe node k8s
+ oc get pods -A
+ oc get componentstatuses
+ oc config get-contexts
+ oc get nodes
+ oc get pods -n kube-system
+ oc get pods -A
+
+# Phase 2
+
+ mkdir phase2
+ cd phase2/
+ ll
+ oc run nginx -image=nginx
+ oc run nginx --image=nginx
+ oc get pods
+ oc create deployment webapp --image=nginx
+ oc get deplyoments
+ oc get pods
+ oc scale deployment webapp --replicas=3
+ oc get pods
+ oc expose deployment webapp --port=80 --type=NodePort
+http://<your-VM-IP>:<NodePort>
+e.g., http://192.168.1.100:30596
+
+ oc get svc
+ ip r l
+ oc delete deployment webapp
+ oc delete service webapp
+ oc delete pod nginx
+ 
+# Phase 3
+
+ oc create deployment nginx --image=nginx --dry-run=client -o yaml > nginx-deployment.yaml
+ cat nginx-deployment.yaml
+ vi nginx-deployment.yaml
+ oc apply -f nginx-deployment.yaml
+ oc get deployments
+ oc get pods
+ vi nginx-service.yaml
+ ll
+ cat nginx-deployment.yaml
+ oc aplly -f nginx-service.yaml
+ oc apply -f nginx-service.yaml
+ oc get svc
+ oc delete -f nginx-deployment.yaml
+ oc delete -f nginx-service.yaml
+ 
+# Phase 4
+
+sudo mkdir -p /data/test
+sudo chmod 777 /data/test/
+vi hostpath-pod.yaml
+oc apply -f hostpath-pod.yaml
+oc get pods
+echo "Hello from Aniket HostPath Volume" | sudo tee /data/test/index.html
+oc exec -it nginx-volume-pod -- cat /usr/share/nginx/html/index.html
+oc label pod nginx-volume-pod app=nginx
+oc expose pod nginx-volume-pod --port=80 --type=NodePort  # Without label not possible to expose.
+oc get svc
+oc delete -f hostpath-pod.yaml
+oc delete svc nginx-volume-pod
+##oc delete label nginx-volume-pod
+
+
+# Phase 4.2: Persistent Volume (PV) + Persistent Volume Claim (PVC)
+
+mkdir phase4.2
+cd phase4.2/
+vi pv.yaml
+vi pvc.yaml
+oc apply -f pv.yaml
+oc apply -f pvc.yaml
+oc get pv
+oc get pvc
+vi pvc-pod.yaml
+oc apply -f pvc-pod.yaml
+oc get pods
+sudo mkdir -p /data/pv
+echo "Hello from PVC!" | sudo tee /data/pv/index.html
+oc exec -it nginx-pvc-pod -- cat /usr/share/nginx/html/index.html
+oc expose pod nginx-pvc-pod --port=80 --type=NodePort
+oc get svc
+oc delete pod nginx-pvc-pod
+oc delete svc nginx-pvc-pod
+oc delete pvc my-pvc
+oc delete pv my-pv
+
+#oc delete -f pvc-pod.yaml
+#oc delete -f pvc.yaml
+#oc delete -f pv.yaml
+#oc delete svc nginx-pvc-pod
+
+
+# Phase 5: ConfigMaps & Secrets in Kubernetes
+
+oc create configmap site-config --from-literal=site_name="Appice Kubernetes"
+oc get configmap site-config -o yaml
+oc create secret generic db-secret --from-literal=db_pass='AniSecure123'
+oc get secret db-secret -o yaml
+echo QW5pU2VjdXJlMTIz | base64 --decode
+vi configmap-secret-pod.yaml
+oc apply -f configmap-secret-pod.yaml
+oc get pods
+oc exec -it env-demo -- env | grep -E 'SITE|DB_'
+oc delete pod env-demo
+oc delete configmap site-config
+oc delete secret db-secret
+
+#rm configmap-secret-pod.yaml
+#oc delete pod env-demo
+#oc delete configmap site-config
+#oc delete secret db-secret
+
+
+#
