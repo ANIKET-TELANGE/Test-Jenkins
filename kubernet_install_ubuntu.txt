@@ -737,5 +737,44 @@ helm upgrade my-nginx bitnami/nginx --set service.type=NodePort
 helm uninstall my-nginx
 
 
+7756937901
+Meera@19752000
 
+Aslot
 
+slot
+
+slot
+
+<select name="ct100$ContentPlaceHolder1$UCPpolic
+eStationAddress $ddl_LPS" id="ContentPlaceHolder
+1_UCPoliceStationAddress_ddl_LPS">
+<option value> ---- Select Police Stn ----
+</option>
+<option value="61">Bhiwandi Tal P. Station
+</option>
+<option value="60">Ganeshpuri P. Station
+</option>
+<option value="67">Kalyan Tal/Titwala P.
+Station</option>
+<option value="65">Kasara P. Station</option>
+slot
+<option value="66">Kinhavli P. Station
+</option> slot
+<option value="69">Kulgaon P. Station
+slot
+</option>
+<option value="68">Murbad P. Station</option>
+slot
+<option value="64">Padgha P. Station</option>
+slot
+<option value="62">Shahapur P. Station
+</option> slot
+<option value="70">Tokwade P. Station
+</option>
+<option value="63">Vasind P. Station</option>
+slot
+
+In that - "Ulhasnagar P. Station" is missing.
+
+https://learn.kodekloud.com/courses/udemy-labs-online-kubernetes-lab-for-beginners-hands-on

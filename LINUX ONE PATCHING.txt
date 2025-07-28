@@ -1,0 +1,138 @@
+🛠️ Standard Operating Procedure (SOP): Manual Patching in Isolated RHEL Server
+
+# Below URLs required to be whitelisted for manually patching
+--------------------------------------------------------------------------------
+| Purpose                          | FQDN                                      |
+| -------------------------------- | ----------------------------------------- |
+| Red Hat Subscription/Entitlement | `subscription.rhsm.redhat.com`            |
+| CDN to download packages         | `cdn.redhat.com`                          |
+| Repo metadata sync               | `cdn.redhat.com`                          |
+| Identity certs/activation        | `api.access.redhat.com`                   |
+| Satellite Capsule (if used)      | Depends on internal DNS                   |
+| Optional analytics               | `cert-api.access.redhat.com` *(optional)* |
+--------------------------------------------------------------------------------
+
+subscription-manager release --set=9.4
+
+## 1. 🧩 Install Required Packages on Repo Server ##
+# Install `createrepo` (used to generate metadata)
+yum install -y createrepo
+
+# Install `yum-utils` for `reposync` command
+yum install -y yum-utils
+
+# Optional: Install Apache to serve repo via HTTP
+yum install -y httpd
+
+## 2. 🔍 Get Repository ID (repoid), To find exact rpm-url ##
+# List available repos and their IDs
+yum repolist all
+dnf repolist
+
+## 3. 🌐 Configure Apache to Serve Local Repository (OPTIONAL) ##
+a. Place Repo under Web Root
+mkdir -p /var/www/html/repos/RHEL9
+cp -r /mnt/repo/RHEL9/* /var/www/html/repos/RHEL9/
+
+b. Set Correct Permissions
+chown -R root:root /var/www/html/repos
+chmod -R o+r /var/www/html/repos
+
+c. Start Apache
+systemctl enable httpd --now
+
+## 4. 🔃 Sync Repositories (Download RPMs & Metadata) ##
+# Example: Sync BaseOS repo
+# Create new directory for new rpms.
+reposync -p /mnt/repo/RHEL9/BaseOS \ --repoid=rhel-9-for-x86_64-baseos-rpms \ --download-metadata
+
+# Example: Sync AppStream repo
+#reposync -p /sysrepo/RHEL-PACKAGES/RHEL94_JULY_UPDATE/BaseOS --download-metadata --repoid=rhel-9-for-s390x-baseos-rmps>>/tmp/sync_baseos.txt 2>&1
+reposync -p /mnt/repo/RHEL9/AppStream \ --repoid=rhel-9-for-x86_64-appstream-rpms \ --download-metadata
+
+## 5. 📦 Create Repository Metadata (if not auto-generated), To make excutable. ##
+# Run createrepo to generate repo metadata
+createrepo /mnt/repo/RHEL9/BaseOS
+createrepo /mnt/repo/RHEL9/AppStream
+
+## 6. 📦 Test Repo Access via curl ##
+curl file:///sysrepo/RHEL-PACKAGES/RHEL94_JULY_UPDATE/BaseOS/repodata/repomd.xml
+#curl -I http://<repo-server-ip>/repos/RHEL9/BaseOS/
+
+## 7. ♻️ Run Patch Update on Client ##
+yum clean all
+yum repolist
+# Then patch
+yum update -y
+
+
+## 8. 🔒 Firewall & SELinux (If Required) ##
+a. Allow HTTP Port (80)
+firewall-cmd --permanent --add-service=http
+firewall-cmd --reload
+
+b. Allow Apache to Read External Repos (Optional)
+# If repo is NOT under /var/www/html, allow Apache access:
+semanage fcontext -a -t httpd_sys_content_t "/mnt/repo(/.*)?"
+restorecon -Rv /mnt/repo
+
+
+------------------------------------------------------------
+🔗 Configure Client to Use Local HTTP Repo
+
+## ✅ Create repo files  ##
+cat <<EOF > /etc/yum.repos.d/local-baseos.repo
+[local-baseos]
+name=Local RHEL 9 BaseOS
+baseurl=file:///opt/localrepo/RHEL94_JULY_UPDATE/BaseOS
+enabled=1
+gpgcheck=0
+EOF
+
+cat <<EOF > /etc/yum.repos.d/local-appstream.repo
+[local-appstream]
+name=Local RHEL 9 AppStream
+baseurl=file:///opt/localrepo/RHEL94_JULY_UPDATE/AppStream
+enabled=1
+gpgcheck=0
+EOF
+
+#baseurl=http://<repo-server-ip>/repos/RHEL9/BaseOS/
+#baseurl=http://<repo-server-ip>/repos/RHEL9/AppStream/
+-------------------------------------------------------------------------
+
+
+#################################################################################
+🔧 How to Use ISO as a Local Repo (Full Patch/Install Offline)
+✅ Step 1: Mount the ISO
+mkdir -p /mnt/rhel-iso
+mount -o loop rhel-9.4-x86_64-dvd.iso /mnt/rhel-iso
+
+✅ Step 2: Create .repo file
+cat <<EOF > /etc/yum.repos.d/rhel-dvd.repo
+[rhel-dvd-baseos]
+name=RHEL 9.4 DVD BaseOS
+baseurl=file:///mnt/rhel-iso/BaseOS
+enabled=1
+gpgcheck=0
+
+[rhel-dvd-appstream]
+name=RHEL 9.4 DVD AppStream
+baseurl=file:///mnt/rhel-iso/AppStream
+enabled=1
+gpgcheck=0
+EOF
+
+✅ Step 3: Clean and refresh DNF
+dnf clean all
+dnf repolist
+
+✅ Step 4: Patch or install packages
+dnf update -y
+# or install specific packages:
+dnf install httpd vim -y
+#################################################################################
+
+
+
+
