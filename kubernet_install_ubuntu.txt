@@ -189,6 +189,7 @@ sudo apt update && sudo apt install -y containerd
 
 # 6. Configure containerd with systemd cgroup driver
 sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml > /dev/null  ## Sometimes not working
 containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
 sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 sudo systemctl restart containerd
@@ -207,6 +208,13 @@ sudo systemctl enable --now kubelet
 
 # 9. Initialize the cluster (using Flannel network CIDR)
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+OR
+sudo ctr images list | grep pause
+sudo ctr images pull registry.k8s.io/pause:3.9
+sudo ctr images list | grep pause
+sudo kubeadm config images pull --kubernetes-version v1.30.14
+sudo systemctl restart containerd
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --v=5
 
 # 10. Set up kubectl config
 mkdir -p $HOME/.kube

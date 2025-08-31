@@ -12,6 +12,7 @@
 | Optional analytics               | `cert-api.access.redhat.com` *(optional)* |
 --------------------------------------------------------------------------------
 
+subscription-manager register
 subscription-manager release --set=9.4
 
 ## 1. 🧩 Install Required Packages on Repo Server ##

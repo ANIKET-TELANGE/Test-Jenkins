@@ -40,12 +40,306 @@ yum update -y
 
 
 
+1_}tH1e=Y@4gxj(y
+aniket.telange@svnindia.com
+
+
+
+85325242550
+9742
+8571
+0164
+
+
+83285969626
+9534
+
+
+
+
+4. OCP Technical Openshift 25-08-25.mkv
+5. OCP Technical 28-08-25.mkv
+6. OCP Q2 Technical 31-08-25.mkv
+
+
+https://www.redhat.com/en/blog/codeready-containers
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-single/authentication_and_authorization/index
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-single/authentication_and_authorization/index#identity-provider-default-CR_understanding-identity-provider
+
+
+
+
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl wget git net-tools gnupg2
+
+sudo swapoff -a
+sudo sed -i '/swap/d' /etc/fstab
+
+sudo hostnamectl set-hostname okd-node
+echo "127.0.0.1 okd-node" | sudo tee -a /etc/hosts
+
+sudo apt install -y podman
+podman info
+
+export OKD_VERSION=4.19.0-okd-scos.0
+# Download OpenShift client
+wget https://github.com/okd-project/okd/releases/download/$OKD_VERSION/openshift-client-linux-$OKD_VERSION.tar.gz
+
+# Download OpenShift installer
+wget https://github.com/okd-project/okd/releases/download/$OKD_VERSION/openshift-install-linux-$OKD_VERSION.tar.gz
+
+
+
+Done Step 2.
+where is store that zip file, give me proper path also to learn this.
+Suggestion Dont give me vi or nano command to add lines in some files instead of this give sed, direct line command.
+
+
+pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"},"registry.redhat.io":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"}}}'
+sshKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDmPM6WtkNizWy0cHw9KhN9l6skG/CJfGsQeRdAgZlEbi6F2kVFOVHcZXSV0grO/nwNmi8qj5luVYZM0u+RhOV4ZSyfOokp/flWePmxx8kzHExIMAs00wfcKRNGdHoQeOUzAIQtWgkoiq1bTFnxYSKb3ZJvCTerHzn6p+XaqvReromdPS/PnJafqDQr6Y0QvPmbcgAQE6h6xMk+3qiWreKT6gbRwuTHNtSfnhJlI122bnTW2lQ1hICd7/hXBm5SNX0AK7S63WNUk7asfm3G+klE0Zv03zCIam8HDlS7sOKSiBwmzHIHiqNfzhr1xtGaHfulBfJxcOhJdbaaLwHjB2mssU9vmHVJpmLkdZCrDUYEMJHGneeThOp/vQq4Lsoz9HMWPGf2T++SeygEf7/6mGfce/STyYDqn1ltlC0LCnAUWYGqXmybhj42MmDD6TFefO+ONpvuvwEdavNlFOJV08aVpx74zzBLCaGVO3POGafqucI5atirIsjCCWwpyOvLwnfilFIwBjDPir8/mDf+azEijyoATlJdqWvdzdGwYHvELVWkBD6SoDjRjj+4hXuX65OVeRY1yqQSfZwRfeyYUUxwJx8al9ZHhQTOzdRO0MmSXNUT91Z9rhK2L8LJ01OvSvLDrKJ1Za1a5UddH8YmDwnFypsCyQxrKD7sSRqA/KwrQ== aniket@okd-node'
+
+
+
+'{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"},"registry.redhat.io":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"}}}'
+
+{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"},"registry.redhat.io":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"}}}
 
 
 
 
 
 
+---
+apiVersion: v1
+baseDomain: example.com
+metadata:
+  name: okd-cluster
+compute:
+  - name: worker
+    replicas: 0
+controlPlane:
+  name: master
+  replicas: 1
+  platform:
+    none: {}
+platform:
+  none: {}
+networking:
+  networkType: OVNKubernetes
+  clusterNetwork:
+    - cidr: 10.128.0.0/14
+      hostPrefix: 23
+  serviceNetwork:
+    - 172.30.0.0/16
+pullSecret: '{"auths":{"cloud.openshift.com":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"quay.io":{"auth":"b3BlbnNoaWZ0LXJlbGVhc2UtZGV2K29jbV9hY2Nlc3NfMzZiMTg3OGEwZWJjNDkxNTlkYTY2YjRkMmNlZTFiMTQ6MTNYMFhCOUFCSjNRQ1BONzcwV1NKMlJETlozQTFOMVNTVVhQOEEzUFZUS1oxUENTUjFYTzJMMFI3MVY2RlBUUg==","email":"aniketshopping2@gmail.com"},"registry.connect.redhat.com":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"},"registry.redhat.io":{"auth":"fHVoYy1wb29sLTc3MzdkZjg0LTdlNjAtNDNkMy1iZTNjLWViNTdlZTI2NWYzYTpleUpoYkdjaU9pSlNVelV4TWlKOS5leUp6ZFdJaU9pSmhNR05oT1dGbU1EWmxNRFkwWVRJMllUZGpaVE5pWVRJME1tRmxZbUptTWlKOS5LVkkwMWdNeEUzbGk1UlExUWdPd08wdFo3MGh3eE8zUGpLQkpweVFST3lSZENWOWlVWElZMjNoVjNiTzAwWWM4MjhOVEwwMEtaeGN6VnppaTRmWURUQVB3LUxiMkwzcVR2aGctQU43RFZRRFlaSHl3WHFTQ3Bod18zOVVHQjRPNnkxZE5PM1NqRzFCbFFvMGp4Zk1iYkFVcWllSFdDNHhIWEpZUHlLM2J3NXFHTVVqbGdLY2lxZ2o0bGZWZ1NYdzZtWllXTGpxUHJ4WG4yeGhCN3JaZDBzUk54OEd5QWlXUWZPbzBIenl2MlJSOHRmVEY5M2tIT1JkSlNwZXA3NVRhNDl4YmdFT1dyRGJ6bUJEbDJUa09rcnBScWIyMXRWSHBQUU92WUl3dmsxc1BiOXZrMGNZZnhQXzRFc3I3NzhhVFU1RDZzZGNtYkdkc3czOGVaUV9vQ19TQXNEdUs0WlRlWWxHVndESWF1NlkwbzZuNzh2RjZtWWFtZnZ3d2lNS0NEUFBGdkNqcHNNQlN2akJFSUVUVU4zMVA5MHpMVF9PSXJzdi1XX2xSa2lrdHRSUnpSUS0zWnhWa0JJMENzWEJabWllbzZaMXBPUHNEd0EyNHFUMGFBY3paa0lORF9tbWtwdXBfSnF0TW5UZFZEZVpIeTRXc2h3TmZWTDNEcFZVUi0xa0syYm9nVEpVcVYxUlJJRUUzSHlmYWNzdm1YT25kLURPSkROdG5NVDVmRTlwX245LU5EOWNnNmh2RUZhRzFrWkdCcjN2Yms4UWwtWjEwWXVLQmJQWDR2Q1djcHVWdnVJRDJOaTNCQ0VsX1Y3NnhLMWVXOW9kTUNCRXFGdkJnLTMta295MnBEMXhVczN3VzBiR1duemVUd1BDaUE3a2ZoVklVRTgwWVpEWQ==","email":"aniketshopping2@gmail.com"}}}'
+sshKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDmPM6WtkNizWy0cHw9KhN9l6skG/CJfGsQeRdAgZlEbi6F2kVFOVHcZXSV0grO/nwNmi8qj5luVYZM0u+RhOV4ZSyfOokp/flWePmxx8kzHExIMAs00wfcKRNGdHoQeOUzAIQtWgkoiq1bTFnxYSKb3ZJvCTerHzn6p+XaqvReromdPS/PnJafqDQr6Y0QvPmbcgAQE6h6xMk+3qiWreKT6gbRwuTHNtSfnhJlI122bnTW2lQ1hICd7/hXBm5SNX0AK7S63WNUk7asfm3G+klE0Zv03zCIam8HDlS7sOKSiBwmzHIHiqNfzhr1xtGaHfulBfJxcOhJdbaaLwHjB2mssU9vmHVJpmLkdZCrDUYEMJHGneeThOp/vQq4Lsoz9HMWPGf2T++SeygEf7/6mGfce/STyYDqn1ltlC0LCnAUWYGqXmybhj42MmDD6TFefO+ONpvuvwEdavNlFOJV08aVpx74zzBLCaGVO3POGafqucI5atirIsjCCWwpyOvLwnfilFIwBjDPir8/mDf+azEijyoATlJdqWvdzdGwYHvELVWkBD6SoDjRjj+4hXuX65OVeRY1yqQSfZwRfeyYUUxwJx8al9ZHhQTOzdRO0MmSXNUT91Z9rhK2L8LJ01OvSvLDrKJ1Za1a5UddH8YmDwnFypsCyQxrKD7sSRqA/KwrQ== aniket@okd-node'
 
 
 
+coreos.inst.install_dev=/dev/sda \coreos.inst.image_url=http://192.168.1.150:8080/fedora-coreos.iso\coreos.inst.ignition_url=http://192.168.1.150:8080/bootstrap.ign
+
+
+
+coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://<ubuntu-ip>:8080/bootstrap.ign
+
+coreos.inst.install_dev=/dev/nvme0n1 coreos.inst.ignition_url=http://192.168.1.150:8080/bootstrap.ign
+
+sudo coreos-installer install /dev/sda \
+  --ignition-url http://<ubuntu-ip>:8080/bootstrap.ign \
+  --insecure
+
+
+sudo coreos-installer install /dev/nvme0n1 --ignition-url http://192.168.1.100:8080/bootstrap.ign --insecure-ignition
+
+
+
+sudo curl -o /var/lib/ignition/config.ign http://192.168.12.100:8080/bootstrap.ign
+
+
+
++----[SHA256]-----+
+[root@okd-node okd-install]# cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYNKudlor7KA5JihJAftn9CVWLmd32e2nR7MCOouQSs1OFTjY1AQ92ut9gmlGa+NlpjtAKXihGsFfU5uK+LT6BilLBKTYbaNZxxtQeO3GAXmSb9tku/MNjnJZjP57kFN8KzUlaEKFSgn9Q92O9Fpai6gV4dNzM4HZeYprB62ZwcfBMGyy3NzLXKdLlCtG3sb+08S3H/r8xKmuxLJ92A8l2hwmJZZeDrLWC1VzrQQBixOk3Z6oOqUYzlZ9l3ORM35cs07vB1ohl2uNo08sOA23ZIj4nrluIVDJFb/pYxIoowqWijjiAatHxjz1gQnHkJqGXvIGUJ8Jj4wGvSGQQOKE+N9ueEsonXFjNAbNE9zFqPhQXRp4hucAmTZjcqDTHRs8RV9kHj9FMckzisNh7y/YJTGic59iKdxBUXrdOk4jit9giC1FKqwrSPXuxF0TmnnNN6hD/yipnkeLpPM+ta40qPs3O7ByOdsWwmG6ePZTVPUUUA4jC+GTyoMFtIH2NSuJ7/NC7xJieb6Vpat4mBHo26jPjLm195gRqmcAwSqVy7XFkaMidsC4M+Yi8N31DmULrPqRe6h3r9BamibkoQxhrvChmWOfHAUxktJbiFRJvqnxrenSr6WataOUWlrEoIBe0X26d+VT53Z6aKMpo7h8xwgkwgocJHbQR9vLnILPCsw== okd-root-access
+
+ 
+  
+  
+  
+  https://us02web.zoom.us/j/85325242550
+  Meeting ID: 853 2524 2550  
+  Passcode: 8571
+
+
+
+D:\
+curl.exe -L -C - -o D:\crc_libvirt_4.18.2_amd64.crcbundle `https://mirror.openshift.com/pub/openshift-v4/clients/crc/bundles/libvirt/4.18.2/crc_libvirt_4.18.2_amd64.crcbundle
+
+
+wget -L -C - -o D:\crc_libvirt_4.18.2_amd64.crcbundle `https://mirror.openshift.com/pub/openshift-v4/clients/crc/bundles/libvirt/4.18.2/crc_libvirt_4.18.2_amd64.crcbundle
+
+
+"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" modifyvm "OCP" --nested-hw-virt on
+"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" modifyvm "OCP" --paravirt-provider kvm
+
+VBoxManage modifyvm "UbuntuVM" 
+ls /dev/kvm
+VBoxManage modifyvm "OCP" --nested-hw-virt off
+
+
+VBoxManage modifyvm "OCP" --nested-hw-virt on
+
+
+
+
+systeminfo
+Get-CimInstance Win32_Processor | Select-Object Name,VirtualizationFirmwareEnabled
+
+aniket@OCP:~$ history
+    1  sudo su -
+    2  pwd
+    3  cd /root/crc/
+    4  pwd
+    5  ll
+    6  crc setup
+    7  free -h
+    8  init 0
+    9  sudo init 0
+   10  ifconfig
+   11  su root
+   12  sudo su -
+   13  vi /etc/hosts
+   14  apt-get install vim*
+   15  sudo vi /etc/hosts
+   16  ls ~/.ssh/id_rsa.pub
+   17  ssh-keygen -t rsa -b 4096
+   18  ls ~/.ssh/id_rsa.pub
+   19  virsh net-list --all
+   20  sudo virsh net-list --all
+   21  sudo su -
+   22  crc setup
+   23  crc config set skip-check-virt-enabled true
+   24  crc setup
+   25  whoami
+   26  curl -L -C - -o ~/Downloads/crc_libvirt_4.18.2_amd64.crcbundle   https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/libvirt/4.18.2/crc_libvirt_4.18.2_amd64.crcbundle
+   27  sudo apt install curl
+   28  curl -L -C - -o ~/Downloads/crc_libvirt_4.18.2_amd64.crcbundle   https://developers.redhat.com/content-gateway/file/pub/openshift-v4/clients/crc/bundles/libvirt/4.18.2/crc_libvirt_4.18.2_amd64.crcbundle
+   29  pwd
+   30  ll ~/Downloads/
+   31  du -sh  ~/Downloads/
+   32  file ~/Downloads/crc_libvirt_4.18.2_amd64.crcbundle
+   33  head ~/Downloads/crc_libvirt_4.18.2_amd64.crcbundle
+   34  ll
+   35  cd ~/Downloads/
+   36  ll
+   37  rm crc_libvirt_4.18.2_amd64.crcbundle
+   38  curl -L -C - -o ~/Downloads/crc_libvirt_4.18.2_amd64.crcbundle   https://mirror.openshift.com/pub/openshift-v4/clients/crc/bundles/libvirt/4.18.2/crc_libvirt_4.18.2_amd64.crcbundle
+   39  du -sh *
+   40  rm crc_libvirt_4.18.2_amd64.crcbundle
+   41  ll
+   42  crc config set consent-telemetry no
+   43  crc config set bundle default
+   44  crc setup
+   45  crc start
+   46  lsmod | grep kvm
+   47  df -Th
+   48  pwd
+   49  cd /
+   50  ll
+   51  cd /home/aniket/.crc/cache/
+   52  du -sh *
+   53  ls /dev/kvm
+   54  hostname
+   55  init 0
+   56  sudo init 0
+   57  ifconfig
+   58  sudo su -
+   59  crc setup
+   60  ifconfig
+   61  crc start
+   62  ping 8.8.8.8
+   63  systemctl restart NetworkManager
+   64  systemctl status NetworkManager
+   65  ifconfig
+   66  sudo netplan apply
+   67  nm-connection-editor
+   68  ifconfig
+   69  ip addr
+   70  ip link set enp0s3 up
+   71  ip addr show
+   72  ip addr show enp0s3
+   73  sudo ifconfig enp0s3 up
+   74  ifconfig
+   75  cat /etc/network/interfaces
+   76  ifconfig
+   77  ip addr show enp0s3
+   78  sudo dhclient -V enp0s3
+   79  sudo netplan apply
+   80  vi /etc/netplan/01-static-ip.yaml
+   81  sudo su 
+   
+   94  ifconfig
+   95  neplan apply
+   96  sudo netplan apply
+   97  ifconfig
+   98  ping 8.8.8.8
+   99  crc setup
+  100  exit
+  101  mkdir -p ~/.crc
+  102  ll -a /
+  103  ll -a / | grep -i .crc
+  104  vi ~/.crc/crc-net.xml
+  105  sudo virsh net-define ~/.crc/crc-net.xml
+  106  sudo virsh net-autostart crc
+  107  sudo virsh net-start crc
+  108  virsh net-list --all
+  109  ls -lh ~/.crc/cache/
+  110  sudo ls -lh /root/.crc/cache/
+  111  ls -lh /home/aniket/.crc/cache/
+  112  df -h
+  113  ll /
+  114  ls -lh /home/aniket/.crc/cache/
+  115  cd /home/aniket/.crc/cache/
+  116  ll
+  117  du -sh *
+  118  df -h
+  119  rm crc_libvirt_4.18.2_amd64.crcbundle
+  120  df -h
+  121  ls -lh /home/aniket/.crc/cache/
+  122  df -Th
+  123  ls -lh /home/aniket/.crc/cache/
+  124  vi /etc/netplan/01-static-ip.yaml
+  125  chmod 600 /etc/netplan/01-static-ip.yaml
+  126  sudo netplan apply
+  127  ifconfig
+  128  sudo netplan apply
+  129  ping 8.8.8.8
+  130  vi /etc/netplan/01-static-ip.yaml
+  131  sudo netplan apply
+  132  vi /etc/netplan/01-static-ip.yaml
+  133  sudo netplan apply
+  134  sudo netplan --debug apply
+  135  sudo netplan apply
+  136  vi /etc/netplan/01-static-ip.yaml
+  137  sudo netplan apply
+  138  sudo netplan --debug apply
+  139  vi /etc/netplan/01-static-ip.yaml
+  140  sudo netplan apply
+  141  vi /etc/netplan/01-static-ip.yaml
+  142  sudo netplan apply
+  143  chmod 600 /etc/netplan/01-static-ip.yaml
+  152  top
+  153  history
+  
+  I am trying to use virtual box but it is sayng that my computer does not support VT-x technology.
+
+I checked in bois and it is enabled. How can I make it work?
+
+I have alredy tried the folowing:
+
+1)disabled vt-x tech. in bios, restarted the pc, shutted down and enabled again. Nothing happend
+
+enabled Hyperv, restarted, disabled Hyperv and restarted again. Nothing happened, Windows 11 is still not able to us VT-x virtualization technology.
+I have even used intel processor identification utility, and even that program sees VT-X tecnology as disabled.
+
+I kindly ask your help because I am becoming crazy and I really do not know how to make it work.		

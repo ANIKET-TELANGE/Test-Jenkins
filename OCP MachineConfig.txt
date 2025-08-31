@@ -1,0 +1,28 @@
+## OCP ##
+
+## SSH PasswordLess Issue Fix after version Update
+
+# Step 1
+First open Machine config file
+
+oc get mcp
+oc get mcp worker -o yaml
+oc get mcp master -o yaml
+cat that file and copy spec encoded line and save to new file.
+
+touch new.txt
+paste that encoded line
+Then
+cat new.txt | base64 -d > new-file-decode.txt
+Then its give file of ssh and then edit files. 
+Then again decode that file 
+cat new-file-decode | base64 -w0 > latest-file.txt
+
+Then paste in machineconfig.
+oc edit machineconfig rendered-master-xxxx
+
+
+
+
+oc get mcp worker -o yaml
+
