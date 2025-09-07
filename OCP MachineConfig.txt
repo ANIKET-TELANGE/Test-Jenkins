@@ -26,3 +26,4 @@ oc edit machineconfig rendered-master-xxxx
 
 oc get mcp worker -o yaml
 
+https://www.dell.com/support/product-details/en-in/product/latitude-14-7400-2-in-1-laptop/drivers

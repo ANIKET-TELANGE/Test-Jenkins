@@ -46,6 +46,8 @@ aniket.telange@svnindia.com
 
 
 85325242550
+9374
+6938
 9742
 8571
 0164
@@ -60,6 +62,8 @@ aniket.telange@svnindia.com
 4. OCP Technical Openshift 25-08-25.mkv
 5. OCP Technical 28-08-25.mkv
 6. OCP Q2 Technical 31-08-25.mkv
+7. OCP Q5 Technical 3-09-25.mkv
+8. OCP Q6 Technical 7-09-25.mkv
 
 
 https://www.redhat.com/en/blog/codeready-containers
