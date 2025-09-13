@@ -1,0 +1,231 @@
+OCP CERRIFICATE QUESTIONS ANSWERS
+
+
+=========================================================================================
+Question-1: Configure an identity provider
+
+Configure your OpenShift cluster to use an HTPasswd identity provider with the following
+The name of the identity provider is: ex280-htpasswd 23 The name of the secret is: ex280-idp-secret
+The user account armstrong is present and can log in with password indionce
+The user account collins is present and can log in with password veraster The user account aldrin is present and can log in with password roonkere
+The user account jobs is present and can log in with password sestiver
+The user account wozniak is present and can log in with password glegunge
+
+
+
+
+htpasswd -C-b-B ex280-htpasswd armstrong indionce
+cat ex280-htpasswd
+htpasswd -b ex280-htpasswd aldrin roonkere
+cd /home/user/
+cat kubeadmin
+oc login -u kubeadmin -p Ww...cat..kubeadmin....
+oc whoami
+oc create secret generic ex280-idp-secret--from-file=htpasswd=ex280-htpasswd
+oc get secret -n openshift-config
+oc whoami --show-console
+oc get oauth cluster
+oc get oauth cluster -o yaml
+oc get oauth cluster -o yaml > oauth.yaml
+ - change name section in spec and put ex280-idp-secret
+
+oc apply -f oauth.yaml --dry-run
+=========================================================================================
+
+
+=========================================================================================
+Question-2: Configure openshift cluster permission 
+
+configure cluster permission so that,
+1. Job can have cluster administration task
+2. Remove the self-provisioner role to the system:authenticated:oauth virtual group
+3. collins can create project* --> self provisoiner role collins cannot have cluster administration
+task (note:- admin role youhave to add view role or we can add any role which is not cluster
+admin role, anything apart from cluster admin role.)
+4. Kubeadmin user should be deleted
+
+## Answer:
+oc adm policy add-cluster-role-to-user cluster-admin jobs
+oc edit clusterrolebinding self-provisioners
+--> bellow annotation set value as false
+oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth
+oc adm policy add-cluster-role-to-user self-provisioner collins
+oc adm policy add-role-to-user view collins
+oc login -u jobs -p indionce
+oc get nodes
+oc delete secret kubeadmin -n kube-system
+=========================================================================================
+
+
+=========================================================================================
+Question-3: configure project permissions.
+
+1. Configure your OpenShift cluster to meet the following requirements:
+The following projects exist:
+apollo
+manhattan
+gemini
+bluebook
+titan
+2. the user account armstrong is an administrator for project apollo and project
+gemini 
+3. The user account wozniak can view project titan but not administer or
+delete it
+
+## Answer:
+oc new-project apollo
+oc new-project manhattan
+oc new-project gemini
+oc new-project bluebook
+oc new-project titan
+oc policy add-role-to-user admin armstrong -n apollo
+oc policy add-role-to-user admin armstrong -n gemini
+oc policy add-role-to-user view wozniak -n titan
+
+# SS Answer
+oc new-project apollo
+oc project
+oc login -u armstrong -p indionce
+oc get secret -n openshift-config
+
+oc policy --help
+oc project
+oc policy add-role-to-user admin armstrong -n apollo
+oc policy add-role-to-user view woznaik -n titan
+oc get oauth cluster -o yaml > oauth.yaml
+vim oauth.yaml
+oc apply -f oauth.yaml
+oc get pods -n openshift-authentication
+oc login -u armstrong -p indionce
+=========================================================================================
+
+
+=========================================================================================
+Question-4: Configure groups
+1. Configure your OpenShift cluster to meet the following requirements:
+2. The user account armstrong is a member of the commander group
+3. The user account collins is a member of the pilot group
+4. The user account aldrin is a member of the pilot group
+5. Members of the commander group have edit permission in the apollo project
+6. Members of the pilot group have view permission in the apollo projectAnswer:
+
+## Answer:
+oc adm groups new commander
+oc adm groups new pilot
+oc get groups
+oc adm groups add-users commander armstrong
+oc adm groups add-users pilot collins
+oc adm groups add-users pilot aldrin
+oc get groups.user.openshift.io
+oc policy add-role-to-group edit commander -n apollo
+oc policy add-role-to-group view pilot -n apollo
+=========================================================================================
+
+
+=========================================================================================
+Question-5: Configure quotas
+Configure your OpenShift cluster to use quotas in the manhattan project with
+the following require
+The name of the quota is: ex280-quota
+The amount of memory consumed across all containers may not exceed 160Mi
+The total amount of CPU consumed across all containers may not exceed 2
+fullcores
+The maximum number of replication controllers does not exceed 3
+The maximum number of pods does not exceed 3
+The maximum number of services does not exceed 6
+
+
+Answer:
+# oc project manahattan
+# oc create quota ex280-quota –hard=memory=160Mi,cpu=2,replicationcontrollers=3,pods=3,
+services=6
+=========================================================================================
+
+
+=========================================================================================
+Question-6: Scale an application manually
+Ensure that there are exactly 5 replicas of the minion application in the gru project.
+
+pre-requisite in lab: 
+
+ # oc new-project gru
+ # oc new-project minion
+ # oc new-app  --name=minion  --image=docker.io/openshift/hello-openshift
+ # oc get deployment
+ # oc get svc
+ # oc expose svc minion --hostname=minion-gru.apps-crc.testing 
+    [Now the application is hosted on https://hydra-gru.apps-crc.testing ]
+	
+Answer:
+# oc project gru
+# oc get deployment  
+# oc scale --replicas=5 deployment minion
+=========================================================================================
+
+
+=========================================================================================
+Question-7: Scale an application automatically
+Automatically scale the hydra deployment in the lerna project with the follow
+Minimum number of pods: 1
+Maximum number of pods: 9
+Target average CPU utilization per pod: 60 percent
+The pods require 25m CPU time to operate
+The pods must not consume more than 180m CPU time
+
+pre-requisite in lab:
+ 
+ # oc new-project lerna
+ # oc new-app  --name=hydra  --image=docker.io/openshift/hello-openshift
+ # oc get deployment
+ # oc get svc
+ # oc expose svc hydra --hostname=hydra-lerna.apps-crc.testing 
+    [Now the application is hosted on https://hydra-lerna.apps-crc.testing ]
+	
+
+Ans:
+# oc project lerna
+# oc set resources deployment hydra --requests=cpu=25m --limits=cpu=180m
+# oc autoscale deployment hydra --min=1 --max=9 --cpu-percent=60
+# oc get hpa
+=========================================================================================
+
+
+=========================================================================================
+Question-8: Configure a secure route
+Configure the oxcart application in the area5l project with the following
+requirements: Complete and Continue
+The application uses a secure route called oxcart
+Traffic between the client and the router is encrypted
+Traffic between the router and the service is unencrypted
+The route uses a CA signed certificate with the following subject fields:
+/C=US/ST=NV/L=Hiko/O=CIA/OU=USAF/CN=classified.apps-crc.testing
+The application is reachable only at the following address:
+https://classified.apps-crc.testing
+
+pre-requisite in lab:
+
+# oc new-project area5l
+# oc new-app --name=oxcart --image=docker.io/openshift/hello-openshift
+# openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout private.key -out certificate.crt       # to create cert
+# oc expose svc oxcart --hostname=oxcart-area51.ocp4.apps.example.com
+
+Ans:
+
+
+# oc project area5l
+# Create the ssl from the newcert script from /usr/local/bin path
+# cp /usr/local/bin/cert-script  ~  # copy to home path 
+# ./script-file                     # execute script file to create cert 
+# oc create route edge oxcart --service=oxcart –hostname=classified.apps-crc.testing --cert=certificate.crt --key=private.key
+# oc get route
+
+Note: ( they will provide newcert as script file,we need to find where it’s
+located and we need to run it, with that we can create private.key and crt file
+without requiring openssl command)
+
+--> find / -name newcert ( run that file )
+=========================================================================================
+
+
+=========================================================================================
+=========================================================================================
