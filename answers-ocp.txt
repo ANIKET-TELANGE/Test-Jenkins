@@ -1,4 +1,120 @@
 ========================================================================================
+QUESTION 12:
+========================================================================================
+
+========================================================================================
+QUESTION 13:
+### Answer 1
+oc new-project apples
+oc create sa ex280sa
+oc get sa
+oc get scc
+oc adm policy add-scc-to-user anyuid -z ex280sa
+oc adm policy who-can use scc anyuid | grep ex280sa # To check
+
+### Answer 2
+oc new-project apples
+oc create sa ex280-sa
+oc policy add-role-to-group system:serviceaccount-user system:authenticated -n apples
+========================================================================================
+
+========================================================================================
+QUESTION 14: Pending
+========================================================================================
+
+
+
+
+
+
+
+
+========================================================================================
+QUESTION 15:
+Pre-Requisites
+oc new-app –name=atlas –image=domain…. ## if image/deployment not available then use.
+oc new-project mercury
+
+vi atlas.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atlas
+  namespace: mercury
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atlas
+  template:
+    metadata:
+      labels:
+        app: atlas
+    spec:
+      containers:
+      - name: web
+        image: quay.io/fedora/python-39
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo "Welcome you altas web application!" > /tmp/index.html && cd /tmp && python3 -m http.server 8080
+        ports:
+        - containerPort: 8080
+        resources:   ## this column should be deleted.
+          requests: 
+            memory: "1024Mi"
+            cpu: "100m"
+          limits:
+            memory: "2048Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: atlas
+  namespace: mercury
+spec:
+  selector:
+    app: atlas
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: atlas
+  namespace: mercury
+spec:
+  host: atlas-mercury.apps-crc.testing
+  to:
+    kind: Service
+    name: atlas
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+	 
+	 
+# oc apply -f atlas.yaml	 
+	
+
+Ans:
+oc project mercury
+oc get deployment atlas -o yaml > bkp-atlas-mercury.yaml # To get backup for safety.
+
+oc edit deployment atlas  ## Remove the resource like cpu, memory etc from Containers only. (edit the resources) edit the deploymnet or deploymentconfig and remove the resources from menifest file. and then check the route.
+
+oc get route
+oc get services
+oc expose service atlas –hostname=atlas-mercury.apps-crc.testing  ## If service are not expose then use this command.
+========================================================================================
+
+========================================================================================
+QUESTION 16: NOT-AVAIABLE
+========================================================================================
+
+========================================================================================
 QUESTION 17:
 oc adm create-bootstrap-project-template -o yaml > template.yaml
 vi template -add this line before paramaters section.
@@ -33,8 +149,10 @@ oc new-project testproj
 oc get limitranges
 oc describe limitrange testproj-limits
 ========================================================================================
+
 ========================================================================================
-========================================================================================
+QUESTION 18: Due to OCP OPERATOR
+
 ========================================================================================
 
 ========================================================================================
@@ -67,3 +185,59 @@ oc describe cronjob job-runner # To check
 oc get cronjob job-runner -o yaml | grep -A5 serviceAccountName # To check
 ========================================================================================
 
+========================================================================================
+QUESTION 21: pending
+========================================================================================
+
+========================================================================================
+QUESTION 22:
+Pre-requisites:
+oc get project mercury || oc new-project mercury
+oc project mercury
+oc new-app --name=atlas openshift/httpd
+oc get deploy atlas
+
+Answers:
+# Login to the OpenshiftGUI
+# Navigate to the Workloads> Deployment
+# Select the Project "mercury" and Click on "atlas" Deployment.
+# Actons>Add health checks>livenessProbe>
+# Type:TCP socket , port:8080 , Initial delay:10, timeout:30
+[]Check Mark and Add.
+
+oc describe deployment atlas | grep -i Liveness
+# Go to Workloads > Deployments Click atlas > Scroll to Containers
+========================================================================================
+
+========================================================================================
+QUESTION 23:
+oc new-project sydney
+vi ex280-limits.yaml
+
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: ex280-limits
+spec:
+  limits:
+    - type: Pod
+      max:
+        cpu: 500m
+        memory: 600Mi
+      min:
+        cpu: 5m
+        memory: 200Mi
+    - type: Container
+      max:
+        cpu: 500m
+        memory: 600Mi
+      min:
+        cpu: 100m
+        memory: 200Mi
+      defaultRequest:
+        cpu: 300m
+        memory: 400Mi
+
+oc apply -f ex280-limits.yaml
+oc describe limitrange ex280-limits
+========================================================================================
