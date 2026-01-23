@@ -1,6 +1,135 @@
 ========================================================================================
-QUESTION 12:
+QUESTION 1:
 ========================================================================================
+
+========================================================================================
+QUESTION 2:
+========================================================================================
+
+========================================================================================
+QUESTION 3:
+========================================================================================
+
+========================================================================================
+QUESTION 4:
+========================================================================================
+
+========================================================================================
+QUESTION 5:
+========================================================================================
+
+========================================================================================
+QUESTION 6:
+========================================================================================
+
+========================================================================================
+QUESTION 7:
+========================================================================================
+
+========================================================================================
+QUESTION 8:
+========================================================================================
+
+========================================================================================
+QUESTION 9:
+========================================================================================
+
+========================================================================================
+QUESTION 10: NOT-AVAIABLE
+
+========================================================================================
+
+========================================================================================
+QUESTION 11:
+oc project math
+oc create secret generic magic --from-literal decoder_ring=XpWy9KdcP3T
+oc get secret
+oc get sc
+oc describe secret magic  ## To check
+oc get secret magic -o yaml  ## To check
+========================================================================================
+
+========================================================================================
+QUESTION 12:
+# Pre-Prequits
+oc new-app --name=qed openshift/httpd
+
+Answer:
+oc project
+oc get all
+oc set env --from=secret/magic deployment/qed
+oc set env deployment/qed –list  ## To check
+
+cat qed.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qed
+  namespace: math
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qed
+  template:
+    metadata:
+      labels:
+        app: qed
+    spec:
+      containers:
+      - name: web
+        image: quay.io/fedora/python-39
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            decoded=$(echo "${DECODER_RING}" | base64 --decode);
+            echo "Welcome to the QED web application!" > /tmp/index.html &&
+            echo "<br>Decrypted Decoder Ring: ${decoded}" >> /tmp/index.html &&
+            cd /tmp &&
+            python3 -m http.server 8080
+        env:
+        - name: DECODER_RING
+          valueFrom:
+            secretKeyRef:
+              name: magic
+              key: decoder_ring
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qed
+  namespace: math
+spec:
+  selector:
+    app: qed
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: qed
+  namespace: math
+spec:
+  to:
+    kind: Service
+    name: qed
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+
+
+## chatgpt
+oc set env deployment/qed –from=secret/magic
+oc rollout status deployment/qed
+========================================================================================
+
+
 
 ========================================================================================
 QUESTION 13:
