@@ -1,0 +1,69 @@
+========================================================================================
+QUESTION 17:
+oc adm create-bootstrap-project-template -o yaml > template.yaml
+vi template -add this line before paramaters section.
+
+- apiVersion: v1
+  kind: LimitRange
+  metadata:
+    name: ${PROJECT_NAME}-limits
+  spec:
+    limits:
+    - type: Container
+      min:
+        memory: 256Mi
+      max:
+        memory: 512Mi
+      default:
+        memory: 256Mi
+      defaultRequest:
+        memory: 256Mi
+
+oc create -f template.yaml -n openshift-config
+oc apply -f template.yaml -n openshift-config
+oc get template -n openshift-config
+
+oc edit project.config.openshift.io/cluster
+spec:
+  projectRequestTemplate:
+    name: project-request
+
+oc get pod -n openshift-apiserver
+oc new-project testproj
+oc get limitranges
+oc describe limitrange testproj-limits
+========================================================================================
+========================================================================================
+========================================================================================
+========================================================================================
+
+========================================================================================
+QUESTION 19:
+mkdir test
+oc adm must-gather --dest-dir=./test
+# oc get clusterversion -o json | grep -i clusterID
+cd test
+tar -cvzf ex280-ocp-7662ed62-7f41-4d44-b0fe-bbf9858328c3.tar.gz .
+cp /usr/local/bin/upload-cluster-data  ~   # Copying the script to home path
+./upload-cluster-data ex280-ocp-7662ed62-7f41-4d44-b0fe-bbf9858328c3.tar.gz
+
+========================================================================================
+========================================================================================
+QUESTION 20:
+oc new-project elementum
+oc create serviceaccount magna
+oc project elementum
+oc get sa
+oc create cronjob job-runner --image=registry.domain20.example.com/library/job-runner --schedule='5 4 2 * *'
+# oc create cronjob <Job_Name> --image=<image_path> --schedule="5 4 2 * *"
+## oc explain pod.spec | grep -i serviceAccountName # To get correct word.
+oc edit cronjob <cronjob_name>
+---
+successfulJobsHistoryLimit: 14 --> 
+spec -- Add under spec, JobTemplate, spec, spec -sAN -before containers:
+serviceAccountName: magna
+
+oc describe cronjob job-runner # To check
+oc get cronjob job-runner -o yaml | grep -A5 serviceAccountName # To check
+========================================================================================
+
