@@ -125,6 +125,16 @@ without requiring openssl command)
 
 ========================================================================================
 QUESTION 9:
+## chatgpt
+oc new-project acid
+oc new-app --name=phosphoric --docker-image=docker.io/openshift/hello-openshift
+oc create configmap sedicen --from-literal=RESPONSE="Soda pop won't stop can't stop"
+oc get cm
+oc set env deployment/phosphoric --from=configmap/sedicen
+oc rollout status deployment/phosphoric
+oc expose service/phosphoric
+oc get route
+#oc create route edge phosphoric --service=phosphoric --hostname=phosphoric-acid.apps.domain20.example.com
 ========================================================================================
 
 ========================================================================================
