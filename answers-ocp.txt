@@ -1,38 +1,100 @@
 ========================================================================================
-QUESTION 1:
+QUESTION 1: HALF
+httpd --> verfiy the package is present .
+htpasswd -c -B -b htpassfile armstrong indionce
+htpasswd -b htpassfile collins veraster
+htpasswd -b htpassfile aldrin roonkere.
+htpasswd -b htpassfile jobs sestiver
+htpasswd -b htpassfile wozniak glegunge
+# oc login -u kubeadmin -p <password > <master API url> .
+# oc whoami
+# oc create secret generic ex280-idp-secret --from-file=htpasswd=htpasswd -n openshift-config.
+# oc get secret -n openshift-config .
+# oc get oauth cluster -o yaml > oauth.yaml.
 ========================================================================================
 
 ========================================================================================
 QUESTION 2:
+oc adm policy add-cluster-role-to-user cluster-admin jobs
+#oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth
+oc adm policy add-cluster-role-to-user self-provisioner collins
+oc adm policy add-role-to-user view collins
+oc login -u jobs -p indionce
+oc get nodes
+oc delete secret kubeadmin -n kube-system
 ========================================================================================
 
 ========================================================================================
 QUESTION 3:
+oc new-project apollo
+oc new-project manhattan
+oc new-project gemini
+oc new-project bluebook
+oc new-project titan
+oc policy add-role-to-user admin armstrong -n apollo
+oc policy add-role-to-user admin armstrong -n gemini
+oc policy add-role-to-user view wozniak -n titan
 ========================================================================================
 
 ========================================================================================
 QUESTION 4:
+oc adm groups new commander
+oc adm groups new pilot
+oc get groups
+oc adm groups add-users commander armstrong
+oc adm groups add-users pilot collins
+oc adm groups add-users pilot aldrin
+oc get groups.user.openshift.io
+oc policy add-role-to-group edit commander -n apollo
+oc policy add-role-to-group view pilot -n apollo
 ========================================================================================
 
 ========================================================================================
 QUESTION 5:
+oc project manhattan
+oc create quota ex280-quota --hard=memory=160Mi,cpu=2,pods=3,services=6,replicationcontrollers=3 -n manhattan
+oc describe quota ex280-quota -n manhattan
 ========================================================================================
 
 ========================================================================================
 QUESTION 6:
+Pre-requisite in lab: 
+
+oc new-project gru
+oc new-project minion
+oc new-app --name=minion openshift/httpd
+oc new-app  --name=minion  --image=docker.io/openshift/hello-openshift
+oc get deployment
+oc get svc
+oc expose svc minion --hostname=minion-gru.apps-crc.testing 
+    [Now the application is hosted on https://hydra-gru.apps-crc.testing ]
+	
+Answer:
+# oc project gru
+# oc get deployment  
+# oc scale --replicas=5 deployment minion -n gru
 ========================================================================================
 
 ========================================================================================
 QUESTION 7:
+Pre-requisite in lab:
+ 
+oc new-project lerna
+oc new-app --name=hydra openshift/httpd
+ # oc new-app  --name=hydra  --image=docker.io/openshift/hello-openshift
+oc get deployment
+oc get svc
+oc expose svc hydra --hostname=hydra-lerna.apps-crc.testing 
+    [Now the application is hosted on https://hydra-lerna.apps-crc.testing ]
+	
+Ans:
+oc project lerna
+oc set resources deployment hydra --requests=cpu=25m –limits=cpu=180m -n lerna	
+oc autoscale deployment hydra --min=1 --max=9 –cpu-percent=60 -n lerna
+oc get hpa -n lerna
+oc describe deployment hydra -n lerna
 ========================================================================================
 
-========================================================================================
-QUESTION 8:
-========================================================================================
-
-========================================================================================
-QUESTION 9:
-========================================================================================
 
 ========================================================================================
 QUESTION 10: NOT-AVAIABLE
