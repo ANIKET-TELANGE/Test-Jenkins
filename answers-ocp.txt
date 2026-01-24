@@ -112,8 +112,9 @@ oc project area5l
 cp /usr/local/bin/cert-script  ~  # copy to home path 
 ./script-file                     # execute script file to create cert 
 oc delete route oxcart
-oc create route edge oxcart --service=oxcart --hostname=classified.apps-crc.testing --cert=certificate.crt --key=private.key
+oc create route edge oxcart --service=oxcart --hostname=classified.apps-crc.testing --cert=certificate.crt --key=private.key --ca-cert=ca.crt
 oc get route
+oc describe route oxcart
 
 Note: ( they will provide newcert as script file,we need to find where it’s
 located and we need to run it, with that we can create private.key and crt file
