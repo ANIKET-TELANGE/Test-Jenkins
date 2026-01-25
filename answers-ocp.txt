@@ -232,8 +232,6 @@ oc set env deployment/qed –from=secret/magic
 oc rollout status deployment/qed
 ========================================================================================
 
-
-
 ========================================================================================
 QUESTION 13:
 ### Answer 1
@@ -252,14 +250,8 @@ oc policy add-role-to-group system:serviceaccount-user system:authenticated -n a
 
 ========================================================================================
 QUESTION 14: Pending
+
 ========================================================================================
-
-
-
-
-
-
-
 
 ========================================================================================
 QUESTION 15:
@@ -418,7 +410,61 @@ oc get cronjob job-runner -o yaml | grep -A5 serviceAccountName # To check
 ========================================================================================
 
 ========================================================================================
-QUESTION 21: pending
+QUESTION 21:
+Pre-requits
+
+udo dnf install -y nfs-utils
+sudo mkdir -p /exports-ocp4
+sudo chown -R nobody:nobody /exports-ocp4
+sudo chmod -R 755 /exports-ocp4
+echo "/exports-ocp4 *(ro,sync,no_subtree_check,no_root_squash)" | sudo tee -a /etc/exports
+sudo exportfs -rav
+sudo systemctl enable --now nfs-server
+showmount -e localhost  --> it should show you /exports-ocp4 *
+
+>>  Create StorageClass for NFS
+# nfs-storageclass.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass	
+metadata:
+  name: nfs
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: Immediate
+
+# oc apply -f nfs-storageclass.yaml
+-------------
+Answer:
+1. Create PV through GUI and only change the details-
+
+# Go to Storage → Persistent Volumes
+Click Create Persistent Volume
+Name: landing-pv
+Capacity: 16Mi
+Access Mode: ReadOnlyMany
+Reclaim Policy: Match your storage class (e.g. Retain)
+Volume Type: NFS
+Server: 192.168.50.254
+Path: /exports-ocp4
+Storage Class: nfs (choose one matching your NFS setup)
+Click Create
+
+2. Deploy Application
+
+oc new-app --name=landing --image=hashicorp/http-echo   -- -text="Hello from OpenShift!"
+oc get deployment
+oc scale --replicas=3 deployment/landing
+oc get all
+
+3. Create a route to expose the app externally
+oc create route edge landing --service=landing  --port=8080 --hostname=landing-page.apps-crc.testing
+
+4. Create and Attach PVC to Deployment
+oc set volumes deployment/landing --add --name landing-pv --type pvc --claim-mode rom --claim-size 16Mi --claim-class nfs --mount-path /usr/share/nginx/html --claim-name landing-pvc
+
+oc get pv
+oc get pvc
+
+Go to https://landing-page.apps-crc.testing in your browser.
 ========================================================================================
 
 ========================================================================================
